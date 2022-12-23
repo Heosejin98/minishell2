@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 16:08:08 by seheo             #+#    #+#             */
-/*   Updated: 2022/12/23 17:58:42 by seheo            ###   ########.fr       */
+/*   Updated: 2022/12/23 20:30:18 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,3 +37,39 @@ typedef struct s_system_var
 	struct termios	nodisplay_set;
 	struct termios	display_set;
 }	t_system_var;
+
+typedef struct s_token
+{
+	enum e_token_type	type;
+	char				*content;
+}	t_token;
+
+typedef struct s_parse_tree
+{
+	enum e_node_type 	n_type;
+	t_token				token;	
+	struct s_parse_tree	*left;
+	struct s_parse_tree	*right;
+}	t_parse_tree;
+
+enum	e_node_type
+{
+	TN_PIPE,
+	TN_CMD,
+	TN_REDIR,
+	TN_REDIRS,
+	TN_SIMPLE_CMD,
+};
+
+enum	e_token_type
+{
+	cmd,
+	option,
+	D_QUOTE,
+	S_QUOTE,
+	INP_RDIR,
+	OUT_RDIR,
+	APP_RDIR,
+	HERE_DOC,
+	filename
+};
