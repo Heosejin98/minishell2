@@ -30,13 +30,32 @@ typedef struct s_system_var
 {
 	int				status;
 	int				hd_cnt;
-	t_dictionary    *env;
+	t_dictionary    env;
 	char			*prev_path;
 	int				old_std_fdin;
 	int				old_std_fdout;
 	struct termios	nodisplay_set;
 	struct termios	display_set;
 }	t_system_var;
+
+enum	e_node_type
+{
+	TN_PIPE,
+	TN_CMD,
+	TN_REDIR,
+	TN_REDIRS,
+	TN_SIMPLE_CMD
+};
+
+enum	e_token_type
+{	
+	ARGV,
+	IN_RDIR,
+	OUT_RDIR,
+	APP_RDIR,
+	HERE_DOC,
+	FILE_NAME
+};
 
 typedef struct s_token
 {
@@ -52,22 +71,3 @@ typedef struct s_parse_tree
 	struct s_parse_tree	*left;
 	struct s_parse_tree	*right;
 }	t_parse_tree;
-
-enum	e_node_type
-{
-	TN_PIPE,
-	TN_CMD,
-	TN_REDIR,
-	TN_REDIRS,
-	TN_SIMPLE_CMD,
-};
-
-enum	e_token_type
-{	
-	ARGV,
-	IN_RDIR,
-	OUT_RDIR,
-	APP_RDIR,
-	HERE_DOC,
-	FILE_NAME
-};

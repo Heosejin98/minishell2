@@ -19,21 +19,16 @@ void init_system_var(char **envp)
 	g_system_var.status = 0;
 	g_system_var.old_std_fdin = dup(STDIN_FILENO);
 	g_system_var.old_std_fdout = dup(STDOUT_FILENO);
-	g_system_var.env_list = get_envp_list(envp);
+	g_system_var.env = get_env(envp);
 }
 
-static void	shell_loop(void)
+static void	minishell_start(void)
 {
-	t_info	info;
 	char	*cmd_line;
 
 	while (1)
 	{
-		dup2(g_var.old_std_fdin, STDIN_FILENO);
-		dup2(g_var.old_std_fdout, STDOUT_FILENO);
-		cmd_line = set_read_line(&info);
-		add_history(cmd_line);
-		exec_set(cmd_line);
+		cmd_line = readline("minishell$ ");
 	}
 }
 

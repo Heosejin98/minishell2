@@ -25,13 +25,13 @@ t_system_var    g_system_var;
 void		    rl_replace_line(const char *text, int clear_undo);
 
 
-t_dictionary get_env(char **envp);
+t_dictionary 	get_env(char **envp);
 
 /* dictionary */
-void dictionary_show(t_dictionary dic);
-int dictionary_add(t_dictionary *head, char* key, void* value);
-void *dictionary_search(t_dictionary head, char *key);
-int dictionary_delete(t_dictionary *head, char *key);
-void dictionary_init(t_dictionary   *head);
+void 			dictionary_show(t_dictionary dic);
+int 			dictionary_add(t_dictionary *head, char* key, void* value);
+void 			*dictionary_search(t_dictionary head, char *key);
+int 			dictionary_delete(t_dictionary *head, char *key);
+void 			dictionary_init(t_dictionary   *head);
 
 #endif
