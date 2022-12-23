@@ -42,6 +42,7 @@ typedef struct s_token
 {
 	enum e_token_type	type;
 	char				*content;
+	struct s_token		*next;
 }	t_token;
 
 typedef struct s_parse_tree
@@ -62,14 +63,11 @@ enum	e_node_type
 };
 
 enum	e_token_type
-{
-	cmd,
-	option,
-	D_QUOTE,
-	S_QUOTE,
-	INP_RDIR,
+{	
+	ARGV,
+	IN_RDIR,
 	OUT_RDIR,
 	APP_RDIR,
 	HERE_DOC,
-	filename
+	FILE_NAME
 };
