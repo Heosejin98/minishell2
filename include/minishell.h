@@ -23,7 +23,7 @@
 
 t_system_var    g_system_var;
 void		    rl_replace_line(const char *text, int clear_undo);
-
+void			handler(int sig);
 
 t_dictionary 	get_env(char **envp);
 

@@ -22,6 +22,19 @@ void init_system_var(char **envp)
 	g_system_var.env = get_env(envp);
 }
 
+void	handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		if (rl_on_new_line() == -1)
+			exit(1);
+		rl_replace_line("", 1);
+		rl_redisplay();
+	}
+}
+
+//prompt
 static void	minishell_start(void)
 {
 	char	*cmd_line;
@@ -37,6 +50,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
+	signal(SIGINT, handler);
+	signal(SIGQUIT, SIG_IGN);
     init_system_var(envp);
     minishell_start();
 }
