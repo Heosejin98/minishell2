@@ -19,7 +19,10 @@
 # include <readline/history.h>
 
 # include "../lib/libft/libft.h"
+# include "lexer.h"
+# include "queue.h"
 # include "struct.h"
+# include "token.h"
 
 t_system_var    g_system_var;
 void		    rl_replace_line(const char *text, int clear_undo);
@@ -33,8 +36,5 @@ int 			dictionary_add(t_dictionary *head, char* key, void* value);
 void 			*dictionary_search(t_dictionary head, char *key);
 int 			dictionary_delete(t_dictionary *head, char *key);
 void 			dictionary_init(t_dictionary   *head);
-
-
-char	**lexer_split(char const *s, char c);
 
 #endif

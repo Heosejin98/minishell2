@@ -13,12 +13,13 @@ LIB_DIR			= lib/
 LIBFT			= libft/libft.a
 HEADERS			= include
 
-#PARSER			= tokenizer check_tokens set_btree
 MAIN			= main
-UTIL			= get_env dictionary lexer_split
+UTIL			= get_env dictionary queue
+PARSER			= lexer token
 
 SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\
-				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))	
+				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))		\
+				$(addsuffix .c, $(addprefix src/parser/, $(PARSER)))
 
 OBJS 			= $(SRCS:c=o)
 

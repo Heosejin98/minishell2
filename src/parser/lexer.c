@@ -1,27 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_split.c                                      :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 15:06:32 by seheo             #+#    #+#             */
-/*   Updated: 2022/12/24 16:37:16 by seheo            ###   ########.fr       */
+/*   Updated: 2022/12/24 18:45:57 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../include/minishell.h"
-
-typedef struct s_split_info
-{
-	size_t	i;
-	size_t	j;
-	int		index;
-    int		flag;
-
-
-}	t_split_info;
-
 
 static int	count_words(const char *str, char c)
 {
@@ -44,7 +33,7 @@ static int	count_words(const char *str, char c)
 	return (i);
 }
 
-static char	*word_dup(const char *str, int start, int finish, t_split_info *info)
+static char	*word_dup(const char *str, int start, int finish, t_lexer_info *info)
 {
 	char	*word;
 	int		i;
@@ -61,7 +50,7 @@ static char	*word_dup(const char *str, int start, int finish, t_split_info *info
 	return (word);
 }
 
-static t_split_info *check_quotat(t_split_info *split_info, char const *s) 
+static void check_quotat(t_lexer_info *split_info, char const *s) 
 {
 	split_info->index = split_info->i;
 	if (s[split_info->i] == '\'')
@@ -70,7 +59,7 @@ static t_split_info *check_quotat(t_split_info *split_info, char const *s)
      	split_info->flag = 2;
 }
 
-static char	**spt(char **split, char c, char const *s, t_split_info *info)
+static char	**spt(char **split, char c, char const *s, t_lexer_info *info)
 {
 	while (info->i <= ft_strlen(s))
 	{
@@ -95,12 +84,12 @@ static char	**spt(char **split, char c, char const *s, t_split_info *info)
 	return (split);
 }
 
-char	**lexer_split(char const *s, char c)
+char	**lexer(char const *s)
 {
 	char			**split;
-	t_split_info 	*info;
+	t_lexer_info 	*info;
 
-	info = (t_split_info *)malloc(sizeof(t_split_info));
+	info = (t_lexer_info *)malloc(sizeof(t_lexer_info));
 	info->flag = 0;
 	info->i = 0;
 	info->j = 0;
@@ -108,9 +97,9 @@ char	**lexer_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	split = malloc((count_words(s, c) + 1) * sizeof(char *));
+	split = malloc((count_words(s, ' ') + 1) * sizeof(char *));
 	if (!(split))
 		return (0);
-	split = spt(split, c, s, info);
+	split = spt(split, ' ', s, info);
 	return (split);
 }

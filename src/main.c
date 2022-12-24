@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:54:53 by seheo             #+#    #+#             */
-/*   Updated: 2022/12/24 16:15:50 by seheo            ###   ########.fr       */
+/*   Updated: 2022/12/24 18:45:43 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,22 @@ static void	minishell_start(void)
 	}
 }
 
+void parser_controller(char *s)
+{
+	t_queue tokens;
+
+	tokens = make_tokens(lexer(s));
+
+	int k = 1;
+	t_token t_t;
+	
+	while (!is_empty(&tokens))
+    {
+		t_t = dequeue(&tokens);
+        printf("[num: %d][type: %d ]%s \n", k++, t_t.type, t_t.content);
+    }
+	
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -41,14 +57,6 @@ int	main(int argc, char **argv, char **envp)
     //minishell_start();
 	char **tmp;
 
+	parser_controller("ls -a -l >> a < b > c       | grep \"  asdasdass   1\" | cat << x > y");	
 	
-	tmp = lexer_split("ls -a -l >> a < b > c       | grep \"  asdasdass   1\" | cat << x > y", ' ');
-
-	int i = 0;
-	int j = 0;
-	while (tmp[i])
-	{
-		printf("%s\n", tmp[i]);
-		i++;
-	}	
 }

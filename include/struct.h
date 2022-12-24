@@ -6,12 +6,13 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 16:08:08 by seheo             #+#    #+#             */
-/*   Updated: 2022/12/24 14:55:31 by seheo            ###   ########.fr       */
+/*   Updated: 2022/12/24 17:34:28 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef STRUCT_H
+# define STRUCT_H
 # include "minishell.h"
-
 
 typedef struct _s_dictionary
 {
@@ -74,3 +75,4 @@ typedef struct s_parse_tree
 	struct s_parse_tree	*left;
 	struct s_parse_tree	*right;
 }	t_parse_tree;
+#endif
