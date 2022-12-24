@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 16:08:08 by seheo             #+#    #+#             */
-/*   Updated: 2022/12/23 20:30:18 by seheo            ###   ########.fr       */
+/*   Updated: 2022/12/24 14:55:31 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,15 @@ enum	e_node_type
 
 enum	e_token_type
 {	
+	NONE,
+	PIPE,
+	CMD,
+	OPTION,
 	ARGV,
 	IN_RDIR,
 	OUT_RDIR,
 	APP_RDIR,
-	HERE_DOC,
-	FILE_NAME
+	HERE_DOC
 };
 
 typedef struct s_token
