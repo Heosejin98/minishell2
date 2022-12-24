@@ -34,4 +34,7 @@ void 			*dictionary_search(t_dictionary head, char *key);
 int 			dictionary_delete(t_dictionary *head, char *key);
 void 			dictionary_init(t_dictionary   *head);
 
+
+char	**lexer_split(char const *s, char c);
+
 #endif

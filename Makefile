@@ -15,7 +15,7 @@ HEADERS			= include
 
 #PARSER			= tokenizer check_tokens set_btree
 MAIN			= main
-UTIL			= get_env dictionary
+UTIL			= get_env dictionary lexer_split
 
 SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\
 				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))	

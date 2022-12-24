@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:54:53 by seheo             #+#    #+#             */
-/*   Updated: 2022/12/23 18:35:18 by seheo            ###   ########.fr       */
+/*   Updated: 2022/12/24 16:15:50 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,17 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
     init_system_var(envp);
-    minishell_start();
+    //minishell_start();
+	char **tmp;
+
+	
+	tmp = lexer_split("ls -a -l >> a < b > c       | grep \"  asdasdass   1\" | cat << x > y", ' ');
+
+	int i = 0;
+	int j = 0;
+	while (tmp[i])
+	{
+		printf("%s\n", tmp[i]);
+		i++;
+	}	
 }
