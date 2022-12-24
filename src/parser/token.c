@@ -6,22 +6,29 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 18:31:24 by seheo             #+#    #+#             */
-/*   Updated: 2022/12/24 18:43:52 by seheo            ###   ########.fr       */
+/*   Updated: 2022/12/24 18:54:24 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../include/minishell.h"
 
+static void check_redir(const char **s, int *idx)
+{
+    
+
+}
+
+
 t_queue make_tokens(char **lexer)
 {
     t_queue q;
 	t_token buf_token;
+    int i;
+    int j;
 
-	buf_token.next = NULL;
+    i = 0;
+    j = 0;
 	init_queue(&q);
-	
-	int i = 0;
-	int j = 0;
 	while (lexer[i])
 	{
 		buf_token.content = lexer[i];
@@ -29,7 +36,7 @@ t_queue make_tokens(char **lexer)
 			buf_token.type = CMD;
 		else if (lexer[i][0] == '-')
 			buf_token.type = OPTION;
-		else if (ft_strchr(lexer[i], '<'))
+		else if (ft_strchr(lexer[i], '<') || ft_strchr(lexer[i], '>'))
 		{
 			if (ft_strlen(lexer[i]) == 2)
 			{
@@ -65,6 +72,5 @@ t_queue make_tokens(char **lexer)
 		enqueue(&q, buf_token);
 		i++;
 	}
-
     return q;
 }

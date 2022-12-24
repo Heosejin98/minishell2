@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:54:53 by seheo             #+#    #+#             */
-/*   Updated: 2022/12/24 18:45:43 by seheo            ###   ########.fr       */
+/*   Updated: 2022/12/24 20:22:20 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ int	main(int argc, char **argv, char **envp)
     //minishell_start();
 	char **tmp;
 
-	parser_controller("ls -a -l >> a < b > c       | grep \"  asdasdass   1\" | cat << x > y");	
-	
+	//parser_controller("ls -a -l >> a < b > c       | grep \"  asdasdass   1\" | cat << x > y");	
+	parser_controller("echo asdb \"\" asdwqe123 asdas \"c   \"");
 }
