@@ -20,7 +20,7 @@
 
 # include "../lib/libft/libft.h"
 # include "lexer.h"
-# include "queue.h"
+# include "deque.h"
 # include "struct.h"
 # include "token.h"
 

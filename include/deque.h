@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   queue.h                                            :+:      :+:    :+:   */
+/*   deque.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 16:47:38 by seheo             #+#    #+#             */
-/*   Updated: 2022/12/24 20:35:31 by seheo            ###   ########.fr       */
+/*   Updated: 2022/12/24 23:35:06 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@
 # include "minishell.h"
 # include "struct.h"
 
-typedef struct s_queue 
+typedef struct s_deque 
 {
     t_token *front;
-    t_token *rear; 
-    int count; 
-}   t_queue;
+    t_token *back; 
+}   t_deque;
 
-void init_queue(t_queue *queue);
-int is_empty(t_queue *queue);
-void enqueue(t_queue *queue, t_token data);
-t_token dequeue(t_queue *queue);
+void    init_deque(t_deque *deque);
+void    input_front(t_deque *deque, t_token data);
+void    input_back(t_deque *deque, t_token data);
+t_token    output_front(t_deque *deque);
+t_token    output_back(t_deque *deque);
+int     is_empty(t_deque deque);
 
 #endif
 

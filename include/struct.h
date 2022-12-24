@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 16:08:08 by seheo             #+#    #+#             */
-/*   Updated: 2022/12/24 20:42:06 by seheo            ###   ########.fr       */
+/*   Updated: 2022/12/24 21:26:00 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ typedef struct s_token
 	char				*content;
 	char				**cmdline;
 	struct s_token		*next;
+	struct s_token		*prev;
 }	t_token;
 #endif

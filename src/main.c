@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:54:53 by seheo             #+#    #+#             */
-/*   Updated: 2022/12/24 20:22:20 by seheo            ###   ########.fr       */
+/*   Updated: 2022/12/24 23:35:14 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,20 @@ static void	minishell_start(void)
 	}
 }
 
+
+
 void parser_controller(char *s)
 {
-	t_queue tokens;
+	t_deque tokens;
 
 	tokens = make_tokens(lexer(s));
 
 	int k = 1;
 	t_token t_t;
 	
-	while (!is_empty(&tokens))
+	while (!is_empty(tokens))
     {
-		t_t = dequeue(&tokens);
+		t_t = output_front(&tokens);
         printf("[num: %d][type: %d ]%s \n", k++, t_t.type, t_t.content);
     }
 	

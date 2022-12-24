@@ -14,7 +14,7 @@ LIBFT			= libft/libft.a
 HEADERS			= include
 
 MAIN			= main
-UTIL			= get_env dictionary queue
+UTIL			= get_env dictionary deque/deque deque/deque_util
 PARSER			= lexer token
 
 SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\
@@ -35,7 +35,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo $(GREEN) "Source files are compiled!\n" $(EOC)
-	@make -j -C $(LIB_DIR)/libft
+	@make bonus -j -C $(LIB_DIR)/libft
 	@$(CC) $(CFLAGS) -o $@ $^ $(LIB_DIR)/$(LIBFT) $(LIB_READ) $(READLINE) $(READLINE_INC)
 	@echo $(GREEN) "$(NAME) is created!\n" $(EOC)
 
