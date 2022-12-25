@@ -14,5 +14,6 @@
 # define TOKEN_H
 
 t_deque make_tokens(char **lexer);
+void	make_cmdline(t_token *token, const char *s);
 
 #endif

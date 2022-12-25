@@ -39,6 +39,7 @@ typedef struct s_system_var
 	struct termios	display_set;
 }	t_system_var;
 
+/*
 enum	e_token_type
 {	
 	NONE,
@@ -60,5 +61,29 @@ typedef struct s_token
 	char				**cmdline;
 	struct s_token		*next;
 	struct s_token		*prev;
+}	t_token;
+*/
+
+enum	e_redir_type
+{
+	IN_REDIR,
+	OUT_REDIR,
+	APP_REDIR,
+	HERE_DOC
+};
+
+typedef struct s_redir
+{
+	enum e_redir_type	type;
+	char				*file_name;
+	int					hd_number;
+	struct	s_redir		*next;
+}	t_redir;
+
+
+typedef struct s_token
+{
+	t_redir				*redir;
+	char				**cmdline;
 }	t_token;
 #endif

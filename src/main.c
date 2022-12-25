@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/minishell.h"
+#include "../include/minishell.h"
 
-void init_system_var(char **envp) 
+void	init_system_var(char **envp)
 {
-    (void)envp;
-    g_system_var.hd_cnt = 0;
+	(void)envp;
+	g_system_var.hd_cnt = 0;
 	g_system_var.status = 0;
 	g_system_var.old_std_fdin = dup(STDIN_FILENO);
 	g_system_var.old_std_fdout = dup(STDOUT_FILENO);
@@ -33,32 +33,54 @@ static void	minishell_start(void)
 }
 
 
-
-void parser_controller(char *s)
-{
-	t_deque tokens;
-
-	tokens = make_tokens(lexer(s));
-
-	int k = 1;
-	t_token t_t;
-	
-	while (!is_empty(tokens))
-    {
-		t_t = output_front(&tokens);
-        printf("[num: %d][type: %d ]%s \n", k++, t_t.type, t_t.content);
-    }
-	
-}
-
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv1, char **envp)
 {
 	(void)argc;
-	(void)argv;
-    init_system_var(envp);
-    //minishell_start();
-	char **tmp;
+	(void)argv1;
+	init_system_var(envp);
+
+	t_token buf_t;
+
+
+    char **argv = ft_split("asd \"1\"\"1\" \"1\" qwe123", ' ');
+
+	buf_t.cmdline = argv;
+	make_cmdline(&buf_t, "asd123");
+
+	int i = 0;
+	while (buf_t.cmdline[i])
+	{
+		printf("%s \n", buf_t.cmdline[i]);
+		i++;
+	}
+	
+
+/*
+	//minishell_start();
 
 	//parser_controller("ls -a -l >> a < b > c       | grep \"  asdasdass   1\" | cat << x > y");	
-	parser_controller("echo asdb \"\" asdwqe123 asdas \"c   \"");
+	//parser_controller("echo asdb \"\" asdwqe123 asdas \"c   \"");
+
+        char *path = "/bin/echo";
+
+
+
+        printf("execv호출\n");
+        execv(path, argv);
+
+        //printf("execle호출\n");
+        //execle(path, file, arg1, arg2, NULL, NULL);
+
+        //printf("execve호출\n");
+        //execve(path, argv, NULL);
+
+        //printf("execlp호출\n");
+        //execlp(file, file, arg1, arg2, NULL);
+
+        //printf("execvp호출\n");
+        //execvp(file,argv);
+
+        //printf("execvpe호출\n");
+        //execvpe(file,argv,NULL);
+		*/
 }
