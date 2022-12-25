@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-/*
+
 void	init_deque(t_deque *deque)
 {
 	deque->front = NULL;
@@ -23,8 +23,8 @@ void	input_front(t_deque *deque, t_token token)
 	t_token	*new_token;
 
 	new_token = (t_token *)malloc(sizeof(t_token));
-	new_token->content = token.content;
-	new_token->type = token.type;
+	new_token->cmdline = token.cmdline;
+	new_token->redir = token.redir;
 	if (deque->front == NULL)
 	{
 		deque->front = new_token;
@@ -44,8 +44,8 @@ void	input_back(t_deque *deque, t_token token)
 	t_token	*new_token;
 
 	new_token = (t_token *)malloc(sizeof(t_token));
-	new_token->content = token.content;
-	new_token->type = token.type;
+	new_token->cmdline = token.cmdline;
+	new_token->redir = token.redir;
 	if (deque->front == NULL)
 	{
 		deque->front = new_token;
@@ -67,12 +67,13 @@ t_token	output_front(t_deque *deque)
 	
 	if (deque->front == NULL)
 	{
-		result.type = NONE;
+		result.redir = NULL;
+		result.cmdline = NULL;
 		return (result);
 	}
-	result.type = deque->front->type;
+	result.redir = deque->front->redir;
 	result.cmdline = deque->front->cmdline;
-	result.content = deque->front->content;
+	result.cmdline = deque->front->cmdline;
 	temp = deque->front;
 	if (deque->front == deque->back)
 	{
@@ -94,12 +95,13 @@ t_token	output_back(t_deque *deque)
 
 	if (deque->back == NULL)
 	{
-		result.type = NONE;
+		result.redir = NULL;
+		result.cmdline = NULL;
 		return (result);
 	}
-	result.type = deque->back->type;
+	result.redir = deque->back->redir;
 	result.cmdline = deque->back->cmdline;
-	result.content = deque->back->content;
+	result.cmdline = deque->back->cmdline;
 	temp = deque->back;
 	if (deque->front == deque->back)
 	{
@@ -113,4 +115,3 @@ t_token	output_back(t_deque *deque)
 	free(temp);
 	return (result);
 }
-*/

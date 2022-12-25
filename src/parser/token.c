@@ -33,7 +33,6 @@ int	check_n(const char *s)
 			return (0);
 		i++;
 	}
-
 	return (1);
 }
 
@@ -75,16 +74,15 @@ t_deque	make_tokens(char **lexer)
 	t_deque	q;
 	t_token	buf_token;
 	int		i;
-	int		j;
 
+	buf_token.cmdline = ft_calloc(1, sizeof(char *));
 	i = 0;
-	j = 0;
-	//init_deque(&q);
+	init_deque(&q);
 	while (lexer[i])
 	{
 		if (ft_strchr("|", lexer[i][0]))
 		{
-			//input_back(&q, buf_token);
+			input_back(&q, buf_token);
 			buf_token.cmdline = NULL;
 			buf_token.redir = NULL;
 		}
@@ -94,5 +92,6 @@ t_deque	make_tokens(char **lexer)
 			make_cmdline(&buf_token, lexer[i]);
 		i++;
 	}
+	input_back(&q, buf_token);
     return (q);
 }

@@ -39,19 +39,22 @@ int	main(int argc, char **argv1, char **envp)
 	(void)argv1;
 	init_system_var(envp);
 
-	t_token buf_t;
+	t_deque buf;
 
 
     char **argv = ft_split("asd \"1\"\"1\" \"1\" qwe123", ' ');
 
-	buf_t.cmdline = argv;
-	make_cmdline(&buf_t, "asd123");
+	buf = make_tokens(argv);
 
 	int i = 0;
-	while (buf_t.cmdline[i])
+	while (!is_empty(buf))
 	{
-		printf("%s \n", buf_t.cmdline[i]);
-		i++;
+		t_token t = output_front(&buf);
+		while (t.cmdline[i])
+		{
+			printf("%s \n", t.cmdline[i]);
+			i++;
+		}
 	}
 	
 
