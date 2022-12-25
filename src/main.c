@@ -32,6 +32,51 @@ static void	minishell_start(void)
 	}
 }
 
+int	ft_isalp_or_num(int c)
+{	
+	if ((c >= '0' && c <= '9'))
+		return (1);
+	else if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (1);
+	else
+		return (0);
+}
+
+char *convert_env(const char *s)
+{
+	int start;
+	int key_end;
+	char *result;
+	char *key;
+
+	start = 0;
+	while (s[start] != '$')
+		start++;
+	result = ft_substr1(s, 0, start);
+	key_end = start + 1;
+	while (ft_isalp_or_num(s[key_end]))
+		key_end++;
+	key = ft_substr(s, start + 1, key_end);
+
+	if (dictionary_search(g_system_var.env, key) != NULL)
+		result = ft_strjoin(result, dictionary_search(g_system_var.env, key));
+	else{
+		result = ft_strjoin(result, ft_substr1(s, start, ft_strlen(s)));
+		return (result);
+	}
+		
+	free(key);
+
+	int end;
+
+	end = key_end;
+	while (s[end])
+		end++;
+	result = ft_strjoin(result, ft_substr1(s, key_end, end));
+
+	return (result);
+
+}
 
 int	main(int argc, char **argv1, char **envp)
 {
@@ -39,6 +84,12 @@ int	main(int argc, char **argv1, char **envp)
 	(void)argv1;
 	init_system_var(envp);
 
+	char *dest;
+
+	dest = convert_env("asd $PATHASDSD asd");
+
+	printf("%s", dest);
+/*
 	t_deque buf;
 
 

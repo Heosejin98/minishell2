@@ -43,7 +43,26 @@ void	n_option_check(char **new_cmdline, const char *s, int idx)
 	else
 		new_cmdline[idx] = ft_strdup(s);
 }
+/*
+void	convert_env(char **new_cmdline, const char *s, int idx)
+{
+	int start;
+	int end;
+	char *dest;
 
+	dest = "";
+	start = 0;
+	while (s[start] != '$')
+		start++;
+	end = start;
+
+	while (ft_isalnum(s[end]))
+		end++;
+
+	ft_strlcat(dest, s, start);
+
+}
+*/
 void	make_cmdline(t_token *token, const char *s)
 {
 	char	**new_cmdline;
@@ -58,6 +77,8 @@ void	make_cmdline(t_token *token, const char *s)
 	{
 		if (ft_strncmp(token->cmdline[i], "-n", 2) == 0)
 			n_option_check(new_cmdline, token->cmdline[i], i);
+	//	else if (ft_strchr("$", s))
+			//convert_env();
 		else 
 			new_cmdline[i] = ft_strdup(token->cmdline[i]);
 		free(ptr[i]);
