@@ -26,8 +26,9 @@ int	main(int argc, char **argv1, char **envp)
 	init_system_var(envp);
 
 	//test_lexer();
-	test_convert_env();
-	system("leaks minishell");
+	//test_convert_env();
+	test_make_token();
+	//system("leaks minishell");
 
 
 }

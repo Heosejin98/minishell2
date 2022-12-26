@@ -1,8 +1,8 @@
 #include "../include/minishell.h"
 
-void make_token_test()
+void test_make_token()
 {
-	char **argv = ft_split("asd \"1\"\"1\" \"1\" qwe123", ' ');
+	char **argv = lexer("echo $USER \"a\"b");
 	t_deque buf;
 
 	buf = make_tokens(argv);
