@@ -1,7 +1,7 @@
 NAME			= minishell
 
 CC				= cc
-CFLAGS			= 
+CFLAGS			= -g
 #-g3 -fsanitize=address -Wall -Wextra -Werror
 RM				= rm -rf
 
@@ -15,7 +15,7 @@ HEADERS			= include
 
 #PARSER			= tokenizer check_tokens set_btree
 MAIN			= main
-UTIL			= get_env dictionary
+UTIL			= get_env dictionary/dictionary dictionary/dictionary_util
 
 SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\
 				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))	
