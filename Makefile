@@ -14,8 +14,8 @@ LIBFT			= libft/libft.a
 HEADERS			= include
 
 MAIN			= main test
-UTIL			= get_env dictionary/dictionary dictionary/dictionary_util deque/deque deque/deque_util
-PARSER			= lexer token parser_util/convert_env
+UTIL			= get_env ft_free_strs dictionary/dictionary dictionary/dictionary_util deque/deque deque/deque_util link_list/link_list
+PARSER			= lexer token parser_util/convert_env parser_util/make_quoteline
 
 
 SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\

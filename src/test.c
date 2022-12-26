@@ -2,7 +2,7 @@
 
 void test_make_token()
 {
-	char **argv = lexer("echo $USER \"a\"b");
+	char **argv = lexer("echo $PAT \'asdasdas\'d");
 	t_deque buf;
 
 	buf = make_tokens(argv);
@@ -14,6 +14,7 @@ void test_make_token()
 		while (t.cmdline[i])
 		{
 			printf("%s \n", t.cmdline[i]);
+			free(t.cmdline[i]);
 			i++;
 		}
 	}

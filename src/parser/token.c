@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/24 18:31:24 by seheo             #+#    #+#             */
-/*   Updated: 2022/12/24 23:36:08 by seheo            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../include/minishell.h"
 
 int	count_row(char **strings)
@@ -22,55 +10,69 @@ int	count_row(char **strings)
 	return (i);
 }
 
-void	make_cmdline(t_token *token, const char *s)
-{
-	char	**new_cmdline;
-	char	**ptr;
-	int		i;
-
-	ptr = token->cmdline;
-	new_cmdline = (char **)malloc((count_row(token->cmdline) + 2) \
-				* sizeof(char *));
-	i = 0;
-	while (token->cmdline[i])
-	{
-		new_cmdline[i] = ft_strdup(token->cmdline[i]);
-		free(ptr[i++]);
-	}
+void	make_cmdline(t_lst *list, char *s)
+{	
 	if (ft_strchr(s, '$'))
-		new_cmdline[i] = convert_env(s);
+		insert_node(list, l_size(list), convert_env(s));
 	else
-		new_cmdline[i] = ft_strdup(s);
-	new_cmdline[i + 1] = NULL;
-	token->cmdline = new_cmdline;
-	free(ptr);
+		insert_node(list, l_size(list), s);
+}
+
+void	list_to_strs(t_lst *list, t_token *buf_token)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	buf_token->cmdline = (char **)malloc(l_size(list) * sizeof(char *));
+	while (l_size(list) != 0)
+	{
+		temp = l_data(list, 0);
+		if (ft_strcmp(temp, "(null)") == 0)
+		{
+			delete_node(list, 0);
+			continue ;
+		}
+		else
+			buf_token->cmdline[i] = ft_strdup(temp);
+		delete_node(list, 0);
+		i++;
+	}
+	free(list);
+	buf_token->cmdline[i] = 0;
 }
 
 t_deque	make_tokens(char **lexer)
 {
-	t_deque	q;
+	t_deque	result;
 	t_token	buf_token;
+	t_lst	*l_list;
 	int		i;
 
-	buf_token.cmdline = ft_calloc(0, sizeof(char *));
 	i = 0;
-	init_deque(&q);
+	l_list = (t_lst *)malloc(sizeof(t_lst));
+	init_deque(&result);
+	
 	while (lexer[i])
 	{
 		if (ft_strchr("|", lexer[i][0]))
 		{
-			input_back(&q, buf_token);
+			list_to_strs(l_list, &buf_token);
+			input_back(&result, buf_token);
 			buf_token.cmdline = NULL;
 			buf_token.redir = NULL;
 		}
 		else if (ft_strchr("<>", lexer[i][0]))
 		{}
 		else if (ft_strchr("\"\'", lexer[i][0]))
-		{}
+			make_quoteline(l_list, lexer[i]);
 		else
-			make_cmdline(&buf_token, lexer[i]);
+			make_cmdline(l_list, lexer[i]);
 		i++;
 	}
-	input_back(&q, buf_token);
-    return (q);
+	list_to_strs(l_list, &buf_token);
+
+	input_back(&result, buf_token);
+	ft_free_strs(lexer);
+    return (result);
 }
