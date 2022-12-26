@@ -27,7 +27,7 @@ int	main(int argc, char **argv1, char **envp)
 
 	//test_lexer();
 	test_convert_env();
-	//system("leaks minishell");
+	system("leaks minishell");
 
 
 }

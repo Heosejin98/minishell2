@@ -75,15 +75,15 @@ void test_convert_env()
 {
 	char *dest;
 
-	dest = convert_env("asd $PATH asd");
+	dest = convert_env("asd1 $PATH asd1");
 	printf("%s\n", dest);
 	free(dest);
 
-	dest = convert_env("asd $PATH! asd");
+	dest = convert_env("asd2 $PATH! asd2");
 	printf("%s\n", dest);
 	free(dest);
 
-	dest = convert_env("asd $PATHASDSADWE asd");
+	dest = convert_env("asd3 $PATHASDSADWE asd3");
 	printf("%s\n", dest);
 	free(dest);
 }
