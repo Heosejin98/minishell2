@@ -15,11 +15,5 @@ t_dictionary	get_env(char **envp)
 		temp = NULL;
 		i++;
 	}
-	dictionary_show(env);
-	dictionary_delete(&env, "USER");
-	printf("\n\n");
-
-
-	dictionary_show(env);
 	return (env);
 }
