@@ -69,34 +69,3 @@ char	*convert_env(const char *s)
 	free(env_v);
 	return (env_join(result, env_idx, s));
 }
-
-/*
-char	*convert_env(const char *s)
-{
-	t_env_convert_info	env_idx;
-	char				*result;
-	char				*env_v;
-	char				*temp;
-	char				*temp_substr;
-
-	init_env_idx(s, &env_idx);
-	result = ft_substr(s, 0, env_idx.start_idx);
-	env_v = ft_substr(s, env_idx.start_idx + 1, env_idx.end_idx);
-	if (dictionary_search(g_system_var.env, env_v) != NULL)
-	{
-		temp = result;
-		result = ft_strjoin(result, dictionary_search(g_system_var.env, env_v));
-		free(temp);
-	}
-	else
-	{
-		temp = result;
-		temp_substr = ft_substr(s, env_idx.start_idx, ft_strlen(s));
-		result = ft_strjoin(result, temp_substr);
-		free_temp(temp, temp_substr, env_v);
-		return (result);
-	}
-	free(env_v);
-	return (env_join(result, env_idx, s));
-}
-*/
