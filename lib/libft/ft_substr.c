@@ -12,23 +12,21 @@
 
 #include "libft.h"
 
-char	*ft_substr(char const *src, unsigned int n, size_t m)
+char	*ft_substr(char const *src, unsigned int m, size_t n)
 {
-	int		len;
-	int		i;
-	char	*dest;
+	unsigned int		len;
+	unsigned int		i;
+	char				*dest;
 
-	i = 0;
 	len = n - m;
 	dest = (char *)malloc(sizeof(char) * (len + 1));
-
+	i = m;
 	while (i < n && (*(src + i) != '\0'))
 	{
 		*dest = *(src + i);
-		i++;
 		dest++;
+		i++;
 	}
 	*dest = '\0';
 	return (dest - len);
 }
-

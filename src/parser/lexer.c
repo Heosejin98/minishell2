@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/24 15:06:32 by seheo             #+#    #+#             */
-/*   Updated: 2022/12/24 18:45:57 by seheo            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../include/minishell.h"
 
 static int	count_words(const char *str, char c)
@@ -71,12 +59,14 @@ static char	**spt(char **split, char c, char const *s, t_lexer_info *info)
 			split[info->j++] = word_dup(s, info->index, info->i, info);
 		else if (info->flag == 1 && s[info->i] == '\'')
 		{
-			split[info->j++] = word_dup(s, info->index, info->i + 1, info);
+			if (s[info->i + 1] == ' ' || s[info->i + 1] == 0)
+				split[info->j++] = word_dup(s, info->index, info->i + 1, info);
 			info->flag = 0;
 		}
 		else if (info->flag == 2 && s[info->i] == '\"')
 		{
-			split[info->j++] = word_dup(s, info->index, info->i + 1, info);
+			if (s[info->i + 1] == ' ' || s[info->i + 1] == 0)
+				split[info->j++] = word_dup(s, info->index, info->i + 1, info);
 			info->flag = 0;
 		}
 		info->i++;

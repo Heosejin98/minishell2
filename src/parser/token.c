@@ -22,51 +22,10 @@ int	count_row(char **strings)
 	return (i);
 }
 
-int	check_n(const char *s)
-{
-	int i;
-
-	i = 2;
-	while (s[i])
-	{
-		if (s[i] != 'n')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void	n_option_check(char **new_cmdline, const char *s, int idx)
-{
-	if (check_n(s))
-		new_cmdline[idx] = ft_strdup("-n");
-	else
-		new_cmdline[idx] = ft_strdup(s);
-}
-/*
-void	convert_env(char **new_cmdline, const char *s, int idx)
-{
-	int start;
-	int end;
-	char *dest;
-
-	dest = "";
-	start = 0;
-	while (s[start] != '$')
-		start++;
-	end = start;
-
-	while (ft_isalnum(s[end]))
-		end++;
-
-	ft_strlcat(dest, s, start);
-
-}
-*/
 void	make_cmdline(t_token *token, const char *s)
 {
 	char	**new_cmdline;
-	char 	**ptr;
+	char	**ptr;
 	int		i;
 
 	ptr = token->cmdline;
@@ -75,17 +34,15 @@ void	make_cmdline(t_token *token, const char *s)
 	i = 0;
 	while (token->cmdline[i])
 	{
-		if (ft_strncmp(token->cmdline[i], "-n", 2) == 0)
-			n_option_check(new_cmdline, token->cmdline[i], i);
-	//	else if (ft_strchr("$", s))
-			//convert_env();
-		else 
+		if (ft_strchr(s, '$'))
+			new_cmdline[i] = convert_env(token->cmdline[i]);
+		else
 			new_cmdline[i] = ft_strdup(token->cmdline[i]);
 		free(ptr[i]);
 		i++;
 	}
 	new_cmdline[i] = ft_strdup(s);
-	new_cmdline[i+1] = NULL;
+	new_cmdline[i + 1] = NULL;
 	token->cmdline = new_cmdline;
 	free(ptr[i]);
 }

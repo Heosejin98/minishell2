@@ -64,7 +64,7 @@ t_token	output_front(t_deque *deque)
 {
 	t_token	result;
 	t_token	*temp;
-	
+
 	if (deque->front == NULL)
 	{
 		result.redir = NULL;

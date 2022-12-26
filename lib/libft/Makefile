@@ -15,7 +15,7 @@ NAME		=	libft.a
 
 CC			=	gcc
 AR			=	ar rcs
-CFLAG		=	-Wall -Wextra -Werror
+CFLAG		=	-Wall -Wextra -Werror -g
 
 SRC			=	ft_bzero.c\
 				ft_calloc.c\

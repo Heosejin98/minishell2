@@ -13,9 +13,10 @@ LIB_DIR			= lib/
 LIBFT			= libft/libft.a
 HEADERS			= include
 
-MAIN			= main
-UTIL			= get_env dictionary deque/deque deque/deque_util
-PARSER			= lexer token
+MAIN			= main test
+UTIL			= get_env dictionary/dictionary dictionary/dictionary_util deque/deque deque/deque_util
+PARSER			= lexer token parser_util/convert_env
+
 
 SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\
 				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))		\
