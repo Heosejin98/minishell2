@@ -42,14 +42,23 @@ static void	minishell_start(void)
 	}
 }
 
+void	do_exit(void)
+{
+	//system("leaks minishell");
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
+	atexit(do_exit);
     init_system_var(envp);
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.nodisplay_set);
+	dictionary_add(&g_system_var.env, "a", NULL);
+	dictionary_show(g_system_var.env);
     minishell_start();
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
+	
 }

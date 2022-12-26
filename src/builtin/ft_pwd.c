@@ -1,13 +1,13 @@
 #include "../../include/minishell.h"
 
-void	ft_pwd(void)
+void	ft_pwd(char **cmds)
 {
 	char	*wd;
 
 	wd = getcwd(NULL, 0);
 	if (!wd)
 	{
-		//print error
+		perror("minish: pwd: ");
 		g_system_var.status = 2;
 		return ;
 	}

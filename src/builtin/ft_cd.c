@@ -34,8 +34,7 @@ void	ft_cd(char *path)
 	ret = chdir(real_path);
 	if (ret == -1)
 	{
-		if (!check_option(real_path))
-			perror("minish: cd: ");
+		perror("minish: cd: ");
 		free(real_path);
 		g_system_var.status = 2;
 		return ;
