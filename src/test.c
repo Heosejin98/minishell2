@@ -63,14 +63,25 @@ void test_make_redir()
 }
 
 
-void test_make_token()
+void test_heredoc()
 {
-	char **argv = lexer("echo $PATH >> x >>x <<x \"$PATH \"\'as\'dasd\"\" | grep | cat >> a");
-	t_deque buf;
+	char 	**argv = lexer("echo $PATH >> x >>x <<x \"$PATH \"\'as\'dasd\"\" | grep | cat << a");
+	t_deque	buf;
 
 	buf = make_tokens(argv);
 
-	
+	chang_heredoc_redir(buf);
+	//printf("TEST");
+}
+
+
+void test_make_token()
+{
+	char 	**argv = lexer("echo $PATH << x >>x \"$PATH \"\'as\'dasd\"\" | grep | cat << a");
+	t_deque	buf;
+
+	buf = make_tokens(argv);
+
 	while (!is_empty(buf))
 	{
 		int i = 0;

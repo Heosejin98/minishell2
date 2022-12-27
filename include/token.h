@@ -33,4 +33,6 @@ t_redir		dequeue_redir(t_redir_queue *queue);
 void		init_token_info(t_token_info *t_info);
 void		reset_token_info(t_token_info *t_info);
 void		list_to_strs(t_lst *list, t_token *buf_token);
+
+void		chang_heredoc_redir(t_deque tokens);
 #endif
