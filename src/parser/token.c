@@ -45,49 +45,26 @@ void	list_to_strs(t_lst *list, t_token *buf_token)
 
 t_deque	make_tokens(char **lexer)
 {
-	t_deque			result;
-	t_token			buf_token;
-	t_lst			*l_list;
-	t_redir_queue	*q_redir;
-	int				i;
+	t_token_info	t_i;
 
-	i = 0;
-	l_list = (t_lst *)malloc(sizeof(t_lst));
-	q_redir = (t_redir_queue *)malloc(sizeof(t_redir_queue));
-	buf_token.redir = NULL;
-	buf_token.cmdline = NULL;
-	buf_token.next = NULL;
-	buf_token.prev = NULL;
-	init_deque(&result);
-	while (lexer[i])
+	init_token_info(&t_i);
+	while (lexer[t_i.i])
 	{
-		if (ft_strchr("|", lexer[i][0]))
+		if (ft_strchr("|", lexer[t_i.i][0]))
+			reset_token_info(&t_i);
+		else if (ft_strchr("<>", lexer[t_i.i][0]))
 		{
-			buf_token.redir = q_redir;
-			list_to_strs(l_list, &buf_token);
-			input_back(&result, buf_token);
-			l_list = (t_lst *)malloc(sizeof(t_lst));
-			buf_token.redir = NULL;
-			buf_token.cmdline = NULL;
-			buf_token.next = NULL;
-			buf_token.prev = NULL;
-			q_redir = (t_redir_queue *)malloc(sizeof(t_redir_queue));
-			q_redir->count = 0;
-			i++;
+			make_redir(t_i.q_redir, lexer, &t_i.i);
+			t_i.buf_token.redir = t_i.q_redir;
+			t_i.i++;
 		}
-		else if (ft_strchr("<>", lexer[i][0]))
-		{
-			make_redir(q_redir, lexer, &i);
-			buf_token.redir = q_redir;
-			i++;
-		}
-		else if (ft_strchr("\"\'", lexer[i][0]))
-			make_quoteline(l_list, lexer[i++]);
+		else if (ft_strchr("\"\'", lexer[t_i.i][0]))
+			make_quoteline(t_i.l_list, lexer[t_i.i++]);
 		else
-			make_cmdline(l_list, lexer[i++]);
+			make_cmdline(t_i.l_list, lexer[t_i.i++]);
 	}
-	list_to_strs(l_list, &buf_token);
-	input_back(&result, buf_token);
+	list_to_strs(t_i.l_list, &t_i.buf_token);
+	input_back(&t_i.result, t_i.buf_token);
 	ft_free_strs(lexer);
-    return (result);
+	return (t_i.result);
 }

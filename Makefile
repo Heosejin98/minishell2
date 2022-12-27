@@ -15,7 +15,7 @@ HEADERS			= include
 
 MAIN			= main test
 UTIL			= get_env ft_free_strs dictionary/dictionary dictionary/dictionary_util deque/deque deque/deque_util link_list/link_list
-PARSER			= lexer token parser_util/convert_env parser_util/make_quoteline parser_util/make_redir parser_util/redir_util
+PARSER			= lexer token parser_util/convert_env parser_util/make_quoteline parser_util/make_redir parser_util/redir_util parser_util/token_util
 
 
 SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\

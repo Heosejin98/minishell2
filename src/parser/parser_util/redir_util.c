@@ -35,5 +35,5 @@ t_redir	dequeue_redir(t_redir_queue *queue)
 	queue->front = ptr->next;
 	free(ptr);
 	queue->count--;
-	return data;
+	return (data);
 }

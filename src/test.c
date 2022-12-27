@@ -33,19 +33,24 @@ void test_make_redir()
 	int i = 0;
 	s = ft_split(">> a", ' ');
 	make_redir(&q, s, &i);
+	i = 0;
 	s = ft_split(">>a", ' ');
 	make_redir(&q, s, &i);
-
+	
+	i = 0;
 	s = ft_split("<< a", ' ');
 	make_redir(&q, s, &i);
+	free(s);
 
-
+	i = 0;
 	s = ft_split("<<a", ' ');
 	make_redir(&q, s, &i);
+	free(s);
 
-
+	i = 0;
 	s = ft_split("<<", ' ');
 	make_redir(&q, s, &i);
+	free(s);
 
 	while (q.count != 0)
 	{

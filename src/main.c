@@ -27,10 +27,10 @@ int	main(int argc, char **argv1, char **envp)
 
 	//test_lexer();
 	//test_convert_env();
-	test_make_token();
+	//test_make_token();
 	//test_make_toke_pipe();
 	//system("leaks minishell");
-	//test_make_redir();
+	test_make_redir();
    
 
 }

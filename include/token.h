@@ -11,6 +11,15 @@ typedef struct s_env_convert_info
 	int	str_end_idx;
 }	t_env_convert_info;
 
+typedef struct s_token_info
+{
+	t_deque			result;
+	t_token			buf_token;
+	t_lst			*l_list;
+	t_redir_queue	*q_redir;
+	int				i;
+}	t_token_info;
+
 t_deque		make_tokens(char **lexer);
 int			count_row(char **strings);
 void		make_cmdline(t_lst *list, char *s);
@@ -21,5 +30,7 @@ void		make_redir(t_redir_queue *buf_redir, char **s, int *idx);
 void		add_redir(t_redir_queue *r_que, t_redir buf_redir);
 t_redir		dequeue_redir(t_redir_queue *queue);
 
-
+void		init_token_info(t_token_info *t_info);
+void		reset_token_info(t_token_info *t_info);
+void		list_to_strs(t_lst *list, t_token *buf_token);
 #endif
