@@ -38,20 +38,12 @@ static char	*env_join(char *result, t_env_convert_info env_idx, const char *s)
 	return (result);
 }
 
-static void	free_temp(char *temp, char *temp_substr, char *env_v)
-{
-	free(temp_substr);
-	free(temp);
-	free(env_v);
-}
-
 char	*convert_env(const char *s)
 {
 	t_env_convert_info	env_idx;
 	char				*result;
 	char				*env_v;
 	char				*temp;
-	char				*temp_substr;
 
 	init_env_idx(s, &env_idx);
 	result = ft_substr(s, 0, env_idx.start_idx);
@@ -64,8 +56,10 @@ char	*convert_env(const char *s)
 	}
 	else
 	{
+		free(env_v);
 		return (result = ft_strdup("(null)"));
 	}
 	free(env_v);
-	return (env_join(result, env_idx, s));
+	result = env_join(result, env_idx, s);
+	return (result);
 }
