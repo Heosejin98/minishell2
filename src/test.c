@@ -74,7 +74,7 @@ void test_heredoc()
 
 void test_make_token()
 {
-	char 	**argv = lexer("echo 1 \'2\' asdasd <<x | adas d | Asdasd ");
+	char 	**argv = lexer("-nnnnnn -nasdasd -nnnnnnnnnn asdasdas \'-nnnnnn\' asdasd <<x | adas d | Asdasd ");
 	t_deque	buf;
 
 	buf = make_tokens(argv);
