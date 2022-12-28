@@ -17,7 +17,7 @@ static char	*remove_d_quote(char *s)
 			cnt++;
 		i++;
 	}
-	result = (char *)malloc((ft_strlen(s) - cnt) * sizeof(char *));
+	result = (char *)malloc((ft_strlen(s) - cnt + 1) * sizeof(char *));
 	i = 0;
 	j = 0;
 	while (s[i])
@@ -27,6 +27,7 @@ static char	*remove_d_quote(char *s)
 		i++;
 	}
 	result[j] = 0;
+	free(s);
 	return (result);
 }
 
@@ -45,7 +46,7 @@ static char	*remove_quote(char *s)
 			cnt++;
 		i++;
 	}
-	result = (char *)malloc((ft_strlen(s) - cnt) * sizeof(char *));
+	result = (char *)malloc((ft_strlen(s) - cnt + 1) * sizeof(char *));
 	i = 0;
 	j = 0;
 	while (s[i])
@@ -55,25 +56,35 @@ static char	*remove_quote(char *s)
 		i++;
 	}
 	result[j] = 0;
+	free(s);
 	return (result);
 }
 
 void	make_quoteline(t_lst *list, char *s)
 {
 	char	*env_convert;
+	char	*node;
 
 	if (ft_strchr("\"", s[0]))
 	{
 		env_convert = convert_env(s);
 		if (ft_strncmp("(null)", env_convert, 6) == 0)
-		{
-			insert_node(list, l_size(list), remove_d_quote(s));
+		{	
+			node = remove_d_quote(s);
+			insert_node(list, l_size(list), node);
+			free(node);
 		}
 		else
-			insert_node(list, l_size(list), remove_d_quote(env_convert));
+		{
+			node = remove_d_quote(env_convert);
+			insert_node(list, l_size(list), node);
+			free(node);
+		}
 	}
 	else
 	{
-		insert_node(list, l_size(list), remove_quote(s));
+		node = remove_quote(s);
+		insert_node(list, l_size(list), node);
+		free(node);
 	}
 }

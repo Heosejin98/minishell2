@@ -12,8 +12,8 @@ static int	ft_isalp_or_num(int c)
 
 static void	init_env_idx(const char *s, t_env_convert_info *env_idx)
 {	
-	int i;
-	
+	int	i;
+
 	i = 0;
 	env_idx->flag = -1;
 	env_idx->start_idx = 0;
@@ -23,7 +23,7 @@ static void	init_env_idx(const char *s, t_env_convert_info *env_idx)
 			env_idx->flag = 0;
 	}
 	if (env_idx->flag == -1)
-		return ; 	
+		return ;
 	while (s[env_idx->start_idx] != '$')
 		env_idx->start_idx++;
 
@@ -38,15 +38,14 @@ static void	init_env_idx(const char *s, t_env_convert_info *env_idx)
 
 static char	*env_join(char *result, t_env_convert_info env_idx, const char *s)
 {
-	char	*temp;
 	char	*temp_substr;
+	char 	*end;
 
-	temp = result;
 	temp_substr = ft_substr(s, env_idx.end_idx, env_idx.str_end_idx);
-	result = ft_strjoin(result, temp_substr);
+	end = ft_strjoin(result, temp_substr);
 	free(temp_substr);
-	free(temp);
-	return (result);
+	free(result);
+	return (end);
 }
 
 char	*convert_env(const char *s)
@@ -69,10 +68,10 @@ char	*convert_env(const char *s)
 	}
 	else
 	{
+		free(result);
 		free(env_v);
-		return (result = ft_strdup("(null)"));
+		return (ft_strdup("(null)"));
 	}
 	free(env_v);
-	result = env_join(result, env_idx, s);
-	return (result);
+	return (env_join(result, env_idx, s));
 }

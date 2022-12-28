@@ -69,14 +69,12 @@ void test_heredoc()
 	t_deque	buf;
 
 	buf = make_tokens(argv);
-
-	chang_heredoc_redir(buf);
 }
 
 
 void test_make_token()
 {
-	char 	**argv = lexer("echo >> x \"asdasd $USER\" | grep | cat");
+	char 	**argv = lexer("echo >> x $USERas123123  $USER | grep \"\"asdds asdasda\"\" \"asdasdasdasd  \"");
 	t_deque	buf;
 
 	buf = make_tokens(argv);
@@ -91,15 +89,18 @@ void test_make_token()
 			free(t.cmdline[i]);
 			i++;
 		}
+	
 		while (t.redir->count != 0)
-		{
+		{	
 			t_redir t_re = dequeue_redir(t.redir);
 			if (t_re.file_name[0] == '\n')
 				printf("error");
 			else
 				printf("type - %d | file name - %s | hd_num - %d\n", t_re.type, t_re.file_name, t_re.hd_number);
+			free(t_re.file_name);
 		}
 	}
+	
 }
 
 void test_lexer()

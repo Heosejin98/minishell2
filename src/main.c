@@ -1,5 +1,7 @@
 #include "../include/minishell.h"
 
+
+
 void	init_system_var(char **envp)
 {
 	g_system_var.hd_cnt = 0;
@@ -7,6 +9,7 @@ void	init_system_var(char **envp)
 	g_system_var.old_std_fdin = dup(STDIN_FILENO);
 	g_system_var.old_std_fdout = dup(STDOUT_FILENO);
 	g_system_var.env = get_env(envp);
+	g_system_var.hd_flag = 0;
 }
 
 static void	minishell_start(void)
@@ -19,10 +22,10 @@ static void	minishell_start(void)
 	}
 }
 
-int	main(int argc, char **argv1, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
-	(void)argv1;
+	(void)argv;
 	init_system_var(envp);
 
 	//test_heredoc();
@@ -33,6 +36,5 @@ int	main(int argc, char **argv1, char **envp)
 	//system("leaks minishell");
 	//test_make_redir();
 	
-	return (0);
 
 }

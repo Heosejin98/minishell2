@@ -9,7 +9,7 @@ typedef struct s_env_convert_info
 	int	start_idx;
 	int	end_idx;
 	int	str_end_idx;
-	int flag;
+	int	flag;
 }	t_env_convert_info;
 
 typedef struct s_token_info
@@ -35,5 +35,5 @@ void		init_token_info(t_token_info *t_info);
 void		reset_token_info(t_token_info *t_info);
 void		list_to_strs(t_lst *list, t_token *buf_token);
 
-void		chang_heredoc_redir(t_deque tokens);
+void		redir_here_doc_file(char *end_str, int hd_num);
 #endif

@@ -12,8 +12,15 @@ int	count_row(char **strings)
 
 void	make_cmdline(t_lst *list, char *s)
 {	
+	char *env;
+
+	
 	if (ft_strchr(s, '$'))
-		insert_node(list, l_size(list), convert_env(s));
+	{
+		env = convert_env(s);
+		insert_node(list, l_size(list), env);
+		free(env);
+	}
 	else
 		insert_node(list, l_size(list), s);
 }
@@ -24,24 +31,24 @@ void	list_to_strs(t_lst *list, t_token *buf_token)
 	char	*temp;
 
 	i = 0;
-	buf_token->cmdline = (char **)malloc(l_size(list) * sizeof(char *));
+	buf_token->cmdline = (char **)malloc((l_size(list) + 1) * sizeof(char *));
 	while (l_size(list) != 0)
 	{
 		temp = l_data(list, 0);
 		if (ft_strcmp(temp, "(null)") == 0)
 		{
 			delete_node(list, 0);
+			free(temp);
 			continue ;
 		}
 		else
 			buf_token->cmdline[i] = ft_strdup(temp);
+		free(temp);
 		delete_node(list, 0);
 		i++;
 	}
 	buf_token->cmdline[i] = 0;
 }
-
-
 
 t_deque	make_tokens(char **lexer)
 {

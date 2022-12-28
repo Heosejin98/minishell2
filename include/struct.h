@@ -26,6 +26,7 @@ typedef struct s_system_var
 	int				old_std_fdout;
 	struct termios	nodisplay_set;
 	struct termios	display_set;
+	int				hd_flag;
 }	t_system_var;
 
 enum	e_redir_type
