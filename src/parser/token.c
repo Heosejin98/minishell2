@@ -51,7 +51,9 @@ t_deque	make_tokens(char **lexer)
 	while (lexer[t_i.i])
 	{
 		if (ft_strchr("|", lexer[t_i.i][0]))
+		{
 			reset_token_info(&t_i);
+		}
 		else if (ft_strchr("<>", lexer[t_i.i][0]))
 		{
 			make_redir(t_i.q_redir, lexer, &t_i.i);
@@ -59,7 +61,9 @@ t_deque	make_tokens(char **lexer)
 			t_i.i++;
 		}
 		else if (ft_strchr("\"\'", lexer[t_i.i][0]))
+		{
 			make_quoteline(t_i.l_list, lexer[t_i.i++]);
+		}
 		else
 			make_cmdline(t_i.l_list, lexer[t_i.i++]);
 	}

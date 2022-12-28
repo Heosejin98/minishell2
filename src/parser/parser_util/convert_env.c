@@ -11,8 +11,19 @@ static int	ft_isalp_or_num(int c)
 }
 
 static void	init_env_idx(const char *s, t_env_convert_info *env_idx)
-{
+{	
+	int i;
+	
+	i = 0;
+	env_idx->flag = -1;
 	env_idx->start_idx = 0;
+	while (s[i])
+	{
+		if (s[i++] == '$')
+			env_idx->flag = 0;
+	}
+	if (env_idx->flag == -1)
+		return ; 	
 	while (s[env_idx->start_idx] != '$')
 		env_idx->start_idx++;
 
@@ -46,6 +57,8 @@ char	*convert_env(const char *s)
 	char				*temp;
 
 	init_env_idx(s, &env_idx);
+	if (env_idx.flag == -1)
+		return (ft_strdup(s));
 	result = ft_substr(s, 0, env_idx.start_idx);
 	env_v = ft_substr(s, env_idx.start_idx + 1, env_idx.end_idx);
 	if (dictionary_search(g_system_var.env, env_v) != NULL)

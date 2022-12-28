@@ -65,9 +65,16 @@ void	make_quoteline(t_lst *list, char *s)
 	if (ft_strchr("\"", s[0]))
 	{
 		env_convert = convert_env(s);
-		insert_node(list, l_size(list), remove_d_quote(env_convert));
-		free(env_convert);
+		if (ft_strncmp("(null)", env_convert, 6) == 0)
+		{
+			insert_node(list, l_size(list), remove_d_quote(s));
+		}
+		else
+			insert_node(list, l_size(list), remove_d_quote(env_convert));
+			free(env_convert);
 	}
 	else
+	{
 		insert_node(list, l_size(list), remove_quote(s));
+	}
 }

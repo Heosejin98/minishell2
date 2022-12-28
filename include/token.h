@@ -9,6 +9,7 @@ typedef struct s_env_convert_info
 	int	start_idx;
 	int	end_idx;
 	int	str_end_idx;
+	int flag;
 }	t_env_convert_info;
 
 typedef struct s_token_info
