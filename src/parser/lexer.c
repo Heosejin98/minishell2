@@ -91,5 +91,6 @@ char	**lexer(char const *s)
 	if (!(split))
 		return (0);
 	split = spt(split, ' ', s, info);
+	free(info);
 	return (split);
 }

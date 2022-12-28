@@ -74,7 +74,7 @@ void test_heredoc()
 
 void test_make_token()
 {
-	char 	**argv = lexer("echo >> x $USERas123123  $USER | grep \"\"asdds asdasda\"\" \"asdasdasdasd  \"");
+	char 	**argv = lexer("echo 1 \'2\' asdasd <<x | adas d | Asdasd ");
 	t_deque	buf;
 
 	buf = make_tokens(argv);
@@ -99,8 +99,9 @@ void test_make_token()
 				printf("type - %d | file name - %s | hd_num - %d\n", t_re.type, t_re.file_name, t_re.hd_number);
 			free(t_re.file_name);
 		}
+		printf("|\n");
 	}
-	
+	free(argv);
 }
 
 void test_lexer()

@@ -29,16 +29,18 @@ void	list_to_strs(t_lst *list, t_token *buf_token)
 {
 	int		i;
 	char	*temp;
-
+	int		s;
 	i = 0;
-	buf_token->cmdline = (char **)malloc((l_size(list) + 1) * sizeof(char *));
-	while (l_size(list) != 0)
+
+	s = (l_size(list) + 1);
+	buf_token->cmdline = malloc(s * sizeof(char *));
+	while (s--)
 	{
 		temp = l_data(list, 0);
 		if (ft_strcmp(temp, "(null)") == 0)
 		{
-			delete_node(list, 0);
 			free(temp);
+			delete_node(list, 0);
 			continue ;
 		}
 		else
@@ -47,7 +49,8 @@ void	list_to_strs(t_lst *list, t_token *buf_token)
 		delete_node(list, 0);
 		i++;
 	}
-	buf_token->cmdline[i] = 0;
+	buf_token->cmdline[i] = NULL;
+	free(list);
 }
 
 t_deque	make_tokens(char **lexer)

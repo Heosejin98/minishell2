@@ -33,7 +33,7 @@ int	main(int argc, char **argv, char **envp)
 	//test_convert_env();
 	test_make_token();
 	//test_make_toke_pipe();
-	//system("leaks minishell");
+	system("leaks minishell");
 	//test_make_redir();
 	
 

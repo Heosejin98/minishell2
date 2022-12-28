@@ -58,7 +58,7 @@ static void	redir_here_doc_child(char *end_str, int hd_num)
 		exit(EXIT_FAILURE);
 	}
 	line = readline("> ");
-	while (line && ft_strncmp(line, end_str, ft_strlen(end_str)) != 0)
+	while (line && ft_strncmp(line, end_str, ft_strlen(line)) != 0)
 	{
 		if (ft_strchr(line, '$'))
 			line = convert_env(line);

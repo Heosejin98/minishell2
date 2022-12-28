@@ -1,7 +1,7 @@
 #include "../../../include/minishell.h"
 
 
-static char	*remove_d_quote(char *s)
+static char	*remove_quote(char *s, char c)
 {
 	char	*result;
 	int		i;
@@ -13,7 +13,7 @@ static char	*remove_d_quote(char *s)
 
 	while (s[i])
 	{
-		if (s[i] == '\"')
+		if (s[i] == c)
 			cnt++;
 		i++;
 	}
@@ -22,43 +22,14 @@ static char	*remove_d_quote(char *s)
 	j = 0;
 	while (s[i])
 	{
-		if (s[i] != '\"')
+		if (s[i] != c)
 			result[j++] = s[i];
 		i++;
 	}
 	result[j] = 0;
-	free(s);
 	return (result);
 }
 
-static char	*remove_quote(char *s)
-{
-	char	*result;
-	int		i;
-	int		j;
-	int		cnt;
-
-	i = 0;
-	cnt = 0;
-	while (s[i])
-	{
-		if (s[i] == '\'')
-			cnt++;
-		i++;
-	}
-	result = (char *)malloc((ft_strlen(s) - cnt + 1) * sizeof(char *));
-	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		if (s[i] != '\'')
-			result[j++] = s[i];
-		i++;
-	}
-	result[j] = 0;
-	free(s);
-	return (result);
-}
 
 void	make_quoteline(t_lst *list, char *s)
 {
@@ -70,20 +41,20 @@ void	make_quoteline(t_lst *list, char *s)
 		env_convert = convert_env(s);
 		if (ft_strncmp("(null)", env_convert, 6) == 0)
 		{	
-			node = remove_d_quote(s);
+			node = remove_quote(s, '\"');
 			insert_node(list, l_size(list), node);
 			free(node);
 		}
 		else
 		{
-			node = remove_d_quote(env_convert);
+			node = remove_quote(env_convert, '\"');
 			insert_node(list, l_size(list), node);
 			free(node);
 		}
 	}
-	else
+	else if (ft_strchr("\'", s[0]))
 	{
-		node = remove_quote(s);
+		node = remove_quote(s, '\'');
 		insert_node(list, l_size(list), node);
 		free(node);
 	}
