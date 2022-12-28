@@ -47,6 +47,26 @@ void	do_exit(void)
 	//system("leaks minishell");
 }
 
+void	builtin_tester(void)
+{
+	char line[256] = "echo $PATH A -n   b c dfdfksdfjl \"a\"b c";
+	char **cmds = ft_split(line, ' ');
+	if (!ft_strcmp(cmds[0], "cd"))
+		ft_cd(cmds);
+	if (!ft_strcmp(cmds[0], "env"))
+		ft_env(cmds);
+	if (!ft_strcmp(cmds[0], "export"))
+		ft_export(cmds);
+	if (!ft_strcmp(cmds[0], "pwd"))
+		ft_pwd(cmds);
+	if (!ft_strcmp(cmds[0], "unset"))
+		ft_unset(cmds);
+	if (!ft_strcmp(cmds[0], "echo"))
+		ft_echo(cmds);
+	if (!ft_strcmp(cmds[0], "$?"))
+		printf("%d\n"); //bash: 0: command not found
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
@@ -56,9 +76,7 @@ int	main(int argc, char **argv, char **envp)
 	atexit(do_exit);
     init_system_var(envp);
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.nodisplay_set);
-	dictionary_add(&g_system_var.env, "a", NULL);
-	dictionary_show(g_system_var.env);
+	builtin_tester();
     minishell_start();
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
-	
 }

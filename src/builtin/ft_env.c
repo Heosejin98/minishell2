@@ -1,10 +1,11 @@
 #include "../../include/minishell.h"
 
-void	ft_env(char **cmd)
+void	ft_env(char **cmds)
 {
 	t_dictionary_node	*node;
 
-	//no option no arg
+	if (!check_valid_opt(cmds, 0, "env [-]"))
+		return ;
 	node = g_system_var.env.head;
 	while (node)
 	{

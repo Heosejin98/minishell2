@@ -1,7 +1,7 @@
 NAME			= minishell
 
 CC				= cc
-CFLAGS			= -g
+CFLAGS			= -g -fsanitize=address
 #-g3 -fsanitize=address -Wall -Wextra -Werror
 RM				= rm -rf
 
@@ -15,10 +15,12 @@ HEADERS			= include
 
 #PARSER			= tokenizer check_tokens set_btree
 MAIN			= main
-UTIL			= get_env dictionary/dictionary dictionary/dictionary_util
+UTIL			= get_env builtin_utils dictionary/dictionary dictionary/dictionary_util
+BUILTIN			= ft_pwd ft_env ft_export ft_unset ft_cd ft_echo
 
 SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\
-				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))	
+				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))		\
+				$(addsuffix .c, $(addprefix src/builtin/, $(BUILTIN)))
 
 OBJS 			= $(SRCS:c=o)
 

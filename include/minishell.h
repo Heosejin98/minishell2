@@ -21,6 +21,7 @@
 # include "../lib/libft/libft.h"
 # include "struct.h"
 # include "dictionary.h"
+# include "builtin.h"
 
 t_system_var	g_system_var;
 void			rl_replace_line(const char *text, int clear_undo);
