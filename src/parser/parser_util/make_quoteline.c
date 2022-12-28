@@ -71,7 +71,6 @@ void	make_quoteline(t_lst *list, char *s)
 		}
 		else
 			insert_node(list, l_size(list), remove_d_quote(env_convert));
-			free(env_convert);
 	}
 	else
 	{
