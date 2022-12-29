@@ -35,5 +35,6 @@ void		init_token_info(t_token_info *t_info);
 void		reset_token_info(t_token_info *t_info);
 void		list_to_strs(t_lst *list, t_token *buf_token);
 
-void		redir_here_doc_file(char *end_str, int hd_num);
+void		heredoc_file_maker(char *end_str, int hd_num);
+void		heredoc_unlink(void);
 #endif

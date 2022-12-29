@@ -7,4 +7,5 @@ void	ft_free_strs(char **s)
 	i = 0;
 	while (s[i])
 		free(s[i++]);
+	free(s);
 }

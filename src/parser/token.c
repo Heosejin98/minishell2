@@ -93,15 +93,12 @@ t_deque	make_tokens(char **lexer)
 			t_i.i++;
 		}
 		else if (ft_strchr("\"\'", lexer[t_i.i][0]))
-		{
 			make_quoteline(t_i.l_list, lexer[t_i.i++]);
-		}
 		else
 			make_cmdline(t_i.l_list, lexer[t_i.i++]);
 	}
 	list_to_strs(t_i.l_list, &t_i.buf_token);
 	t_i.buf_token.redir = t_i.q_redir;
 	input_back(&t_i.result, t_i.buf_token);
-	ft_free_strs(lexer);
 	return (t_i.result);
 }

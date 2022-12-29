@@ -65,7 +65,7 @@ void	is_only_redir(t_redir *buf_redir, char **s, int *idx, int redir_size)
 	if (buf_redir->type == HERE_DOC)
 	{
 		buf_redir->hd_number = ++g_system_var.hd_cnt;
-		redir_here_doc_file(buf_redir->file_name, buf_redir->hd_number);
+		heredoc_file_maker(buf_redir->file_name, buf_redir->hd_number);
 	}
 	*idx += 1;
 
@@ -88,7 +88,7 @@ void	make_redir(t_redir_queue *r_que, char **s, int *idx)
 		if (buf_redir.type == HERE_DOC)
 		{
 			buf_redir.hd_number = ++g_system_var.hd_cnt;
-			redir_here_doc_file(buf_redir.file_name, buf_redir.hd_number);
+			heredoc_file_maker(buf_redir.file_name, buf_redir.hd_number);
 		}
 		add_redir(r_que, buf_redir);
 	}

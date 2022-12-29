@@ -12,29 +12,21 @@ void	init_system_var(char **envp)
 	g_system_var.hd_flag = 0;
 }
 
-static void	minishell_start(void)
-{
-	char	*cmd_line;
-
-	while (1)
-	{
-		cmd_line = readline("minishell$ ");
-	}
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
 	init_system_var(envp);
 
+
+	minishell_start();
 	//test_heredoc();
 	//test_lexer();
 	//test_convert_env();
-	test_make_token();
+	//test_make_token();
 	//test_make_toke_pipe();
-	//system("leaks minishell");
 	//test_make_redir();
+	//system("leaks minishell");
 	
 
 }

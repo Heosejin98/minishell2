@@ -1,30 +1,15 @@
 #include "../../include/minishell.h"
+#include "../../include/token.h"
 
-void	redir_unlink(void)
+void	heredoc_signal(int sig)
 {
-	int		hd_cnt;
-	char	*filename;
-
-	hd_cnt = 1;
-	while (hd_cnt <= g_system_var.hd_cnt)
-	{
-		filename = ft_strjoin("here_doc", ft_itoa(hd_cnt));
-		if (access(filename, F_OK) == 0)
-			unlink(filename);
-		free(filename);
-		hd_cnt++;
-	}
-}
-
-void	sig_here_doc(int sig)
-{
-
 	if (sig == SIGINT)
 	{	
 		rl_replace_line("", 0);
-		write(1, "\n", 2);
+		g_system_var.hd_flag = 1;
+		write(1, "asd\n", 5);
 		rl_on_new_line();
-		redir_unlink();
+		heredoc_unlink();
 		exit(EXIT_FAILURE);
 	}
 }
@@ -43,7 +28,7 @@ void	print_error(char *err_msg1, char *err_msg2)
 	ft_putendl_fd(err_msg2, STDERR_FILENO);
 }
 
-static void	redir_here_doc_child(char *end_str, int hd_num)
+static void	heredoc_child(char *end_str, int hd_num)
 {
 	int		hd_fd;
 	char	*line;
@@ -72,7 +57,7 @@ static void	redir_here_doc_child(char *end_str, int hd_num)
 }
 
 
-void	redir_here_doc_file(char *end_str, int hd_num)
+void	heredoc_file_maker(char *end_str, int hd_num)
 {
 	pid_t	pid;
 
@@ -81,13 +66,13 @@ void	redir_here_doc_file(char *end_str, int hd_num)
 		exit(EXIT_FAILURE);
 	else if (pid == 0)
 	{
-		signal(SIGINT, sig_here_doc);
-		redir_here_doc_child(end_str, hd_num);
+		signal(SIGINT, heredoc_signal);
+		heredoc_child(end_str, hd_num);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		signal(SIGINT, sig_here_doc);
+		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &pid, 0);
 		if (check_status(pid) == 130)
 			exit(EXIT_FAILURE);

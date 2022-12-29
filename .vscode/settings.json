@@ -2,6 +2,11 @@
 	"files.associations": {
 		"chrono": "c",
 		"unordered_map": "c",
-		"__locale": "c"
+		"__locale": "c",
+		"__tuple": "c",
+		"algorithm": "c",
+		"atomic": "c",
+		"locale": "c",
+		"memory": "c"
 	}
 }

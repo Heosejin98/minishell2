@@ -74,7 +74,7 @@ void test_heredoc()
 
 void test_make_token()
 {
-	char 	**argv = lexer("-nnnnnn -nasdasd -nnnnnnnnnn asdasdas \'-nnnnnn\' asdasd <<x | adas d | Asdasd ");
+	char 	**argv = lexer("ls -nasdasd -nnnnnnnnnn asdasdas \'-nnnnnn\' asdasd <<x  adas d  Asdasd");
 	t_deque	buf;
 
 	buf = make_tokens(argv);
@@ -86,10 +86,9 @@ void test_make_token()
 		while (t.cmdline[i])
 		{
 			printf("%s \n", t.cmdline[i]);
-			free(t.cmdline[i]);
 			i++;
 		}
-	
+		ft_free_strs(t.cmdline);
 		while (t.redir->count != 0)
 		{	
 			t_redir t_re = dequeue_redir(t.redir);
@@ -101,7 +100,7 @@ void test_make_token()
 		}
 		printf("|\n");
 	}
-	free(argv);
+	ft_free_strs(argv);
 }
 
 void test_lexer()

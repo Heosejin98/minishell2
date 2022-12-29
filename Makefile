@@ -15,11 +15,13 @@ HEADERS			= include
 
 MAIN			= main test
 UTIL			= get_env ft_free_strs dictionary/dictionary dictionary/dictionary_util deque/deque deque/deque_util link_list/link_list
-PARSER			= lexer token here_doc parser_util/convert_env parser_util/make_quoteline parser_util/make_redir parser_util/redir_util parser_util/token_util
+PARSER			= lexer token here_doc parser_util/convert_env parser_util/make_quoteline parser_util/make_redir parser_util/redir_util parser_util/token_util parser_util/heredoc_util
+CONTRLLER		= minishell_controller
 
 SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\
 				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))		\
-				$(addsuffix .c, $(addprefix src/parser/, $(PARSER)))
+				$(addsuffix .c, $(addprefix src/parser/, $(PARSER)))	\
+				$(addsuffix .c, $(addprefix src/controller/, $(CONTRLLER)))
 
 OBJS 			= $(SRCS:c=o)
 
