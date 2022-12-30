@@ -7,16 +7,7 @@ void	init_system_var(char **envp)
 	g_system_var.old_std_fdin = dup(STDIN_FILENO);
 	g_system_var.old_std_fdout = dup(STDOUT_FILENO);
 	g_system_var.env = get_env(envp);
-}
-
-static void	minishell_start(void)
-{
-	char	*cmd_line;
-
-	while (1)
-	{
-		cmd_line = readline("minishell$ ");
-	}
+	g_system_var.hd_flag = 0;
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -24,5 +15,5 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_system_var(envp);
-	//minishell_start();
+	minishell_start();
 }

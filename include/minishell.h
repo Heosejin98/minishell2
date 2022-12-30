@@ -22,8 +22,16 @@
 # include "struct.h"
 # include "dictionary.h"
 
-t_system_var	g_system_var;
-void			rl_replace_line(const char *text, int clear_undo);
+
+/*  seheo  */
+# include "lexer.h"
+# include "deque.h"
+# include "token.h"
+# include "test.h"
+# include "link_list.h"
+
 
 t_dictionary	get_env(char **envp);
+void			ft_free_strs(char **s);
+void			minishell_start(void);
 #endif
