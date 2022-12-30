@@ -1,7 +1,5 @@
 #include "../include/minishell.h"
 
-
-
 void	init_system_var(char **envp)
 {
 	g_system_var.hd_cnt = 0;
@@ -17,15 +15,5 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_system_var(envp);
-
-
 	minishell_start();
-	//test_heredoc();
-	//test_lexer();
-	//test_convert_env();
-	//test_make_token();
-	//test_make_toke_pipe();
-	//test_make_redir();
-	
-
 }

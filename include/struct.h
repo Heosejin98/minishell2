@@ -51,12 +51,4 @@ typedef struct s_redir_queue
 	t_redir	*rear;
 	int		count;
 }	t_redir_queue;
-
-typedef struct s_token
-{
-	t_redir_queue		*redir;
-	char				**cmdline;
-	struct s_token		*next;
-	struct s_token		*prev;
-}	t_token;
 #endif
