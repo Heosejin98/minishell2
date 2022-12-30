@@ -22,8 +22,8 @@ typedef struct s_system_var
 	int				hd_cnt;
 	t_dictionary	env;
 	char			*prev_path;
-	int				old_std_fdin;
-	int				old_std_fdout;
+	int				fdin;
+	int				fdout;
 	struct termios	nodisplay_set;
 	struct termios	display_set;
 }	t_system_var;
@@ -50,5 +50,6 @@ typedef struct s_token
 	char				**cmdline;
 	struct s_token		*next;
 	struct s_token		*prev;
+	int					pipe_fd[2];
 }	t_token;
 #endif

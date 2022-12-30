@@ -10,7 +10,7 @@ void	ft_unset(char **cmds)
 	{
 		if (is_option(cmds[i]))
 		{
-			perror_opt(cmds[0], cmds[i], "unset [name ...]");
+			perror_opt(cmds[0], abstract_opt(cmds[i]), "unset [name ...]");
 			return ;
 		}
 		if (dictionary_search(g_system_var.env, cmds[i]))

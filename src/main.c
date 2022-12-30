@@ -4,8 +4,8 @@ void	init_system_var(char **envp)
 {
 	g_system_var.hd_cnt = 0;
 	g_system_var.status = 0;
-	g_system_var.old_std_fdin = dup(STDIN_FILENO);
-	g_system_var.old_std_fdout = dup(STDOUT_FILENO);
+	g_system_var.fdin = dup(STDIN_FILENO);
+	g_system_var.fdout = dup(STDOUT_FILENO);
 	g_system_var.env = get_env(envp);
 	tcgetattr(STDIN_FILENO, &g_system_var.display_set);
 	g_system_var.nodisplay_set = g_system_var.display_set;
@@ -49,22 +49,32 @@ void	do_exit(void)
 
 void	builtin_tester(void)
 {
-	char line[256] = "echo $PATH A -n   b c dfdfksdfjl \"a\"b c";
-	char **cmds = ft_split(line, ' ');
-	if (!ft_strcmp(cmds[0], "cd"))
-		ft_cd(cmds);
-	if (!ft_strcmp(cmds[0], "env"))
-		ft_env(cmds);
-	if (!ft_strcmp(cmds[0], "export"))
-		ft_export(cmds);
-	if (!ft_strcmp(cmds[0], "pwd"))
-		ft_pwd(cmds);
-	if (!ft_strcmp(cmds[0], "unset"))
-		ft_unset(cmds);
-	if (!ft_strcmp(cmds[0], "echo"))
-		ft_echo(cmds);
-	if (!ft_strcmp(cmds[0], "$?"))
-		printf("%d\n"); //bash: 0: command not found
+	t_token	*token = ft_calloc(1, sizeof(t_token));
+	char line[256] = "ls -l";
+	token->cmdline = ft_split(line, ' ');
+	
+	token->redir = ft_calloc(1, sizeof(t_redir));
+	token->redir->type = OUT_REDIR;
+	token->redir->file_name = ft_strdup("a.txt");
+	token->redir->hd_number = 0;
+	token->redir->next = NULL;
+	token->next = NULL;
+	token->prev = NULL;
+	run_token(token);
+	// if (!ft_strcmp(cmds[0], "cd"))
+	// 	ft_cd(cmds);
+	// if (!ft_strcmp(cmds[0], "env"))
+	// 	ft_env(cmds);
+	// if (!ft_strcmp(cmds[0], "export"))
+	// 	ft_export(cmds);
+	// if (!ft_strcmp(cmds[0], "pwd"))
+	// 	ft_pwd(cmds);
+	// if (!ft_strcmp(cmds[0], "unset"))
+	// 	ft_unset(cmds);
+	// if (!ft_strcmp(cmds[0], "echo"))
+	// 	ft_echo(cmds);
+	// if (!ft_strcmp(cmds[0], "$?"))
+	// 	printf("%d\n", g_system_var.status); //bash: 0: command not found
 }
 
 int	main(int argc, char **argv, char **envp)

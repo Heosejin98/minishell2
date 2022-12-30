@@ -17,10 +17,12 @@ HEADERS			= include
 MAIN			= main
 UTIL			= get_env builtin_utils dictionary/dictionary dictionary/dictionary_util
 BUILTIN			= ft_pwd ft_env ft_export ft_unset ft_cd ft_echo
+CMD				= run_cmd run_pipe set_redir
 
 SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\
 				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))		\
-				$(addsuffix .c, $(addprefix src/builtin/, $(BUILTIN)))
+				$(addsuffix .c, $(addprefix src/builtin/, $(BUILTIN)))	\
+				$(addsuffix .c, $(addprefix src/command/, $(CMD)))
 
 OBJS 			= $(SRCS:c=o)
 
