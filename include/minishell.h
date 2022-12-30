@@ -30,6 +30,8 @@
 # include "test.h"
 # include "link_list.h"
 
+t_system_var	g_system_var;
+void			rl_replace_line(const char *text, int clear_undo);
 
 t_dictionary	get_env(char **envp);
 void			ft_free_strs(char **s);
