@@ -43,14 +43,14 @@ void	make_quoteline(t_lst *list, char *s)
 		{	
 			node = remove_quote(s, '\"');
 			insert_node(list, l_size(list), node);
-			free(node);
 		}
 		else
 		{
 			node = remove_quote(env_convert, '\"');
 			insert_node(list, l_size(list), node);
-			free(node);
 		}
+		free(env_convert);
+		free(node);
 	}
 	else if (ft_strchr("\'", s[0]))
 	{

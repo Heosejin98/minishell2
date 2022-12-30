@@ -7,7 +7,7 @@ void	heredoc_signal(int sig)
 	{	
 		rl_replace_line("", 0);
 		g_system_var.hd_flag = 1;
-		write(1, "asd\n", 5);
+		write(1, "\n", 1);
 		rl_on_new_line();
 		heredoc_unlink();
 		exit(EXIT_FAILURE);

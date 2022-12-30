@@ -26,7 +26,6 @@ int	main(int argc, char **argv, char **envp)
 	//test_make_token();
 	//test_make_toke_pipe();
 	//test_make_redir();
-	//system("leaks minishell");
 	
 
 }

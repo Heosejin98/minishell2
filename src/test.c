@@ -74,7 +74,7 @@ void test_heredoc()
 
 void test_make_token()
 {
-	char 	**argv = lexer("ls -nasdasd -nnnnnnnnnn asdasdas \'-nnnnnn\' asdasd <<x  adas d  Asdasd");
+	char 	**argv = lexer(">> a >> b");
 	t_deque	buf;
 
 	buf = make_tokens(argv);
@@ -88,6 +88,7 @@ void test_make_token()
 			printf("%s \n", t.cmdline[i]);
 			i++;
 		}
+		
 		ft_free_strs(t.cmdline);
 		while (t.redir->count != 0)
 		{	
@@ -98,8 +99,10 @@ void test_make_token()
 				printf("type - %d | file name - %s | hd_num - %d\n", t_re.type, t_re.file_name, t_re.hd_number);
 			free(t_re.file_name);
 		}
+		free(t.redir);
 		printf("|\n");
 	}
+
 	ft_free_strs(argv);
 }
 

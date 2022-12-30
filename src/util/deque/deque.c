@@ -61,7 +61,6 @@ t_token	output_front(t_deque *deque)
 	}
 	result.redir = deque->front->redir;
 	result.cmdline = deque->front->cmdline;
-	result.cmdline = deque->front->cmdline;
 	temp = deque->front;
 	if (deque->front == deque->back)
 	{

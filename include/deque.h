@@ -16,6 +16,4 @@ void		input_back(t_deque *deque, t_token data);
 t_token		output_front(t_deque *deque);
 t_token		output_back(t_deque *deque);
 int			is_empty(t_deque deque);
-
 #endif
-
