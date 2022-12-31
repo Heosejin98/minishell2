@@ -12,7 +12,6 @@ t_dictionary	get_env(char **envp)
 	{
 		temp = ft_split(envp[i], '=');
 		dictionary_add(&env, temp[0], temp[1]);
-
 		i++;
 	}
 	return (env);

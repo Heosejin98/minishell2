@@ -3,7 +3,7 @@
 void	ft_pwd(char **cmds)
 {
 	char	*wd;
-	
+
 	if (!check_valid_opt(cmds, 0, "pwd [-]"))
 		return ;
 	wd = getcwd(NULL, 0);

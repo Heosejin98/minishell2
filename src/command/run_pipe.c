@@ -3,7 +3,7 @@
 void	create_pipe(t_token *token)
 {
 	int	ret;
-	
+
 	ret = pipe(token->pipe_fd);
 	if (ret == -1)
 	{

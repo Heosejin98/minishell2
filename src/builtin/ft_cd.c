@@ -9,7 +9,7 @@ static char	*find_real_path(char *path)
 	{
 		home = dictionary_search(g_system_var.env, "HOME");
 		if (!home)
-	 		real_path = ft_strdup("");
+			real_path = ft_strdup("");
 		else
 			real_path = ft_strdup(home->value);
 	}
@@ -23,12 +23,33 @@ static char	*find_real_path(char *path)
 	return (real_path);
 }
 
+static void	set_cd_env(void)
+{
+	char	*oldpwd;
+	char	*pwd;
+	char	*real_path;
+
+	oldpwd = dictionary_search(g_system_var.env, "OLDPWD");
+	pwd = dictionary_search(g_system_var.env, "PWD");
+	if (oldpwd)
+		dictionary_delete(&g_system_var.env, "OLDPWD");
+	dictionary_add(&g_system_var.env, ft_strdup("OLDPWD"), ft_strdup(pwd));
+	if (pwd)
+		dictionary_delete(&g_system_var.env, "PWD");
+	real_path = getcwd(NULL, 0);
+	if (!real_path)
+	{
+		perror("minish: cd: ");
+		g_system_var.status = 2;
+		return ;
+	}
+	dictionary_add(&g_system_var.env, ft_strdup("PWD"), real_path);
+}
+
 void	ft_cd(char **cmds)
 {
 	int		ret;
 	char	*real_path;
-	char 	*oldpwd;
-	char	*pwd;
 
 	if (is_option(cmds[1]))
 	{
@@ -44,21 +65,7 @@ void	ft_cd(char **cmds)
 		g_system_var.status = 2;
 		return ;
 	}
-	oldpwd = dictionary_search(g_system_var.env, "OLDPWD");
-	pwd = dictionary_search(g_system_var.env, "PWD");
-	if (oldpwd)
-		dictionary_delete(&g_system_var.env, "OLDPWD");
-	dictionary_add(&g_system_var.env, ft_strdup("OLDPWD"), ft_strdup(pwd));
-	if (pwd)
-		dictionary_delete(&g_system_var.env, "PWD");
 	free(real_path);
-	real_path = getcwd(NULL, 0);
-	if (!real_path)
-	{
-		perror("minish: cd: ");
-		g_system_var.status = 2;
-		return ;
-	}
-	dictionary_add(&g_system_var.env, ft_strdup("PWD"), real_path);
+	set_cd_env();
 	g_system_var.status = 0;
 }

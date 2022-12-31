@@ -2,7 +2,7 @@
 
 void	ft_unset(char **cmds)
 {
-	int	i;
+	int		i;
 	char	opt;
 
 	i = 1;

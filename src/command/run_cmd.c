@@ -2,11 +2,11 @@
 
 char	*find_path(char *cmd)
 {
-	int		i;
-	char	**candidate;
-	DIR		*dir;
-	struct dirent *dirp;
-	char	*tmp;
+	int				i;
+	char			**candidate;
+	DIR				*dir;
+	struct dirent	*dirp;
+	char			*tmp;
 
 	candidate = ft_split(dictionary_search(g_system_var.env, "PATH"), ':');
 	if (!candidate)
@@ -20,7 +20,7 @@ char	*find_path(char *cmd)
 			dirp = readdir(dir);
 			if (!dirp)
 				break ;
-			if (strcmp(dirp->d_name, cmd)==0)
+			if (strcmp(dirp->d_name, cmd) == 0)
 			{
 				closedir(dir);
 				tmp = ft_strjoin("/", cmd); //leaks
@@ -31,7 +31,7 @@ char	*find_path(char *cmd)
 		i++;
 	}
 	return (ft_strjoin("./", cmd));
-}
+} //too long
 
 void	run_token(t_token *t)
 {
@@ -49,15 +49,15 @@ void	run_token(t_token *t)
 	reset_in_out();
 }
 
-int		is_builtin(char *cmd)
+int	is_builtin(char *cmd)
 {
 	if (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo") \
 	|| !ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "env") \
 	|| !ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "unset"))
 		return (1);
 	return (0);
-
 }
+
 void	run_cmdline(t_token *t)
 {
 	pid_t	pid;

@@ -44,7 +44,7 @@ void	set_in_out(t_redir	*redir)
 		}
 		redir = redir->next;
 	}
-}
+} //too long
 
 void	unlink_heredoc(t_redir *redir)
 {
