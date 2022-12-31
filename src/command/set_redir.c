@@ -33,6 +33,7 @@ void	set_in_out(t_redir *redir)
 			dup2(tmp, STDIN_FILENO);
 		else if (redir->type == OUT_REDIR || redir->type == APP_REDIR)
 			dup2(tmp, STDOUT_FILENO);
+		free(redir->file_name);
 		redir = redir->next;
 	}
 }

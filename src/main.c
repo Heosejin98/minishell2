@@ -28,84 +28,84 @@ void	handler(int sig)
 }
 
 //prompt
-static void	minishell_start(void)
-{
-	char	*cmd_line;
+// static void	minishell_start(void)
+// {
+// 	char	*cmd_line;
 
-	while (1)
-	{
-		cmd_line = readline("minishell😲 ");
-		if (!cmd_line)
-			exit(0);
-		if (*cmd_line != 0)
-			add_history(cmd_line);
-		//parsing and run
-		free(cmd_line);
-	}
-	g_system_var.hd_flag = 0;
-}
+// 	while (1)
+// 	{
+// 		cmd_line = readline("minishell😲 ");
+// 		if (!cmd_line)
+// 			exit(0);
+// 		if (*cmd_line != 0)
+// 			add_history(cmd_line);
+// 		//parsing and run
+// 		free(cmd_line);
+// 	}
+// 	g_system_var.hd_flag = 0;
+// }
 
 void	do_exit(void)
 {
 	//system("leaks minishell -q");
 }
 
-void	builtin_tester(void)
-{
-	// //ls -al | cat Makefile > a.txt
-	t_token	*token = ft_calloc(1, sizeof(t_token));
-	t_token	*token1 = ft_calloc(1, sizeof(t_token));
+// void	builtin_tester(void)
+// {
+// 	// //ls -al | cat Makefile > a.txt
+// 	t_token	*token = ft_calloc(1, sizeof(t_token));
+// 	t_token	*token1 = ft_calloc(1, sizeof(t_token));
 
-	char line[256] = "unset -a";
-	token->cmdline = ft_split(line, ' ');
-	 token->redir = NULL;
-	// token->redir = ft_calloc(1, sizeof(t_redir));
-	// token->redir->type = OUT_REDIR;
-	// token->redir->file_name = ft_strdup("b.txt");
-	// token->redir->hd_number = 0;
-	// token->redir->next = NULL;
-	token->next = NULL;
-	token->prev = NULL;
+// 	char line[256] = "unset -a";
+// 	token->cmdline = ft_split(line, ' ');
+// 	 token->redir = NULL;
+// 	// token->redir = ft_calloc(1, sizeof(t_redir));
+// 	// token->redir->type = OUT_REDIR;
+// 	// token->redir->file_name = ft_strdup("b.txt");
+// 	// token->redir->hd_number = 0;
+// 	// token->redir->next = NULL;
+// 	token->next = NULL;
+// 	token->prev = NULL;
 
-	char line1[256] = "env";
-	token1->cmdline = ft_split(line1, ' ');
+// 	char line1[256] = "env";
+// 	token1->cmdline = ft_split(line1, ' ');
 	
-	// token1->redir = NULL;
-	token1->redir = ft_calloc(1, sizeof(t_redir));
-	token1->redir->type = APP_REDIR;
-	token1->redir->file_name = ft_strdup("a.txt");
-	token1->redir->hd_number = 0;
-	token1->redir->next = NULL;
-	token1->next = NULL;
-	token1->prev = token;
+// 	// token1->redir = NULL;
+// 	token1->redir = ft_calloc(1, sizeof(t_redir));
+// 	token1->redir->type = APP_REDIR;
+// 	token1->redir->file_name = ft_strdup("a.txt");
+// 	token1->redir->hd_number = 0;
+// 	token1->redir->next = NULL;
+// 	token1->next = NULL;
+// 	token1->prev = token;
 
-	// t_token	*token = ft_calloc(1, sizeof(t_token));
-	// t_token	*token1 = ft_calloc(1, sizeof(t_token));
+// 	// t_token	*token = ft_calloc(1, sizeof(t_token));
+// 	// t_token	*token1 = ft_calloc(1, sizeof(t_token));
 
-	// char line[256] = "cd src";
-	// token->cmdline = ft_split(line, ' ');
-	//  token->redir = NULL;
-	// // token->redir = ft_calloc(1, sizeof(t_redir));
-	// // token->redir->type = OUT_REDIR;
-	// // token->redir->file_name = ft_strdup("b.txt");
-	// // token->redir->hd_number = 0;
-	// // token->redir->next = NULL;
-	// token->next = token1;
-	// token->prev = NULL;
+// 	// char line[256] = "cd src";
+// 	// token->cmdline = ft_split(line, ' ');
+// 	//  token->redir = NULL;
+// 	// // token->redir = ft_calloc(1, sizeof(t_redir));
+// 	// // token->redir->type = OUT_REDIR;
+// 	// // token->redir->file_name = ft_strdup("b.txt");
+// 	// // token->redir->hd_number = 0;
+// 	// // token->redir->next = NULL;
+// 	// token->next = token1;
+// 	// token->prev = NULL;
 
-	// char line1[256] = "pwd";
-	// token1->cmdline = ft_split(line1, ' ');
+// 	// char line1[256] = "pwd";
+// 	// token1->cmdline = ft_split(line1, ' ');
 	
-	// token1->redir = NULL;
-	// // token1->redir = ft_calloc(1, sizeof(t_redir));
-	// // token1->redir->type = APP_REDIR;
-	// // token1->redir->file_name = ft_strdup("a.txt");
-	// // token1->redir->hd_number = 0;
-	// // token1->redir->next = NULL;
-	// token1->next = NULL;
-	// token1->prev = token;
-	run_token(token);
-}
+// 	// token1->redir = NULL;
+// 	// // token1->redir = ft_calloc(1, sizeof(t_redir));
+// 	// // token1->redir->type = APP_REDIR;
+// 	// // token1->redir->file_name = ft_strdup("a.txt");
+// 	// // token1->redir->hd_number = 0;
+// 	// // token1->redir->next = NULL;
+// 	// token1->next = NULL;
+// 	// token1->prev = token;
+// 	run_token(token);
+// }
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -116,8 +116,8 @@ int	main(int argc, char **argv, char **envp)
 	atexit(do_exit);
 	init_system_var(envp);
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.nodisplay_set);
-	builtin_tester();
+	//builtin_tester();
     //minishell_start();
-	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
 	minishell_start();
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
 }

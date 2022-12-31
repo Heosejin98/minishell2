@@ -21,7 +21,9 @@ void	run_cmdline(t_token *t)
 {
 	pid_t	pid;
 	char	*path;
+	t_token *prev;
 
+	prev = t;
 	pid = fork();
 	if (pid < 0)
 		minish_exit("minish: fork");
@@ -29,8 +31,9 @@ void	run_cmdline(t_token *t)
 	{
 		if (t->next)
 			close(t->pipe_fd[0]);
+		perror("test1");
 		wait(&g_system_var.status);
-		printf("\t%s: %d\n", t->cmdline[0], g_system_var.status); //for testing!
+		//printf("\t%s: %d\n", t->cmdline[0], g_system_var.status); //for testing!
 	}
 	if (pid == 0)
 	{
@@ -40,6 +43,7 @@ void	run_cmdline(t_token *t)
 			run_builtin(t->cmdline);
 		else
 		{
+			perror("test@");
 			path = find_path(t->cmdline[0]);
 			execve(path, t->cmdline, NULL);
 		}
@@ -48,14 +52,27 @@ void	run_cmdline(t_token *t)
 
 void	run_token(t_token *t)
 {
+	t_redir buf_redir;
+
+	
 	while (t->next)
 	{
 		create_pipe(t);
-		set_in_out(t->redir);
+		if (t->redir->count != 0)
+		{
+			buf_redir = dequeue_redir(t->redir);
+			set_in_out(&buf_redir);
+		}
 		run_cmdline(t);
 		t = t->next;
+		perror("test");
 	}
-	set_in_out(t->redir);
+	if (t->redir->count != 0)
+	{
+		buf_redir = dequeue_redir(t->redir);
+		set_in_out(&buf_redir);
+	}
 	run_cmdline(t);
+	perror("test");
 	reset_in_out();
 }

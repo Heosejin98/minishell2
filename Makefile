@@ -13,30 +13,19 @@ LIB_DIR			= lib/
 LIBFT			= libft/libft.a
 HEADERS			= include
 
-# soylee
-#PARSER			= tokenizer check_tokens set_btree
-MAIN			= main
-UTIL			= get_env builtin_utils command_utils dictionary/dictionary dictionary/dictionary_util
+MAIN			= main test
+UTIL			= get_env command_utils builtin_utils ft_free_strs dictionary/dictionary dictionary/dictionary_util deque/deque deque/deque_util link_list/link_list
+PARSER			= lexer token here_doc parser_util/convert_env parser_util/make_quoteline parser_util/make_redir parser_util/redir_util parser_util/token_util parser_util/heredoc_util
+CONTRLLER		= minishell_controller
 BUILTIN			= ft_pwd ft_env ft_export ft_unset ft_cd ft_echo
 CMD				= run_cmd set_redir
 
 SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\
 				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))		\
+				$(addsuffix .c, $(addprefix src/parser/, $(PARSER)))	\
+				$(addsuffix .c, $(addprefix src/controller/, $(CONTRLLER))) \
 				$(addsuffix .c, $(addprefix src/builtin/, $(BUILTIN)))	\
 				$(addsuffix .c, $(addprefix src/command/, $(CMD)))
-        
-        # --------
-MAIN			= main test
-UTIL			= get_env ft_free_strs dictionary/dictionary dictionary/dictionary_util deque/deque deque/deque_util link_list/link_list
-PARSER			= lexer token here_doc parser_util/convert_env parser_util/make_quoteline parser_util/make_redir parser_util/redir_util parser_util/token_util parser_util/heredoc_util
-CONTRLLER		= minishell_controller
-
-
-SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\
-				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))		\
-				$(addsuffix .c, $(addprefix src/parser/, $(PARSER)))	\
-				$(addsuffix .c, $(addprefix src/controller/, $(CONTRLLER)))
-# 1.0
 
 OBJS 			= $(SRCS:c=o)
 

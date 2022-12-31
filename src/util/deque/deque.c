@@ -53,25 +53,29 @@ t_token	output_front(t_deque *deque)
 	t_token	result;
 	t_token	*temp;
 
-	if (deque->front == NULL)
-	{
-		result.redir = NULL;
-		result.cmdline = NULL;
-		return (result);
-	}
-	result.redir = deque->front->redir;
-	result.cmdline = deque->front->cmdline;
-	temp = deque->front;
-	if (deque->front == deque->back)
-	{
-		deque->front = NULL;
-		free(temp);
-		deque->back = NULL;
-		return (result);
-	}
-	deque->front = deque->front->next;
-	deque->front->prev = NULL;
-	free(temp);
+	// if (deque->front == NULL)
+	// {
+	// 	result.redir = NULL;
+	// 	result.cmdline = NULL;
+	// 	return (result);
+	// }
+	// result.redir = deque->front->redir;
+	// result.cmdline = deque->front->cmdline;
+	// result.next = deque->front->next;
+	// result.prev = deque->front->prev;
+	// temp = deque->front;
+	// if (deque->front == deque->back)
+	// {
+	// 	deque->front = NULL;
+	// 	free(temp);
+	// 	deque->back = NULL;
+	// 	return (result);
+	// }
+	// //deque->front = deque->front->next;
+	// //deque->front->prev = NULL;
+	// //free(temp);
+
+	result = *(deque->front);
 	return (result);
 }
 

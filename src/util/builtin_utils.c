@@ -2,7 +2,7 @@
 
 int	is_option(char *line)
 {
-	if (*line == '-' && line + 1)
+	if (line && *line == '-' && line + 1)
 		return (1);
 	return (0);
 }

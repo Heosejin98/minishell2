@@ -10,21 +10,11 @@ void	cmd_run(char *line)
 	lexer_line = lexer(line);
 	p_token = make_tokens(lexer_line);
 
-	while (!is_empty(p_token))
+	if (!is_empty(p_token))
 	{
-		i = 0;
 		buf_token = output_front(&p_token);
-		// buf_token.cmdline 한 파이프 단위의 cmdlin
+		run_token(&buf_token);
 		ft_free_strs(buf_token.cmdline);
-		// buf_token.redir 한 파이프의 리다이렉션
-		// redir_que로 되어있다
-		// 큐에서 꺼내서 버퍼에 담아서 사용
-		// file_name은 malloc 해줘서 free 해야댐
-		// while (buf_token.redir->count != 0)
-		// {
-		// 	t_redir buf_redir = dequeue_redir(buf_token.redir);
-		//  free(buf_redir.file_name);
-		// }
 	}
 	free(lexer_line);
 }
@@ -120,6 +110,6 @@ void	minishell_start(void)
 		signal(SIGINT, sig_readline);
 		signal(SIGQUIT, SIG_IGN);
 		cmd_line = set_read_line();
-		cmd_run_tester(cmd_line);
+		cmd_run(cmd_line);
 	}
 }
