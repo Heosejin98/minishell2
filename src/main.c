@@ -49,32 +49,46 @@ void	do_exit(void)
 
 void	builtin_tester(void)
 {
-	t_token	*token = ft_calloc(1, sizeof(t_token));
-	char line[256] = "ls -l";
-	token->cmdline = ft_split(line, ' ');
+	// //ls -al | cat Makefile > a.txt
+	// t_token	*token = ft_calloc(1, sizeof(t_token));
+	// t_token	*token1 = ft_calloc(1, sizeof(t_token));
+
+	// char line[256] = "ls -al";
+	// token->cmdline = ft_split(line, ' ');
+	//  token->redir = NULL;
+	// // token->redir = ft_calloc(1, sizeof(t_redir));
+	// // token->redir->type = OUT_REDIR;
+	// // token->redir->file_name = ft_strdup("b.txt");
+	// // token->redir->hd_number = 0;
+	// // token->redir->next = NULL;
+	// token->next = token1;
+	// token->prev = NULL;
+
+	// char line1[256] = "cat Makefile";
+	// token1->cmdline = ft_split(line1, ' ');
 	
-	token->redir = ft_calloc(1, sizeof(t_redir));
-	token->redir->type = OUT_REDIR;
-	token->redir->file_name = ft_strdup("a.txt");
-	token->redir->hd_number = 0;
-	token->redir->next = NULL;
+	// // token1->redir = NULL;
+	// token1->redir = ft_calloc(1, sizeof(t_redir));
+	// token1->redir->type = APP_REDIR;
+	// token1->redir->file_name = ft_strdup("a.txt");
+	// token1->redir->hd_number = 0;
+	// token1->redir->next = NULL;
+	// token1->next = NULL;
+	// token1->prev = token;
+
+	t_token	*token = ft_calloc(1, sizeof(t_token));
+
+	char line[256] = "env";
+	token->cmdline = ft_split(line, ' ');
+	 token->redir = NULL;
+	// token->redir = ft_calloc(1, sizeof(t_redir));
+	// token->redir->type = OUT_REDIR;
+	// token->redir->file_name = ft_strdup("b.txt");
+	// token->redir->hd_number = 0;
+	// token->redir->next = NULL;
 	token->next = NULL;
 	token->prev = NULL;
 	run_token(token);
-	// if (!ft_strcmp(cmds[0], "cd"))
-	// 	ft_cd(cmds);
-	// if (!ft_strcmp(cmds[0], "env"))
-	// 	ft_env(cmds);
-	// if (!ft_strcmp(cmds[0], "export"))
-	// 	ft_export(cmds);
-	// if (!ft_strcmp(cmds[0], "pwd"))
-	// 	ft_pwd(cmds);
-	// if (!ft_strcmp(cmds[0], "unset"))
-	// 	ft_unset(cmds);
-	// if (!ft_strcmp(cmds[0], "echo"))
-	// 	ft_echo(cmds);
-	// if (!ft_strcmp(cmds[0], "$?"))
-	// 	printf("%d\n", g_system_var.status); //bash: 0: command not found
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -87,6 +101,6 @@ int	main(int argc, char **argv, char **envp)
     init_system_var(envp);
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.nodisplay_set);
 	builtin_tester();
-    minishell_start();
+    //minishell_start();
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
 }

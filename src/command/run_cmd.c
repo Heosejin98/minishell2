@@ -6,6 +6,7 @@ char	*find_path(char *cmd)
 	char	**candidate;
 	DIR		*dir;
 	struct dirent *dirp;
+	char	*tmp;
 
 	candidate = ft_split(dictionary_search(g_system_var.env, "PATH"), ':');
 	if (!candidate)
@@ -14,11 +15,17 @@ char	*find_path(char *cmd)
 	while (candidate[i])
 	{
 		dir = opendir(candidate[i]);
-		dirp = readdir(dir);
-		if (strcmp(dirp->d_name, cmd)==0)
+		while (1)
 		{
-			closedir(dir);
-			return (ft_strjoin(dirp->d_name, cmd));
+			dirp = readdir(dir);
+			if (!dirp)
+				break ;
+			if (strcmp(dirp->d_name, cmd)==0)
+			{
+				closedir(dir);
+				tmp = ft_strjoin("/", cmd); //leaks
+				return (ft_strjoin(candidate[i], tmp));
+			}
 		}
 		closedir(dir);
 		i++;
@@ -69,10 +76,14 @@ void	run_cmdline(t_token *t)
 	}
 	if (pid > 0)
 	{
+		if (t->next)
+			close(t->pipe_fd[0]);
 		wait(&g_system_var.status);
 	}
 	if (pid == 0)
 	{
+		if (t->prev)
+			close(t->prev->pipe_fd[1]);
 		path = find_path(t->cmdline[0]);
 		execve(path, t->cmdline, NULL);
 	}

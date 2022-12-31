@@ -12,10 +12,5 @@ void	create_pipe(t_token *token)
 	}
 	if (token->prev)
 		dup2(token->prev->pipe_fd[0], STDIN_FILENO);
-	else
-		close(token->prev->pipe_fd[0]);
-	if (token->next)
-		dup2(token->pipe_fd[1], STDOUT_FILENO);
-	else
-		close(token->prev->pipe_fd[1]);
+	dup2(token->pipe_fd[1], STDOUT_FILENO);
 }
