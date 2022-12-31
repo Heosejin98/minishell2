@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-//정렬 추가
+
 
 static void	print_env_export(void)
 {
@@ -9,20 +9,21 @@ static void	print_env_export(void)
 	int					i;
 	int					cnt;
 
-	// while (tmp)
-	// {
-	// 	ft_putstr_fd("declare -x ", STDOUT_FILENO);
-	// 	if (tmp->key)
-	// 	{
-	// 		ft_putstr_fd(tmp->key, STDOUT_FILENO);
-	// 		if (tmp->value)
-	// 		{
-	// 			ft_putstr_fd("=", STDOUT_FILENO);
-	// 			ft_putendl_fd(tmp->value, STDOUT_FILENO);
-	// 		}
-	// 		tmp = tmp->link;
-	// 	}
-	// }
+	tmp = g_system_var.env.head;
+	while (tmp)
+	{
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		if (tmp->key)
+		{
+			ft_putstr_fd(tmp->key, STDOUT_FILENO);
+			if (tmp->value)
+			{
+				ft_putstr_fd("=", STDOUT_FILENO);
+				ft_putendl_fd(tmp->value, STDOUT_FILENO);
+			}
+			tmp = tmp->link;
+		}
+	}
 }
 
 static void	add_env_export(char *env)
@@ -48,6 +49,7 @@ void	ft_export(char **cmds)
 	if (!cmds[1])
 	{
 		print_env_export();
+		g_system_var.status = 0;
 		return ;
 	}
 	i = 1;
@@ -56,4 +58,5 @@ void	ft_export(char **cmds)
 		add_env_export(cmds[i]);
 		i++;
 	}
+	g_system_var.status = 0;
 }
