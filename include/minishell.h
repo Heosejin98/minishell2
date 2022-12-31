@@ -21,6 +21,8 @@
 # include "../lib/libft/libft.h"
 # include "struct.h"
 # include "dictionary.h"
+# include "builtin.h"
+# include "run.h"
 
 
 /*  seheo  */
