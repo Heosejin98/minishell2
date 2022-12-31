@@ -23,4 +23,5 @@ void	ft_echo(char **cmds)
 	}
 	if (tag)
 		ft_putendl_fd("", STDOUT_FILENO);
+	g_system_var.status = 0;
 }

@@ -5,11 +5,15 @@ void	ft_env(char **cmds)
 	t_dictionary_node	*node;
 
 	if (!check_valid_opt(cmds, 0, "env [-]"))
+	{
+		g_system_var.status = 2;
 		return ;
+	}
 	node = g_system_var.env.head;
 	while (node)
 	{
 		printf("%s=%s\n", node->key, node->value);
 		node = node->link;
 	}
+	g_system_var.status = 0;
 }
