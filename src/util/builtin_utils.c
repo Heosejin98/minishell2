@@ -16,7 +16,7 @@ char	abstract_opt(char *line)
 			return (0);
 		line++;
 	}
-	printf("%c\n", *line);
+	// printf("%c\n", *line);
 	return (*line);
 }
 
@@ -49,4 +49,14 @@ void	perror_opt(char *cmd, char opt, char *usage)
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": usage: ", STDERR_FILENO);
 	ft_putendl_fd(usage, STDERR_FILENO);
+	g_system_var.status = 2;
+}
+
+int	is_builtin(char *cmd)
+{
+	if (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo") \
+	|| !ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "env") \
+	|| !ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "unset"))
+		return (1);
+	return (0);
 }

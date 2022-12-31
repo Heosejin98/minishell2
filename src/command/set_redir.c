@@ -1,50 +1,47 @@
 #include "../../include/minishell.h"
 
+void	create_pipe(t_token *token)
+{
+	int	ret;
+
+	ret = pipe(token->pipe_fd);
+	if (ret == -1)
+		minish_exit("pipe");
+	if (token->prev)
+		dup2(token->prev->pipe_fd[0], STDIN_FILENO);
+	dup2(token->pipe_fd[1], STDOUT_FILENO);
+}
+
+void	set_in_out(t_redir *redir)
+{
+	int	tmp;
+	int	oflag;
+
+	while (redir)
+	{
+		oflag = 0;
+		if (redir->type  == IN_REDIR || redir->type == HERE_DOC)
+			oflag = (O_CREAT | O_RDONLY);
+		else if (redir->type == OUT_REDIR)
+			oflag = (O_CREAT | O_WRONLY | O_TRUNC);
+		else if (redir->type == APP_REDIR)
+			oflag = (O_CREAT | O_WRONLY | O_APPEND);
+		tmp = open(redir->file_name, oflag, 0744);
+		if (tmp == -1)
+			minish_exit("open: ");
+		if (redir->type == IN_REDIR || redir->type == HERE_DOC)
+			dup2(tmp, STDIN_FILENO);
+		else if (redir->type == OUT_REDIR || redir->type == APP_REDIR)
+			dup2(tmp, STDOUT_FILENO);
+		redir = redir->next;
+	}
+}
+
 void	reset_in_out(void)
 {
 	dup2(g_system_var.fdin, STDIN_FILENO);
 	dup2(g_system_var.fdout, STDOUT_FILENO);
 }
-
-void	set_in_out(t_redir	*redir)
-{
-	int	tmp;
-
-	while (redir)
-	{
-		if (redir->type == IN_REDIR || redir->type == HERE_DOC)
-		{
-			tmp = open(redir->file_name, O_CREAT | O_RDONLY, 0744);
-			if (tmp == -1)
-			{
-				perror("set_in_out: open");
-				exit(1);
-			}
-			dup2(tmp, STDIN_FILENO);
-		}
-		if (redir->type == OUT_REDIR)
-		{
-			tmp = open(redir->file_name, O_CREAT | O_WRONLY | O_TRUNC, 0744);
-			if (tmp == -1)
-			{
-				perror("set_in_out: open");
-				exit(1);
-			}
-			dup2(tmp, STDOUT_FILENO);
-		}
-		if (redir->type == APP_REDIR)
-		{
-			tmp = open(redir->file_name, O_CREAT | O_WRONLY | O_APPEND, 0744);
-			if (tmp == -1)
-			{
-				perror("set_in_out: open");
-				exit(1);
-			}
-			dup2(tmp, STDOUT_FILENO);
-		}
-		redir = redir->next;
-	}
-} //too long
 
 void	unlink_heredoc(t_redir *redir)
 {

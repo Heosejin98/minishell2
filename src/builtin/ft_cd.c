@@ -58,14 +58,13 @@ void	ft_cd(char **cmds)
 	}
 	real_path = find_real_path(cmds[1]);
 	ret = chdir(real_path);
+	free(real_path);
 	if (ret == -1)
 	{
-		perror("minish: cd: ");
-		free(real_path);
+		perror("minish: cd");
 		g_system_var.status = 2;
 		return ;
 	}
-	free(real_path);
 	set_cd_env();
 	g_system_var.status = 0;
 }

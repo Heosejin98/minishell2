@@ -3,7 +3,6 @@
 
 # include "struct.h"
 
-char	*find_path(char *cmd);
 void	run_token(t_token *t);
 int		is_builtin(char *cmd);
 void	run_cmdline(t_token *t);
@@ -14,5 +13,8 @@ void	set_in_out(t_redir	*redir);
 void	unlink_heredoc(t_redir *redir);
 
 void	create_pipe(t_token *token);
+
+char	*find_path(char *cmd);
+void	minish_exit(char *msg);
 
 #endif

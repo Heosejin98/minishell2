@@ -15,9 +15,9 @@ HEADERS			= include
 
 #PARSER			= tokenizer check_tokens set_btree
 MAIN			= main
-UTIL			= get_env builtin_utils dictionary/dictionary dictionary/dictionary_util
+UTIL			= get_env builtin_utils command_utils dictionary/dictionary dictionary/dictionary_util
 BUILTIN			= ft_pwd ft_env ft_export ft_unset ft_cd ft_echo
-CMD				= run_cmd run_pipe set_redir
+CMD				= run_cmd set_redir
 
 SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\
 				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))		\
