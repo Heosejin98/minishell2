@@ -56,7 +56,6 @@ static void	heredoc_child(char *end_str, int hd_num)
 	exit(EXIT_SUCCESS);
 }
 
-
 void	heredoc_file_maker(char *end_str, int hd_num)
 {
 	pid_t	pid;

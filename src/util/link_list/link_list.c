@@ -86,18 +86,3 @@ int	l_size(t_lst *head)
 	}
 	return (len);
 }
-
-void	print_ll(t_lst *head)
-{
-	t_lst	*temp;
-
-	if (head->next == NULL)
-		return ;
-	temp = head->next;
-	while (temp != NULL)
-	{
-		printf("%s ", temp->data);
-		temp = temp->next;
-	}
-	printf("\n");
-}

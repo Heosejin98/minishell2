@@ -34,42 +34,18 @@ void	list_to_strs(t_lst *list, t_token *buf_token)
 	i = 0;
 	s = (l_size(list) + 1);
 	flag = 0;
-	buf_token->cmdline = malloc(s * sizeof(char *));
+	buf_token->cmdline = (char **)malloc(s * sizeof(char *));
 	while (s--)
 	{
-		temp = l_data(list, 0);
-		if (ft_strcmp(temp, "(null)") == 0)
+		if (ft_strcmp(l_data(list, 0), "(null)") == 0)
 		{
-			free(temp);
 			delete_node(list, 0);
 			continue ;
 		}
-		else
-		{
-			if (flag == 0 && i > 0 && ft_strncmp("-n", temp, 2) == 0)
-			{
-				int j = 1;
-				int no_n = 0;
-				while (temp[j])
-				{
-					if (temp[j] != 'n')
-					{
-						no_n = 1;
-						break ;
-					}
-					j++;
-				}
-				if (no_n == 0)
-				{
-					free(temp);
-					temp = ft_strdup("-n");		
-				}
-			}
-			else if (i > 0 && flag == 0 && temp[0] != '-')
-				flag = 1;
-			buf_token->cmdline[i] = ft_strdup(temp);
-		}
-		free(temp);
+		temp = opt_convert(&flag, i, l_data(list, 0));
+		buf_token->cmdline[i] = ft_strdup(temp);
+		if (!temp)
+			free(temp);
 		delete_node(list, 0);
 		i++;
 	}

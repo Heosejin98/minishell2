@@ -34,6 +34,8 @@ t_redir		dequeue_redir(t_redir_queue *queue);
 void		init_token_info(t_token_info *t_info);
 void		reset_token_info(t_token_info *t_info);
 void		list_to_strs(t_lst *list, t_token *buf_token);
+int			repeat_char(char *s, char c);
+char		*opt_convert(int *flag, int i, char *temp);
 
 void		heredoc_file_maker(char *end_str, int hd_num);
 void		heredoc_unlink(void);
