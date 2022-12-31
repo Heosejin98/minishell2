@@ -7,6 +7,7 @@ void	init_system_var(char **envp)
 	g_system_var.fdin = dup(STDIN_FILENO);
 	g_system_var.fdout = dup(STDOUT_FILENO);
 	g_system_var.env = get_env(envp);
+
 	tcgetattr(STDIN_FILENO, &g_system_var.display_set);
 	g_system_var.nodisplay_set = g_system_var.display_set;
 	g_system_var.nodisplay_set.c_lflag &= ~(ICANON | ECHOCTL);
@@ -41,6 +42,7 @@ static void	minishell_start(void)
 		//parsing and run
 		free(cmd_line);
 	}
+	g_system_var.hd_flag = 0;
 }
 
 void	do_exit(void)
@@ -117,4 +119,5 @@ int	main(int argc, char **argv, char **envp)
 	builtin_tester();
     //minishell_start();
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
+	minishell_start();
 }

@@ -13,6 +13,7 @@ LIB_DIR			= lib/
 LIBFT			= libft/libft.a
 HEADERS			= include
 
+# soylee
 #PARSER			= tokenizer check_tokens set_btree
 MAIN			= main
 UTIL			= get_env builtin_utils command_utils dictionary/dictionary dictionary/dictionary_util
@@ -23,6 +24,19 @@ SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\
 				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))		\
 				$(addsuffix .c, $(addprefix src/builtin/, $(BUILTIN)))	\
 				$(addsuffix .c, $(addprefix src/command/, $(CMD)))
+        
+        # --------
+MAIN			= main test
+UTIL			= get_env ft_free_strs dictionary/dictionary dictionary/dictionary_util deque/deque deque/deque_util link_list/link_list
+PARSER			= lexer token here_doc parser_util/convert_env parser_util/make_quoteline parser_util/make_redir parser_util/redir_util parser_util/token_util parser_util/heredoc_util
+CONTRLLER		= minishell_controller
+
+
+SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\
+				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))		\
+				$(addsuffix .c, $(addprefix src/parser/, $(PARSER)))	\
+				$(addsuffix .c, $(addprefix src/controller/, $(CONTRLLER)))
+# 1.0
 
 OBJS 			= $(SRCS:c=o)
 
@@ -38,7 +52,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo $(GREEN) "Source files are compiled!\n" $(EOC)
-	@make -j -C $(LIB_DIR)/libft
+	@make bonus -j -C $(LIB_DIR)/libft
 	@$(CC) $(CFLAGS) -o $@ $^ $(LIB_DIR)/$(LIBFT) $(LIB_READ) $(READLINE) $(READLINE_INC)
 	@echo $(GREEN) "$(NAME) is created!\n" $(EOC)
 
