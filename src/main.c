@@ -54,7 +54,7 @@ void	builtin_tester(void)
 	t_token	*token = ft_calloc(1, sizeof(t_token));
 	t_token	*token1 = ft_calloc(1, sizeof(t_token));
 
-	char line[256] = "export -a";
+	char line[256] = "unset -a";
 	token->cmdline = ft_split(line, ' ');
 	 token->redir = NULL;
 	// token->redir = ft_calloc(1, sizeof(t_redir));
