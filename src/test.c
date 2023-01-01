@@ -1,5 +1,70 @@
 #include "../include/minishell.h"
 
+void	builtin_tester(void)
+{
+	t_token	*token = ft_calloc(1, sizeof(t_token));
+	t_token	*token1 = ft_calloc(1, sizeof(t_token));
+
+	token->cmdline = ft_split("ls -la", ' ');
+	token->redir = ft_calloc(1, sizeof(t_redir_queue));
+
+	token->redir->count = 0;
+	token->next = token1;
+	token->prev = NULL;
+
+	token1->cmdline = ft_split("cat Makefile", ' ');
+	token1->redir = ft_calloc(1, sizeof(t_redir_queue));
+	token1->redir->count = 1;
+	token1->redir->front = ft_calloc(1, sizeof(t_redir));
+	token1->redir->front->file_name = ft_strdup("a");
+	token1->redir->front->type = APP_REDIR;
+	token1->redir->front->next = NULL;
+	token1->next = NULL;
+
+	run_token(token);
+}
+
+void	builtin_tester2(void)
+{
+	t_token	*token = ft_calloc(1, sizeof(t_token));
+
+	token->cmdline = ft_split("ls -la", ' ');
+	token->redir = ft_calloc(1, sizeof(t_redir));
+
+	token->redir->count = 0;
+	token->next = NULL;
+	token->prev = NULL;
+
+	run_token(token);
+}
+
+void	builtin_tester3(void)
+{
+
+	t_token	*token = ft_calloc(1, sizeof(t_token));
+	t_token	*token1 = ft_calloc(1, sizeof(t_token));
+	t_token *token2 = ft_calloc(1, sizeof(t_token));
+
+	token->cmdline = ft_split("ls -la", ' ');
+	token->redir = ft_calloc(1, sizeof(t_redir));
+
+	token->redir->count = 0;
+	token->next = token1;
+	token->prev = NULL;
+
+	token1->cmdline = ft_split("grep 1", ' ');
+	token1->redir = ft_calloc(1, sizeof(t_redir));
+	token1->redir->count = 0;
+	token1->next = token2;
+
+	token2->cmdline = ft_split("wc", ' ');	
+	token2->redir = ft_calloc(1, sizeof(t_redir));
+	token2->redir->count = 0;
+	token2->next = NULL;
+
+	run_token(token);
+}
+
 
 void test_make_toke_pipe()
 {

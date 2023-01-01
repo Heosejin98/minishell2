@@ -1,15 +1,17 @@
 #include "../../include/minishell.h"
 
-void	create_pipe(t_token *token)
+void	create_pipe(int *prev, int *sh_pipe)
 {
 	int	ret;
 
-	ret = pipe(token->pipe_fd);
+	ret = pipe(sh_pipe);
 	if (ret == -1)
 		minish_exit("pipe");
-	if (token->prev)
-		dup2(token->prev->pipe_fd[0], STDIN_FILENO);
-	dup2(token->pipe_fd[1], STDOUT_FILENO);
+	if (prev[0] != -1)
+		dup2(prev[1], STDIN_FILENO);
+	else
+		prev[0] = 1;
+	dup2(sh_pipe[OUT], STDOUT_FILENO);
 }
 
 void	set_in_out(t_redir *redir)
