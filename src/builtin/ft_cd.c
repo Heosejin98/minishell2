@@ -39,7 +39,7 @@ static void	set_cd_env(void)
 	real_path = getcwd(NULL, 0);
 	if (!real_path)
 	{
-		perror("minish: cd: ");
+		perror("minishell: cd: ");
 		g_system_var.status = 2;
 		return ;
 	}
@@ -61,7 +61,7 @@ void	ft_cd(char **cmds)
 	free(real_path);
 	if (ret == -1)
 	{
-		perror("minish: cd");
+		perror("minishell: cd");
 		g_system_var.status = 2;
 		return ;
 	}
@@ -70,7 +70,7 @@ void	ft_cd(char **cmds)
 	wd = getcwd(NULL, 0);
 	if (!wd)
 	{
-		perror("minish: getcwd");
+		perror("minishell: getcwd");
 		exit(1);
 	}
 	printf("%s\n", wd);

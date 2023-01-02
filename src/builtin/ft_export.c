@@ -37,6 +37,9 @@ static void	add_env_export(char *env)
 		dictionary_add(&g_system_var.env, tmp[0], tmp[1]);
 	else
 		dictionary_add(&g_system_var.env, tmp[0], ft_strdup(""));
+	
+	dictionary_show(g_system_var.env);
+	
 	free(tmp);
 }
 

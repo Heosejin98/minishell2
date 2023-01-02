@@ -9,7 +9,7 @@ void	ft_pwd(char **cmds)
 	wd = getcwd(NULL, 0);
 	if (!wd)
 	{
-		perror("minish: getcwd");
+		perror("minishell: getcwd");
 		exit(1);
 	}
 	printf("%s\n", wd);

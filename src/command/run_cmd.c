@@ -24,13 +24,15 @@ void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe)
 	char	*path;
 	int		tmp;
 
+	// signal(SIGINT, SIG_DFL);
+	// 	signal(SIGQUIT, SIG_DFL);
 	pid = fork();
 	if (pid < 0)
-		minish_exit("minish: fork");
+		minish_exit("minishell: fork");
 	if (pid > 0)
 	{
 		if (wait(&tmp) == -1)
-			minish_exit("minish: wait");
+			minish_exit("minishell: wait");
 		else
 			g_system_var.status =  WEXITSTATUS(tmp);
 		if (prev_pipe[0] == -1 && !t->next)
@@ -52,6 +54,8 @@ void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe)
 	}
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (prev_pipe[0] == -1 && !t->next)
 				;
 		else if (prev_pipe[0] == -1)
@@ -85,11 +89,14 @@ void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe)
 			path = find_path(t->cmdline[0]);
 			if (execve(path, t->cmdline, NULL) == -1)
 			{
-				ft_putstr_fd("minish: command not found: ", STDERR_FILENO);
+				ft_putstr_fd("minishell: command not found: ", STDERR_FILENO);
 				ft_putendl_fd(t->cmdline[0], STDERR_FILENO);
+				exit(127);
 			}
 		}
 	}
+	// signal(SIGINT, sig_readline);
+	// 	signal(SIGQUIT, SIG_IGN);
 }
 
 void	run_token(t_token *t)

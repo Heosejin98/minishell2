@@ -41,7 +41,7 @@ int	check_valid_opt(char **cmds, char opt, char *usage)
 
 void	perror_opt(char *cmd, char opt, char *usage)
 {
-	ft_putstr_fd("minish: ", STDERR_FILENO);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": -", STDERR_FILENO);
 	ft_putchar_fd(opt, STDERR_FILENO);

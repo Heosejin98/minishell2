@@ -17,9 +17,10 @@ void	init_system_var(char **envp)
 
 void	handler(int sig)
 {
+	perror("num");
 	if (sig == SIGINT)
 	{
-		printf("\n");
+		ft_putendl_fd("", STDOUT_FILENO);
 		if (rl_on_new_line() == -1)
 			exit(1);
 		rl_replace_line("", 1);
@@ -54,8 +55,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	signal(SIGINT, handler);
-	signal(SIGQUIT, SIG_IGN);
+	// signal(SIGINT, handler);
+	// signal(SIGQUIT, SIG_IGN);
 	atexit(do_exit);
 	init_system_var(envp);
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.nodisplay_set);

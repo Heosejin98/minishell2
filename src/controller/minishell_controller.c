@@ -13,6 +13,10 @@ void	cmd_run(char *line)
 	if (!is_empty(p_token))
 	{
 		buf_token = output_front(&p_token);
+		// if (buf_token.next == NULL)
+		// 	run_token(&)
+		// else 
+		// 	run_token_pipe(&buf_token);
 		run_token(&buf_token);
 		ft_free_strs(buf_token.cmdline);
 	}
@@ -75,11 +79,16 @@ void	sig_readline(int signo)
 {
 	if (signo == SIGINT)
 	{
-		g_system_var.status = EXIT_FAILURE;
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 1);
-		rl_redisplay();
+		if (waitpid(-1, NULL, WNOHANG) == (-1))
+		{
+			g_system_var.status = EXIT_FAILURE;
+			write(1, "\n", 1);
+			rl_on_new_line();
+			rl_replace_line("", 1);
+			rl_redisplay();
+		}
+		else
+			write(1, "\n", 1);
 	}
 	return ;
 }
@@ -96,6 +105,7 @@ static char	*set_read_line()
 		ft_putstr_fd("\033[1A", STDOUT_FILENO);
 		ft_putstr_fd("\033[7C", STDOUT_FILENO);
 		ft_putstr_fd(" exit\n", STDOUT_FILENO);
+		exit(0);
 	}
 	return (line);
 }

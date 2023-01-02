@@ -7,7 +7,8 @@ void	dictionary_show(t_dictionary dic)
 	temp = dic.head;
 	while (temp != NULL)
 	{
-		printf("%s=\"%s\"\n", temp->key, temp->value);
+		ft_putendl_fd(ft_strjoin(temp->key, temp->value), 2);
+		//printf("%s=\"%s\"\n", temp->key, temp->value);
 		temp = temp->link;
 	}
 }
