@@ -1,7 +1,8 @@
 {
 	"files.associations": {
 		"locale": "c",
-		"iterator": "c"
+		"iterator": "c",
+		"ios": "c"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

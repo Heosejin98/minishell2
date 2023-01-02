@@ -16,7 +16,7 @@ static	int	ft_scan_dir(char *dir_name, char *cmd)
 		dirp = readdir(dir);
 		if (!dirp)
 			break ;
-		if (strcmp(dirp->d_name, cmd) == 0)
+		if (ft_strcmp(dirp->d_name, cmd) == 0)
 		{
 			closedir(dir);
 			return (1);

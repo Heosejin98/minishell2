@@ -66,5 +66,14 @@ void	ft_cd(char **cmds)
 		return ;
 	}
 	set_cd_env();
+	char *wd;
+	wd = getcwd(NULL, 0);
+	if (!wd)
+	{
+		perror("minish: getcwd");
+		exit(1);
+	}
+	printf("%s\n", wd);
+	free(wd);
 	g_system_var.status = 0;
 }

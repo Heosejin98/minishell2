@@ -90,7 +90,7 @@ static char	*set_read_line()
 
 	signal(SIGINT, sig_readline);
 	signal(SIGQUIT, SIG_IGN);
-	line = readline("minishell$ ");
+	line = readline("minishell 🎃 ");
 	if (!line)
 	{
 		ft_putstr_fd("\033[1A", STDOUT_FILENO);
@@ -107,9 +107,11 @@ void	minishell_start(void)
 	while (1)
 	{	
 		g_system_var.hd_flag = 0;
-		signal(SIGINT, sig_readline);
-		signal(SIGQUIT, SIG_IGN);
 		cmd_line = set_read_line();
+		if (!cmd_line)
+			exit(0);
+		if (*cmd_line != 0)
+			add_history(cmd_line);
 		cmd_run(cmd_line);
 	}
 }

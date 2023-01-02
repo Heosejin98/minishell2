@@ -7,11 +7,6 @@ void	create_pipe(int *prev, int *sh_pipe)
 	ret = pipe(sh_pipe);
 	if (ret == -1)
 		minish_exit("pipe");
-	if (prev[0] != -1)
-		dup2(prev[1], STDIN_FILENO);
-	else
-		prev[0] = 1;
-	dup2(sh_pipe[OUT], STDOUT_FILENO);
 }
 
 void	set_in_out(t_redir *redir)
@@ -36,6 +31,7 @@ void	set_in_out(t_redir *redir)
 		else if (redir->type == OUT_REDIR || redir->type == APP_REDIR)
 			dup2(tmp, STDOUT_FILENO);
 		free(redir->file_name);
+		close(tmp);
 		redir = redir->next;
 	}
 }

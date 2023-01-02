@@ -12,14 +12,17 @@ void	builtin_tester(void)
 	token->next = token1;
 	token->prev = NULL;
 
-	token1->cmdline = ft_split("cat Makefile", ' ');
+	token1->cmdline = ft_split("grep .vscode", ' ');
 	token1->redir = ft_calloc(1, sizeof(t_redir_queue));
-	token1->redir->count = 1;
-	token1->redir->front = ft_calloc(1, sizeof(t_redir));
-	token1->redir->front->file_name = ft_strdup("a");
-	token1->redir->front->type = APP_REDIR;
-	token1->redir->front->next = NULL;
+	token1->redir->count = 0;
 	token1->next = NULL;
+	token1->prev = NULL;
+	// token1->redir->count = 1;
+	// token1->redir->front = ft_calloc(1, sizeof(t_redir));
+	// token1->redir->front->file_name = ft_strdup("a");
+	// token1->redir->front->type = APP_REDIR;
+	// token1->redir->front->next = NULL;
+	// token1->next = NULL;
 
 	run_token(token);
 }
@@ -52,7 +55,7 @@ void	builtin_tester3(void)
 	token->next = token1;
 	token->prev = NULL;
 
-	token1->cmdline = ft_split("grep 1", ' ');
+	token1->cmdline = ft_split("grep .vscode", ' ');
 	token1->redir = ft_calloc(1, sizeof(t_redir));
 	token1->redir->count = 0;
 	token1->next = token2;

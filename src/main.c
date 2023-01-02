@@ -59,8 +59,7 @@ int	main(int argc, char **argv, char **envp)
 	atexit(do_exit);
 	init_system_var(envp);
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.nodisplay_set);
-	builtin_tester();
-    //minishell_start();
-	//minishell_start();
+	//builtin_tester3();
+    minishell_start();
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
 }
