@@ -1,14 +1,17 @@
 NAME			= minishell
 
 CC				= cc
-CFLAGS			= -g -fsanitize=address
+CFLAGS			= -g # -fsanitize=address
 #-g3 -fsanitize=address -Wall -Wextra -Werror
 RM				= rm -rf
 
 LIB_READ		= -l readline
-READLINE		= -L$(shell brew --prefix readline)/lib
-READLINE_INC	= -I$(shell brew --prefix readline)/include
+#READLINE		= -L$(shell brew --prefix readline)/lib
+#READLINE_INC	= -I$(shell brew --prefix readline)/include
 
+# UBUNTU
+READLINE = -L$(/usr/share/doc/readline-common)/lib
+READLINE_INC = -I$(/usr/share/doc/readline-common)/include
 LIB_DIR			= lib/
 LIBFT			= libft/libft.a
 HEADERS			= include
@@ -17,7 +20,7 @@ MAIN			= main test
 UTIL			= get_env command_utils builtin_utils ft_free_strs dictionary/dictionary dictionary/dictionary_util deque/deque deque/deque_util link_list/link_list
 PARSER			= lexer token here_doc parser_util/convert_env parser_util/make_quoteline parser_util/make_redir parser_util/redir_util parser_util/token_util parser_util/heredoc_util
 CONTRLLER		= minishell_controller
-BUILTIN			= ft_pwd ft_env ft_export ft_unset ft_cd ft_echo
+BUILTIN			= ft_pwd ft_env ft_export ft_unset ft_cd ft_echo ft_exit
 CMD				= run_cmd set_redir
 
 SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\

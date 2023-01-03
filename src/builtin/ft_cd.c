@@ -2,23 +2,22 @@
 
 static char	*find_real_path(char *path)
 {
-	t_dictionary_node	*home;
+	char	*home;
 	char				*real_path;
-
-	if (!(*path))
+	
+	if (!path)
 	{
 		home = dictionary_search(g_system_var.env, "HOME");
 		if (!home)
 			real_path = ft_strdup("");
 		else
-			real_path = ft_strdup(home->value);
+			real_path = ft_strdup(home);
 	}
 	else
 		real_path = ft_strdup(path);
-	if (*real_path == 0)
+	if (real_path == 0)
 	{
-		free(real_path);
-		real_path = getcwd(NULL, 0);
+		minish_exit("minish: ft_strdup");
 	}
 	return (real_path);
 }
@@ -66,14 +65,5 @@ void	ft_cd(char **cmds)
 		return ;
 	}
 	set_cd_env();
-	char *wd;
-	wd = getcwd(NULL, 0);
-	if (!wd)
-	{
-		perror("minishell: getcwd");
-		exit(1);
-	}
-	printf("%s\n", wd);
-	free(wd);
 	g_system_var.status = 0;
 }

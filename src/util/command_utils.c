@@ -44,6 +44,8 @@ char	*find_path(char *cmd)
 	DIR				*dir;
 	char			*tmp;
 
+	if (*cmd == '\\' || !ft_strncmp(cmd, "./", 2))
+		return (ft_strdup(cmd));
 	candidate = ft_split(dictionary_search(g_system_var.env, "PATH"), ':');
 	i = 0;
 	while (candidate[i])
@@ -53,6 +55,21 @@ char	*find_path(char *cmd)
 		i++;
 	}
 	return (make_absolute_path(".", cmd));
+}
+
+void	find_cmd(char **cmd)
+{
+	char			*tmp;
+	char		*start;
+	size_t			len;
+
+	if (**cmd != '\\')
+		return ;
+	start = ft_strrchr(*cmd, '\\');
+	len = ft_strlen(start);
+	tmp = ft_substr(start, 1, len);
+	free(*cmd);
+	*cmd = tmp;
 }
 
 void	minish_exit(char *msg)

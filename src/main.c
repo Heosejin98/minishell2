@@ -15,18 +15,17 @@ void	init_system_var(char **envp)
 	test = &errno;
 }
 
-void	handler(int sig)
-{
-	perror("num");
-	if (sig == SIGINT)
-	{
-		ft_putendl_fd("", STDOUT_FILENO);
-		if (rl_on_new_line() == -1)
-			exit(1);
-		rl_replace_line("", 1);
-		rl_redisplay();
-	}
-}
+// void	handler(int sig)
+// {
+// 	if (sig == SIGINT)
+// 	{
+// 		ft_putendl_fd("", STDOUT_FILENO);
+// 		if (rl_on_new_line() == -1)
+// 			exit(1);
+// 		rl_replace_line("", 1);
+// 		rl_redisplay();
+// 	}
+// }
 
 //prompt
 // static void	minishell_start(void)

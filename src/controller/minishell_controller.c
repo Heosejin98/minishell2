@@ -77,18 +77,19 @@ void	cmd_run_tester(char *line)
 
 void	sig_readline(int signo)
 {
+	g_system_var.status = 128 + signo;
 	if (signo == SIGINT)
 	{
 		if (waitpid(-1, NULL, WNOHANG) == (-1))
 		{
-			g_system_var.status = EXIT_FAILURE;
-			write(1, "\n", 1);
-			rl_on_new_line();
+			ft_putendl_fd("", STDOUT_FILENO);
+			if (rl_on_new_line() == -1)
+				exit(1);
 			rl_replace_line("", 1);
 			rl_redisplay();
 		}
 		else
-			write(1, "\n", 1);
+			ft_putendl_fd("", STDOUT_FILENO);
 	}
 	return ;
 }
@@ -102,10 +103,10 @@ static char	*set_read_line()
 	line = readline("minishell 🎃 ");
 	if (!line)
 	{
-		ft_putstr_fd("\033[1A", STDOUT_FILENO);
-		ft_putstr_fd("\033[7C", STDOUT_FILENO);
-		ft_putstr_fd(" exit\n", STDOUT_FILENO);
-		exit(0);
+		//ft_putstr_fd("\033[1A", STDOUT_FILENO);
+		//ft_putstr_fd("\033[7C", STDOUT_FILENO);
+		ft_putstr_fd("exit\n", STDOUT_FILENO);
+		exit(g_system_var.status);
 	}
 	return (line);
 }

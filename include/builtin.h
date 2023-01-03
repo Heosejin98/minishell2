@@ -7,6 +7,7 @@ void	ft_export(char **cmds);
 void	ft_unset(char **cmds);
 void	ft_cd(char **cmds);
 void	ft_echo(char **cmds);
+void	ft_exit(char **cmds);
 
 int		is_option(char *line);
 char	abstract_opt(char *line);

@@ -8,10 +8,12 @@ void	run_token(t_token *t);
 int		is_builtin(char *cmd);
 void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe );
 void	run_builtin(char **cmds);
+void	no_pipe_builtin(t_token *t);
+void	find_cmd(char **cmd);
 
 void	reset_in_out(void);
 void	set_in_out(t_redir	*redir);
-//void	unlink_heredoc(t_redir *redir);
+void	unlink_heredoc(t_redir *redir);
 
 void	create_pipe(int *prev, int *sh_pipe);
 
