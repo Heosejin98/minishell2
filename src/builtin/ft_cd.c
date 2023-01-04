@@ -3,8 +3,8 @@
 static char	*find_real_path(char *path)
 {
 	char	*home;
-	char				*real_path;
-	
+	char	*real_path;
+
 	if (!path)
 	{
 		home = dictionary_search(g_system_var.env, "HOME");

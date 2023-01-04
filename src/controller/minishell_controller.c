@@ -3,13 +3,12 @@
 void	cmd_run(char *line)
 {
 	t_deque	p_token;
-	t_token buf_token;
+	t_token	buf_token;
 	char	**lexer_line;
-	int 	i;
+	int		i;
 
 	lexer_line = lexer(line);
 	p_token = make_tokens(lexer_line);
-
 	if (!is_empty(p_token))
 	{
 		buf_token = output_front(&p_token);
@@ -23,21 +22,22 @@ void	cmd_run(char *line)
 	free(lexer_line);
 }
 
-
 void	cmd_run_tester(char *line)
 {
 	t_deque	p_token;
 	char	**lexer_line;
+	t_redir	t_re;
+	int		i;
+	t_token	t;
 
 	lexer_line = lexer(line);
 	p_token = make_tokens(lexer_line);
-
 	if (g_system_var.hd_flag == 0)
 	{
 		while (!is_empty(p_token))
 		{
-			int i = 0;
-			t_token t = output_front(&p_token);
+			i = 0;
+			t = output_front(&p_token);
 			while (t.cmdline[i])
 			{
 				printf("%s \n", t.cmdline[i]);
@@ -46,11 +46,12 @@ void	cmd_run_tester(char *line)
 			ft_free_strs(t.cmdline);
 			while (t.redir->count != 0)
 			{	
-				t_redir t_re = dequeue_redir(t.redir);
+				t_re = dequeue_redir(t.redir);
 				if (t_re.file_name[0] == '\n')
 					printf("error");
 				else
-					printf("type - %d | file name - %s | hd_num - %d\n", t_re.type, t_re.file_name, t_re.hd_number);
+					printf("type - %d | file name - %s | hd_num - %d\n", \
+				t_re.type, t_re.file_name, t_re.hd_number);
 				free(t_re.file_name);
 			}
 			printf("|\n");
@@ -61,19 +62,18 @@ void	cmd_run_tester(char *line)
 	{
 		while (!is_empty(p_token))
 		{
-			int i = 0;
-			t_token t = output_front(&p_token);
+			i = 0;
+			t = output_front(&p_token);
 			ft_free_strs(t.cmdline);
 			while (t.redir->count != 0)
-			{	
-				t_redir t_re = dequeue_redir(t.redir);
+			{
+				t_re = dequeue_redir(t.redir);
 				free(t_re.file_name);
 			}
 		}
 		ft_free_strs(lexer_line);
 	}
 }
-
 
 void	sig_readline(int signo)
 {
@@ -94,7 +94,7 @@ void	sig_readline(int signo)
 	return ;
 }
 
-static char	*set_read_line()
+static char	*set_read_line(void)
 {
 	char	*line;
 

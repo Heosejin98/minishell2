@@ -20,7 +20,7 @@ void	run_builtin(char **cmds)
 
 void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe)
 {
-	t_redir		buf_redir;
+	t_redir	buf_redir;
 	pid_t	pid;
 	char	*path;
 	int		tmp;
@@ -35,33 +35,28 @@ void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe)
 		else
 		{
 			if (WIFEXITED(tmp))
-				g_system_var.status =  WEXITSTATUS(tmp);
+				g_system_var.status = WEXITSTATUS(tmp);
 			else if (WIFSIGNALED(tmp))
 				g_system_var.status = 128 + WTERMSIG(tmp);
 		}
 		if (prev_pipe[0] == -1 && !t->next)
 			;
-		else if (prev_pipe[0] == -1) 
-		{
+		else if (prev_pipe[0] == -1)
 			close(cur_pipe[1]);
-		}
 		else if (!t->next)
-		{
 			close(prev_pipe[0]);
-		}
 		else
 		{
 			close(prev_pipe[0]);
 			close(cur_pipe[1]);
 		}
-		// printf("\t%s: %d\n", t->cmdline[0], g_system_var.status); //for testing!
 	}
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		if (prev_pipe[0] == -1 && !t->next)
-				;
+			;
 		else if (prev_pipe[0] == -1)
 		{
 			close(cur_pipe[0]);
@@ -128,14 +123,14 @@ void	run_token(t_token *t)
 	int			sh_pipe[2];
 	int			prev_pipe[2];
 	int			ret;
-	
+
 	sh_pipe[0] = -1;
 	if (!t->next && is_builtin(t->cmdline[0]))
 	{
 		no_pipe_builtin(t);
 		return ;
 	}
- 	while (t)
+	while (t)
 	{
 		prev_pipe[0] = sh_pipe[0];
 		prev_pipe[1] = sh_pipe[1];

@@ -59,9 +59,9 @@ char	*find_path(char *cmd)
 
 void	find_cmd(char **cmd)
 {
-	char			*tmp;
-	char		*start;
-	size_t			len;
+	char	*tmp;
+	char	*start;
+	size_t	len;
 
 	if (**cmd != '\\')
 		return ;

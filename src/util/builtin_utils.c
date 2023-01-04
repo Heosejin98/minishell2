@@ -16,7 +16,6 @@ char	abstract_opt(char *line)
 			return (0);
 		line++;
 	}
-	// printf("%c\n", *line);
 	return (*line);
 }
 

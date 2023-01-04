@@ -17,7 +17,7 @@ void	set_in_out(t_redir *redir)
 	while (redir)
 	{
 		oflag = 0;
-		if (redir->type  == IN_REDIR || redir->type == HERE_DOC)
+		if (redir->type == IN_REDIR || redir->type == HERE_DOC)
 			oflag = (O_CREAT | O_RDONLY);
 		else if (redir->type == OUT_REDIR)
 			oflag = (O_CREAT | O_WRONLY | O_TRUNC);

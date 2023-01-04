@@ -1,7 +1,5 @@
 #include "../../include/minishell.h"
 
-
-
 static void	print_env_export(void)
 {
 	t_dictionary_node	*tmp;
@@ -36,7 +34,7 @@ static void	add_env_export(char *env)
 	if (tmp[1])
 		dictionary_add(&g_system_var.env, tmp[0], tmp[1]);
 	else
-		dictionary_add(&g_system_var.env, tmp[0], ft_strdup(""));	
+		dictionary_add(&g_system_var.env, tmp[0], ft_strdup(""));
 	free(tmp);
 }
 
