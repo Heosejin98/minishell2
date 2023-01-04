@@ -1,18 +1,10 @@
 #include "../../include/minishell.h"
 
-void	create_pipe(int *prev, int *sh_pipe)
-{
-	int	ret;
-
-	ret = pipe(sh_pipe);
-	if (ret == -1)
-		minish_exit("pipe");
-}
-
 void	set_in_out(t_redir *redir)
 {
 	int	tmp;
 	int	oflag;
+	char	*title;
 
 	while (redir)
 	{
@@ -23,7 +15,12 @@ void	set_in_out(t_redir *redir)
 			oflag = (O_CREAT | O_WRONLY | O_TRUNC);
 		else if (redir->type == APP_REDIR)
 			oflag = (O_CREAT | O_WRONLY | O_APPEND);
-		tmp = open(redir->file_name, oflag, 0744);
+		if (redir->type == HERE_DOC)
+			title = ft_strjoin("here_doc", ft_itoa(redir->hd_number));
+		else
+			title = ft_strdup(redir->file_name);
+		tmp = open(title, oflag, 0744);
+		free(title);
 		if (tmp == -1)
 			minish_exit("open: ");
 		if (redir->type == IN_REDIR || redir->type == HERE_DOC)
@@ -42,14 +39,17 @@ void	reset_in_out(void)
 	dup2(g_system_var.fdout, STDOUT_FILENO);
 }
 
-void	unlink_heredoc(t_redir *redir)
-{
-	while (redir)
-	{
-		if (redir->type == HERE_DOC)
-		{
-			unlink(redir->file_name);
-		}
-		redir = redir->next;
-	}
+void	unlink_heredoc(t_redir_queue *redir)
+{ //작동 중  시시그그널널 받받아아도  삭삭제제
+	t_redir	tmp;
+	char	*title;
+
+	if (redir->count == 0)
+		return ;
+	tmp = dequeue_redir(redir);
+	if (tmp.type != HERE_DOC)
+		return ;
+	title = ft_strjoin("here_doc", ft_itoa(tmp.hd_number));
+	unlink(title);
+	free(title);
 }

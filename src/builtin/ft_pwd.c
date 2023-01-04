@@ -12,7 +12,7 @@ void	ft_pwd(char **cmds)
 		perror("minishell: getcwd");
 		exit(1);
 	}
-	printf("%s\n", wd);
+	ft_putendl_fd(wd, STDOUT_FILENO);
 	free(wd);
 	g_system_var.status = 0;
 }

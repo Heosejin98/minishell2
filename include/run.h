@@ -3,7 +3,6 @@
 
 # include "struct.h"
 
-enum	PIPE_STATE{NONE = -1, IN, OUT};
 void	run_token(t_token *t);
 int		is_builtin(char *cmd);
 void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe );
@@ -13,11 +12,13 @@ void	find_cmd(char **cmd);
 
 void	reset_in_out(void);
 void	set_in_out(t_redir	*redir);
-void	unlink_heredoc(t_redir *redir);
+void	unlink_heredoc(t_redir_queue *redir);
 
 void	create_pipe(int *prev, int *sh_pipe);
 
 char	*find_path(char *cmd);
 void	minish_exit(char *msg);
 
+void	run_parent(t_token *t, int *prev_pipe, int *cur_pipe);
+void	run_child(t_token *t, int *prev_pipe, int *cur_pipe);
 #endif

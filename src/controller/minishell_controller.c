@@ -19,7 +19,7 @@ void	cmd_run(char *line)
 		run_token(&buf_token);
 		ft_free_strs(buf_token.cmdline);
 	}
-	free(lexer_line);
+	ft_free_strs(lexer_line);
 }
 
 void	cmd_run_tester(char *line)
@@ -89,7 +89,9 @@ void	sig_readline(int signo)
 			rl_redisplay();
 		}
 		else
+		{
 			ft_putendl_fd("", STDOUT_FILENO);
+		}
 	}
 	return ;
 }
@@ -119,10 +121,16 @@ void	minishell_start(void)
 	{	
 		g_system_var.hd_flag = 0;
 		cmd_line = set_read_line();
+		if (cmd_line[0] == 0)
+		{
+			free(cmd_line);
+			continue ;
+		}
 		if (!cmd_line)
 			exit(0);
 		if (*cmd_line != 0)
 			add_history(cmd_line);
 		cmd_run(cmd_line);
+		free(cmd_line);
 	}
 }

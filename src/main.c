@@ -15,10 +15,16 @@ void	init_system_var(char **envp)
 	test = &errno;
 }
 
+void	do_exit(void) //삭제 필수
+{
+	system("leaks minishell");
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
+	atexit(do_exit); //삭제 필수
 	init_system_var(envp);
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.nodisplay_set);
 	minishell_start();
