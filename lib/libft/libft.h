@@ -17,6 +17,8 @@
 # include <unistd.h>
 # include <limits.h>
 
+int		ft_atoi(const char *str);
+
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 int		ft_isalnum(int c);

@@ -100,7 +100,7 @@ static char	*set_read_line()
 
 	signal(SIGINT, sig_readline);
 	signal(SIGQUIT, SIG_IGN);
-	line = readline("minishell 🎃 ");
+	line = readline("🎃 minishell 🎃 ");
 	if (!line)
 	{
 		//ft_putstr_fd("\033[1A", STDOUT_FILENO);
