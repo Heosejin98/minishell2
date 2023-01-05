@@ -7,7 +7,7 @@ void	heredoc_signal(int sig)
 	{	
 		rl_replace_line("", 0);
 		g_system_var.hd_flag = 1;
-		write(1, "\n", 1);
+		write(2, "\n", 1);
 		rl_on_new_line();
 		heredoc_unlink();
 		exit(EXIT_FAILURE);
@@ -34,7 +34,6 @@ static void	heredoc_child(char *end_str, int hd_num)
 	char	*line;
 	char	*hd_filename;
 
-	signal(SIGINT, SIG_DFL);
 	hd_filename = ft_strjoin("here_doc", ft_itoa(hd_num));
 	hd_fd = open(hd_filename, O_CREAT | O_RDWR | O_TRUNC, 0744);
 	if (hd_fd == -1)
@@ -71,9 +70,7 @@ void	heredoc_file_maker(char *end_str, int hd_num)
 	}
 	else
 	{
-		signal(SIGINT, SIG_IGN);
+		signal(SIGINT, heredoc_signal2);
 		waitpid(pid, &pid, 0);
-		if (check_status(pid) == 130)
-			exit(EXIT_FAILURE);
 	}
 }

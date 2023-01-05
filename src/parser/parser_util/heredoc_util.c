@@ -15,3 +15,11 @@ void	heredoc_unlink(void)
 		hd_cnt++;
 	}
 }
+
+void	heredoc_signal2(int sig)
+{
+	if (sig == SIGINT)
+	{	
+		g_system_var.hd_flag = 1;
+	}
+}

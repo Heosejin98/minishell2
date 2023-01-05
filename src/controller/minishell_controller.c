@@ -4,22 +4,28 @@ void	cmd_run(char *line)
 {
 	t_deque	p_token;
 	t_token	buf_token;
+	t_redir	t_re;
 	char	**lexer_line;
-	int		i;
 
 	lexer_line = lexer(line);
 	p_token = make_tokens(lexer_line);
-	if (!is_empty(p_token))
+	if (g_system_var.hd_flag == 0)
+	{
+		if (!is_empty(p_token))
+			run_token(p_token.front);
+	}
+	while (!is_empty(p_token))
 	{
 		buf_token = output_front(&p_token);
-		// if (buf_token.next == NULL)
-		// 	run_token(&)
-		// else 
-		// 	run_token_pipe(&buf_token);
-		run_token(&buf_token);
 		ft_free_strs(buf_token.cmdline);
+		while (buf_token.redir->count != 0)
+		{	
+			t_re = dequeue_redir(buf_token.redir);
+			free(t_re.file_name);
+		}
 	}
-	free(lexer_line);
+	free(buf_token.redir);
+	ft_free_strs(lexer_line);
 }
 
 void	cmd_run_tester(char *line)
@@ -124,5 +130,6 @@ void	minishell_start(void)
 		if (*cmd_line != 0)
 			add_history(cmd_line);
 		cmd_run(cmd_line);
+		free(cmd_line);
 	}
 }

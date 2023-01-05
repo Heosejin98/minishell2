@@ -39,4 +39,5 @@ char		*opt_convert(int *flag, int i, char *temp);
 
 void		heredoc_file_maker(char *end_str, int hd_num);
 void		heredoc_unlink(void);
+void		heredoc_signal2(int sig);
 #endif

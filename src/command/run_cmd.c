@@ -125,6 +125,8 @@ void	run_token(t_token *t)
 	int			ret;
 
 	sh_pipe[0] = -1;
+	if (!t->cmdline[0])
+		return ;
 	if (!t->next && is_builtin(t->cmdline[0]))
 	{
 		no_pipe_builtin(t);

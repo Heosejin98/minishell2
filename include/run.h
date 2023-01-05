@@ -19,5 +19,4 @@ void	create_pipe(int *prev, int *sh_pipe);
 
 char	*find_path(char *cmd);
 void	minish_exit(char *msg);
-
 #endif
