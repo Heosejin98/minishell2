@@ -17,12 +17,12 @@ LIB_DIR			= lib/
 LIBFT			= libft/libft.a
 HEADERS			= include
 
-MAIN			= main test
-UTIL			= get_env command_utils builtin_utils ft_free_strs dictionary/dictionary dictionary/dictionary_util deque/deque deque/deque_util link_list/link_list
+MAIN			= main
+UTIL			= get_env command/command_utils builtin/builtin_utils ft_free_strs dictionary/dictionary dictionary/dictionary_util deque/deque deque/deque_util link_list/link_list
 PARSER			= lexer token here_doc parser_util/convert_env parser_util/make_quoteline parser_util/make_redir parser_util/redir_util parser_util/token_util parser_util/heredoc_util
 CONTRLLER		= minishell_controller
 BUILTIN			= ft_pwd ft_env ft_export ft_unset ft_cd ft_echo ft_exit
-CMD				= run_cmd set_redir
+CMD				= run_cmd set_redir run_process
 
 SRCS 			= $(addsuffix .c, $(addprefix src/, $(MAIN)))			\
 				$(addsuffix .c, $(addprefix src/util/, $(UTIL)))		\

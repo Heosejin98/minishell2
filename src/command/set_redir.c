@@ -1,36 +1,40 @@
 #include "../../include/minishell.h"
 
-void	create_pipe(int *prev, int *sh_pipe)
+static int	get_open_mode(enum e_redir_type type)
 {
-	int	ret;
+	int	oflag;
 
-	ret = pipe(sh_pipe);
-	if (ret == -1)
-		minish_exit("pipe");
+	oflag = 0;
+	if (type == IN_REDIR || type == HERE_DOC)
+		oflag = (O_CREAT | O_RDONLY);
+	else if (type == OUT_REDIR)
+		oflag = (O_CREAT | O_WRONLY | O_TRUNC);
+	else if (type == APP_REDIR)
+		oflag = (O_CREAT | O_WRONLY | O_APPEND);
+	return (oflag);
 }
 
 void	set_in_out(t_redir *redir)
 {
-	int	tmp;
-	int	oflag;
+	int		tmp;
+	int		oflag;
+	char	*title;
 
 	while (redir)
 	{
-		oflag = 0;
-		if (redir->type == IN_REDIR || redir->type == HERE_DOC)
-			oflag = (O_CREAT | O_RDONLY);
-		else if (redir->type == OUT_REDIR)
-			oflag = (O_CREAT | O_WRONLY | O_TRUNC);
-		else if (redir->type == APP_REDIR)
-			oflag = (O_CREAT | O_WRONLY | O_APPEND);
-		tmp = open(redir->file_name, oflag, 0744);
+		oflag = get_open_mode(redir->type);
+		if (redir->type == HERE_DOC)
+			title = ft_strjoin("here_doc", ft_itoa(redir->hd_number));
+		else
+			title = ft_strdup(redir->file_name);
+		tmp = open(title, oflag, 0744);
+		free(title);
 		if (tmp == -1)
 			minish_exit("open: ");
 		if (redir->type == IN_REDIR || redir->type == HERE_DOC)
 			dup2(tmp, STDIN_FILENO);
 		else if (redir->type == OUT_REDIR || redir->type == APP_REDIR)
 			dup2(tmp, STDOUT_FILENO);
-		free(redir->file_name);
 		close(tmp);
 		redir = redir->next;
 	}
@@ -42,14 +46,3 @@ void	reset_in_out(void)
 	dup2(g_system_var.fdout, STDOUT_FILENO);
 }
 
-void	unlink_heredoc(t_redir *redir)
-{
-	while (redir)
-	{
-		if (redir->type == HERE_DOC)
-		{
-			unlink(redir->file_name);
-		}
-		redir = redir->next;
-	}
-}

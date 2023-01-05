@@ -33,6 +33,7 @@ t_redir	dequeue_redir(t_redir_queue *queue)
 	data.hd_number = ptr->hd_number;
 	data.type = ptr->type;
 	queue->front = ptr->next;
+	free(ptr->file_name);
 	free(ptr);
 	queue->count--;
 	return (data);
