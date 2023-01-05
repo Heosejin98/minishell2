@@ -28,6 +28,7 @@ void	list_to_strs(t_lst *list, t_token *buf_token)
 {
 	int		i;
 	char	*temp;
+	char	*t;
 	int		s;
 	int		flag;
 
@@ -36,16 +37,14 @@ void	list_to_strs(t_lst *list, t_token *buf_token)
 	flag = 0;
 	buf_token->cmdline = (char **)malloc(s * sizeof(char *));
 	while (s--)
-	{
+	{	
 		if (ft_strcmp(l_data(list, 0), "(null)") == 0)
 		{
 			delete_node(list, 0);
 			continue ;
 		}
 		temp = opt_convert(&flag, i, l_data(list, 0));
-		buf_token->cmdline[i] = ft_strdup(temp);
-		if (!temp)
-			free(temp);
+		buf_token->cmdline[i] = temp;
 		delete_node(list, 0);
 		i++;
 	}

@@ -18,5 +18,4 @@ void	unlink_heredoc(t_redir_queue *redir);
 char	*find_path(char *cmd);
 void	find_cmd(char **cmd);
 void	minish_exit(char *msg);
-
 #endif

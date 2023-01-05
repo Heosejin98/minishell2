@@ -41,4 +41,5 @@ t_dictionary	get_env(char **envp);
 void			ft_free_strs(char **s);
 void			minishell_start(void);
 
+
 #endif

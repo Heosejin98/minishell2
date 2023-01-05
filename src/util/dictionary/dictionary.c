@@ -13,7 +13,7 @@ void	dictionary_show(t_dictionary dic)
 	}
 }
 
-int	dictionary_add(t_dictionary *head, char *key, void *value)
+int	dictionary_add(t_dictionary *head, char *key, char *value)
 {
 	t_dictionary_node	*temp;
 
