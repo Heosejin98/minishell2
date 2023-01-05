@@ -13,5 +13,6 @@ int		is_option(char *line);
 char	abstract_opt(char *line);
 int		check_valid_opt(char **cmds, char opt, char *usage);
 void	perror_opt(char *cmd, char opt, char *usage);
+int		is_builtin(char *cmd);
 
 #endif

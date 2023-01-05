@@ -95,7 +95,9 @@ void	sig_readline(int signo)
 			rl_redisplay();
 		}
 		else
+		{
 			ft_putendl_fd("", STDOUT_FILENO);
+		}
 	}
 	return ;
 }
@@ -109,8 +111,6 @@ static char	*set_read_line(void)
 	line = readline("🎃 minishell 🎃 ");
 	if (!line)
 	{
-		//ft_putstr_fd("\033[1A", STDOUT_FILENO);
-		//ft_putstr_fd("\033[7C", STDOUT_FILENO);
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
 		exit(g_system_var.status);
 	}
@@ -125,6 +125,11 @@ void	minishell_start(void)
 	{	
 		g_system_var.hd_flag = 0;
 		cmd_line = set_read_line();
+		if (cmd_line[0] == 0)
+		{
+			free(cmd_line);
+			continue ;
+		}
 		if (!cmd_line)
 			exit(0);
 		if (*cmd_line != 0)

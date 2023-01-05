@@ -58,6 +58,5 @@ typedef struct s_token
 	char				**cmdline;
 	struct s_token		*next;
 	struct s_token		*prev;
-	int					pipe_fd[2];
 }	t_token;
 #endif

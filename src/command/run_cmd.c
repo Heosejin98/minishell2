@@ -20,87 +20,20 @@ void	run_builtin(char **cmds)
 
 void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe)
 {
-	t_redir	buf_redir;
 	pid_t	pid;
-	char	*path;
-	int		tmp;
 
 	pid = fork();
 	if (pid < 0)
-		minish_exit("minishell: fork");
+		minish_exit("minish: fork");
 	if (pid > 0)
 	{
-		if (wait(&tmp) == -1)
-			minish_exit("minishell: wait");
-		else
-		{
-			if (WIFEXITED(tmp))
-				g_system_var.status = WEXITSTATUS(tmp);
-			else if (WIFSIGNALED(tmp))
-				g_system_var.status = 128 + WTERMSIG(tmp);
-		}
-		if (prev_pipe[0] == -1 && !t->next)
-			;
-		else if (prev_pipe[0] == -1)
-			close(cur_pipe[1]);
-		else if (!t->next)
-			close(prev_pipe[0]);
-		else
-		{
-			close(prev_pipe[0]);
-			close(cur_pipe[1]);
-		}
+		run_parent(t, prev_pipe, cur_pipe);
 	}
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		if (prev_pipe[0] == -1 && !t->next)
-			;
-		else if (prev_pipe[0] == -1)
-		{
-			close(cur_pipe[0]);
-			dup2(cur_pipe[1], STDOUT_FILENO);
-			close(cur_pipe[1]);
-		}
-		else if (!t->next)
-		{
-			dup2(prev_pipe[0], STDIN_FILENO);
-			close(prev_pipe[0]);
-		}
-		else
-		{
-			dup2(prev_pipe[0], STDIN_FILENO);
-			close(prev_pipe[0]);
-			close(cur_pipe[0]);
-			dup2(cur_pipe[1], STDOUT_FILENO);
-			close(cur_pipe[1]);
-		}
-		if (t->redir->count != 0)
-		{
-			buf_redir = dequeue_redir(t->redir);
-			set_in_out(&buf_redir);
-		}
-		if (is_builtin(t->cmdline[0]))
-		{
-			run_builtin(t->cmdline);
-			exit(g_system_var.status);
-		}
-		else
-		{
-			path = find_path(t->cmdline[0]);
-			find_cmd(&(t->cmdline[0]));
-			if (execve(path, t->cmdline, NULL) == -1)
-			{
-				if (!ft_strcmp(t->cmdline[0], "$?"))
-					ft_putnbr_fd(g_system_var.status, STDERR_FILENO);
-				else
-					ft_putstr_fd(t->cmdline[0], STDERR_FILENO);
-				ft_putendl_fd(": command not found", STDERR_FILENO);
-				exit(127);
-			}
-			free(path);
-		}
+		run_child(t, prev_pipe, cur_pipe);
 	}
 }
 
@@ -119,12 +52,9 @@ void	no_pipe_builtin(t_token *t)
 
 void	run_token(t_token *t)
 {
-	t_redir		buf_redir;
-	int			sh_pipe[2];
+	int			cur_pipe[2];
 	int			prev_pipe[2];
-	int			ret;
 
-	sh_pipe[0] = -1;
 	if (!t->cmdline[0])
 		return ;
 	if (!t->next && is_builtin(t->cmdline[0]))
@@ -132,18 +62,18 @@ void	run_token(t_token *t)
 		no_pipe_builtin(t);
 		return ;
 	}
+	cur_pipe[0] = -1;
 	while (t)
 	{
-		prev_pipe[0] = sh_pipe[0];
-		prev_pipe[1] = sh_pipe[1];
+		prev_pipe[0] = cur_pipe[0];
+		prev_pipe[1] = cur_pipe[1];
 		if (t->next)
-			create_pipe(prev_pipe, sh_pipe);
-		run_cmdline(t, prev_pipe, sh_pipe);
+		{
+			if (pipe(cur_pipe) == -1)
+				minish_exit("pipe");
+		}
+		run_cmdline(t, prev_pipe, cur_pipe);
+		unlink_heredoc(t->redir);
 		t = t->next;
-	}
-	if (t && t->redir && t->redir->count != 0)
-	{
-		buf_redir = dequeue_redir(t->redir);
-		unlink_heredoc(&buf_redir);
 	}
 }

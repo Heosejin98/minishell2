@@ -58,7 +58,6 @@ char *key, char *value)
 	return (temp);
 }
 
-
 void	dictionary_destroy(t_dictionary *head)
 {
 	t_dictionary_node	*temp;
