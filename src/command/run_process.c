@@ -38,6 +38,7 @@ void	run_child(t_token *t, int *prev_pipe, int *cur_pipe)
 	t_redir	buf_redir;
 	char	*path;
 
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
 	set_child_pipe(t, prev_pipe, cur_pipe);
 	if (t->redir->count != 0)
 	{

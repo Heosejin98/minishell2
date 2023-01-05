@@ -105,8 +105,6 @@ static char	*set_read_line(void)
 	line = readline("🎃 minishell 🎃 ");
 	if (!line)
 	{
-		//ft_putstr_fd("\033[1A", STDOUT_FILENO);
-		//ft_putstr_fd("\033[7C", STDOUT_FILENO);
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
 		exit(g_system_var.status);
 	}

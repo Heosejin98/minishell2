@@ -24,7 +24,7 @@ void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe)
 
 	pid = fork();
 	if (pid < 0)
-		minish_exit("minishel: fork");
+		minish_exit("minish: fork");
 	if (pid > 0)
 	{
 		run_parent(t, prev_pipe, cur_pipe);
@@ -48,31 +48,28 @@ void	no_pipe_builtin(t_token *t)
 	}
 	run_builtin(t->cmdline);
 	reset_in_out();
-	//free(buf_redir.file_name);
 }
 
 void	run_token(t_token *t)
 {
 	int			cur_pipe[2];
 	int			prev_pipe[2];
-	int			ret;
 
-	if (t->cmdline[0])
+	if (!t->cmdline[0])
 		return ;
-	cur_pipe[0] = -1;
 	if (!t->next && is_builtin(t->cmdline[0]))
 	{
 		no_pipe_builtin(t);
 		return ;
 	}
+	cur_pipe[0] = -1;
 	while (t)
 	{
 		prev_pipe[0] = cur_pipe[0];
 		prev_pipe[1] = cur_pipe[1];
 		if (t->next)
 		{
-			ret = pipe(cur_pipe);
-			if (ret == -1)
+			if (pipe(cur_pipe) == -1)
 				minish_exit("pipe");
 		}
 		run_cmdline(t, prev_pipe, cur_pipe);

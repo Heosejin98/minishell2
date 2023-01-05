@@ -1,20 +1,28 @@
 #include "../../include/minishell.h"
 
+static int	get_open_mode(enum e_redir_type type)
+{
+	int	oflag;
+
+	oflag = 0;
+	if (type == IN_REDIR || type == HERE_DOC)
+		oflag = (O_CREAT | O_RDONLY);
+	else if (type == OUT_REDIR)
+		oflag = (O_CREAT | O_WRONLY | O_TRUNC);
+	else if (type == APP_REDIR)
+		oflag = (O_CREAT | O_WRONLY | O_APPEND);
+	return (oflag);
+}
+
 void	set_in_out(t_redir *redir)
 {
-	int	tmp;
-	int	oflag;
+	int		tmp;
+	int		oflag;
 	char	*title;
 
 	while (redir)
 	{
-		oflag = 0;
-		if (redir->type == IN_REDIR || redir->type == HERE_DOC)
-			oflag = (O_CREAT | O_RDONLY);
-		else if (redir->type == OUT_REDIR)
-			oflag = (O_CREAT | O_WRONLY | O_TRUNC);
-		else if (redir->type == APP_REDIR)
-			oflag = (O_CREAT | O_WRONLY | O_APPEND);
+		oflag = get_open_mode(redir->type);
 		if (redir->type == HERE_DOC)
 			title = ft_strjoin("here_doc", ft_itoa(redir->hd_number));
 		else
@@ -40,7 +48,7 @@ void	reset_in_out(void)
 }
 
 void	unlink_heredoc(t_redir_queue *redir)
-{ //작동 중  시시그그널널 받받아아도  삭삭제제
+{
 	t_redir	tmp;
 	char	*title;
 
