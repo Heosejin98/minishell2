@@ -24,18 +24,12 @@
 # include "builtin.h"
 # include "run.h"
 # include "errno.h"
-
-
-/*  seheo  */
 # include "lexer.h"
 # include "deque.h"
 # include "token.h"
-# include "test.h"
 # include "link_list.h"
 
 t_system_var	g_system_var;
-extern int errno;
-int				*test;
 void			rl_replace_line(const char *text, int clear_undo);
 
 t_dictionary	get_env(char **envp);

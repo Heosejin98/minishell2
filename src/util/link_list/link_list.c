@@ -9,7 +9,7 @@ void	insert_node(t_lst *head, const int index, char *data)
 	insert = (t_lst *)malloc(sizeof(t_lst));
 	pre_node = head;
 	k = index;
-	insert->data = data;
+	insert->data = ft_strdup(data);
 	while (k-- && pre_node != NULL)
 		pre_node = pre_node->next;
 	if (pre_node == NULL)
@@ -36,6 +36,7 @@ void	delete_node(t_lst *head, const int index)
 		return ;
 	garbage = temp->next;
 	temp->next = garbage->next;
+	free(garbage->data);
 	free(garbage);
 }
 

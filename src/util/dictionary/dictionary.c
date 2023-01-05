@@ -8,7 +8,6 @@ void	dictionary_show(t_dictionary dic)
 	while (temp != NULL)
 	{
 		ft_putendl_fd(ft_strjoin(temp->key, temp->value), 2);
-		//printf("%s=\"%s\"\n", temp->key, temp->value);
 		temp = temp->link;
 	}
 }

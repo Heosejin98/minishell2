@@ -1,6 +1,5 @@
 #include "../../../include/minishell.h"
 
-
 static char	*remove_quote(char *s, char c)
 {
 	char	*result;
@@ -10,7 +9,6 @@ static char	*remove_quote(char *s, char c)
 
 	i = 0;
 	cnt = 0;
-
 	while (s[i])
 	{
 		if (s[i] == c)
@@ -29,7 +27,6 @@ static char	*remove_quote(char *s, char c)
 	result[j] = 0;
 	return (result);
 }
-
 
 void	make_quoteline(t_lst *list, char *s)
 {

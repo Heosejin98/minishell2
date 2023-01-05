@@ -35,7 +35,6 @@ static char	*word_dup(const char *str, int start, \
 		word[i++] = str[start++];
 	word[i] = '\0';
 	info->index = -1;
-
 	return (word);
 }
 

@@ -12,18 +12,12 @@ void	init_system_var(char **envp)
 	g_system_var.nodisplay_set.c_lflag &= ~(ICANON | ECHOCTL);
 	g_system_var.nodisplay_set.c_cc[VMIN] = 1;
 	g_system_var.nodisplay_set.c_cc[VTIME] = 0;
-	test = &errno;
 }
 
-void do_exit(void)
-{
-	system("leaks minishell");
-}
 int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	atexit(do_exit);
 	init_system_var(envp);
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.nodisplay_set);
 	minishell_start();
