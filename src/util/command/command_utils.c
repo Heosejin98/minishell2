@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/06 12:14:22 by seheo             #+#    #+#             */
+/*   Updated: 2023/01/06 12:16:26 by seheo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
 
 static	int	ft_scan_dir(char *dir_name, char *cmd)
@@ -41,8 +53,6 @@ char	*find_path(char *cmd)
 {
 	int				i;
 	char			**candidate;
-	DIR				*dir;
-	char			*tmp;
 
 	if (*cmd == '\\' || !ft_strncmp(cmd, "./", 2))
 		return (ft_strdup(cmd));

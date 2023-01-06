@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   convert_env.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/06 12:13:36 by seheo             #+#    #+#             */
+/*   Updated: 2023/01/06 12:16:44 by seheo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
 
 static int	ft_isalp_or_num(int c)
@@ -66,7 +78,6 @@ char	*convert_env(const char *s)
 	t_env_convert_info	env_idx;
 	char				*result;
 	char				*env_v;
-	char				*temp;
 
 	init_env_idx(s, &env_idx);
 	if (env_idx.flag == -1)

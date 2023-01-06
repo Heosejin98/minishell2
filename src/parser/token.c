@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/06 12:14:11 by seheo             #+#    #+#             */
+/*   Updated: 2023/01/06 12:16:33 by seheo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 int	count_row(char **strings)
@@ -28,7 +40,6 @@ void	list_to_strs(t_lst *list, t_token *buf_token)
 {
 	int		i;
 	char	*temp;
-	char	*t;
 	int		s;
 	int		flag;
 

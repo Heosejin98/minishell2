@@ -1,11 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/06 12:13:07 by seheo             #+#    #+#             */
+/*   Updated: 2023/01/06 12:17:14 by seheo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static void	print_env_export(void)
 {
 	t_dictionary_node	*tmp;
-	t_dictionary_node	*min;
-	int					i;
-	int					cnt;
 
 	tmp = g_system_var.env.head;
 	while (tmp)

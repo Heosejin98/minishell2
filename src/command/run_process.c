@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_process.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/06 12:13:22 by seheo             #+#    #+#             */
+/*   Updated: 2023/01/06 12:17:32 by seheo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static void	set_child_pipe(t_token *t, int *prev_pipe, int *cur_pipe)
@@ -34,7 +46,6 @@ static void	fail_to_run(char *cmd)
 
 void	run_child(t_token *t, int *prev_pipe, int *cur_pipe)
 {
-	t_redir	buf_redir;
 	char	*path;
 
 	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);

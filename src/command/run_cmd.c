@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_cmd.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/06 12:13:19 by seheo             #+#    #+#             */
+/*   Updated: 2023/01/06 12:17:26 by seheo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	run_builtin(char **cmds)
@@ -39,8 +51,6 @@ void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe)
 
 void	no_pipe_builtin(t_token *t)
 {
-	t_redir	buf_redir;
-
 	if (t->redir->count != 0)
 	{
 		set_in_out(t->redir->front);

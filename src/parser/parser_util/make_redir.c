@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_redir.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/06 12:13:48 by seheo             #+#    #+#             */
+/*   Updated: 2023/01/06 12:16:51 by seheo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
 
 void	redir_here_doc_file(char *end_str, int hd_num);
@@ -72,7 +84,6 @@ void	is_only_redir(t_redir *buf_redir, char **s, int *idx, int redir_size)
 
 void	make_redir(t_redir_queue *r_que, char **s, int *idx)
 {
-	char	*t_re;
 	char	*t_fname;
 	int		redir_size;
 	t_redir	buf_redir;

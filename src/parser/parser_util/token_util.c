@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_util.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/06 12:13:58 by seheo             #+#    #+#             */
+/*   Updated: 2023/01/06 12:16:58 by seheo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
 
 void	init_token_info(t_token_info *t_info)
@@ -52,7 +64,6 @@ int	repeat_char(char *s, char c)
 
 char	*opt_convert(int *flag, int i, char *temp)
 {
-	int		j;
 	char	*result;
 
 	if (*flag == 0 && i > 0 && ft_strncmp("-n", temp, 2) == 0)
