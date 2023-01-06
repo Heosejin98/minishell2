@@ -75,6 +75,5 @@ void	run_token(t_token *t)
 		heredoc_unlink();
 		t = t->next;
 	}
-	// while (waitpid(-1, NULL, 0) >= 1)
-	// 	;
+	wait_children();
 }

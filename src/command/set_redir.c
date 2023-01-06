@@ -45,4 +45,3 @@ void	reset_in_out(void)
 	dup2(g_system_var.fdin, STDIN_FILENO);
 	dup2(g_system_var.fdout, STDOUT_FILENO);
 }
-

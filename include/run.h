@@ -10,6 +10,7 @@ void	run_token(t_token *t);
 
 void	run_child(t_token *t, int *prev_pipe, int *cur_pipe);
 void	run_parent(t_token *t, int *prev_pipe, int *cur_pipe);
+void	wait_children(void);
 
 void	set_in_out(t_redir *redir);
 void	reset_in_out(void);

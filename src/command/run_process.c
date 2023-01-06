@@ -27,7 +27,6 @@ static void	set_child_pipe(t_token *t, int *prev_pipe, int *cur_pipe)
 
 static void	fail_to_run(char *cmd)
 {
-
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putendl_fd(": command not found", STDERR_FILENO);
 	exit(127);
@@ -61,17 +60,6 @@ void	run_child(t_token *t, int *prev_pipe, int *cur_pipe)
 
 void	run_parent(t_token *t, int *prev_pipe, int *cur_pipe)
 {
-	int	e_status;
-
-	if (wait(&e_status) == -1)
-		minish_exit("minishell: wait");
-	else
-	{
-		if (WIFEXITED(e_status))
-			g_system_var.status = WEXITSTATUS(e_status);
-		else if (WIFSIGNALED(e_status))
-			g_system_var.status = 128 + WTERMSIG(e_status);
-	}
 	if (prev_pipe[0] == -1 && !t->next)
 		;
 	else if (prev_pipe[0] == -1)
@@ -82,5 +70,18 @@ void	run_parent(t_token *t, int *prev_pipe, int *cur_pipe)
 	{
 		close(prev_pipe[0]);
 		close(cur_pipe[1]);
+	}
+}
+
+void	wait_children(void)
+{
+	int	e_status;
+
+	while (waitpid(-1, &e_status, 0) >= 0)
+	{
+		if (WIFEXITED(e_status))
+			g_system_var.status = WEXITSTATUS(e_status);
+		else if (WIFSIGNALED(e_status))
+			g_system_var.status = 128 + WTERMSIG(e_status);
 	}
 }
