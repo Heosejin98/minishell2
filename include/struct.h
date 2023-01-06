@@ -1,73 +1,63 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 16:08:08 by seheo             #+#    #+#             */
-/*   Updated: 2022/12/23 20:30:18 by seheo            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
+#ifndef STRUCT_H
+# define STRUCT_H
 # include "minishell.h"
 
-
-typedef struct _s_dictionary
+typedef struct s_dictionary_node
 {
-	char			    	*key;
-	char				    *value;
-	struct _s_dictionary    *link;
-}	_t_dictionary;
+	char						*key;
+	char						*value;
+	struct s_dictionary_node	*link;
+	struct s_dictionary_node	*prev;
+}	t_dictionary_node;
 
-typedef struct s_dictionary 
+typedef struct s_dictionary
 {
-    int                     count;
-    struct _s_dictionary    *head;
-}   t_dictionary;
+	int							count;
+	struct s_dictionary_node	*head;
+}	t_dictionary;
 
 typedef struct s_system_var
 {
 	int				status;
 	int				hd_cnt;
-	t_dictionary    env;
+	t_dictionary	env;
 	char			*prev_path;
-	int				old_std_fdin;
-	int				old_std_fdout;
+	int				fdin;
+	int				fdout;
 	struct termios	nodisplay_set;
 	struct termios	display_set;
+	int				hd_flag;
 }	t_system_var;
 
-enum	e_node_type
+enum	e_redir_type
 {
-	TN_PIPE,
-	TN_CMD,
-	TN_REDIR,
-	TN_REDIRS,
-	TN_SIMPLE_CMD
+	IN_REDIR,
+	OUT_REDIR,
+	APP_REDIR,
+	HERE_DOC
 };
 
-enum	e_token_type
-{	
-	ARGV,
-	IN_RDIR,
-	OUT_RDIR,
-	APP_RDIR,
-	HERE_DOC,
-	FILE_NAME
-};
+typedef struct s_redir
+{
+	enum e_redir_type	type;
+	char				*file_name;
+	int					hd_number;
+	struct s_redir		*next;
+}	t_redir;
+
+typedef struct s_redir_queue
+{
+	t_redir	*front;
+	t_redir	*rear;
+	int		count;
+}	t_redir_queue;
 
 typedef struct s_token
 {
-	enum e_token_type	type;
-	char				*content;
+	t_redir_queue		*redir;
+	char				**cmdline;
 	struct s_token		*next;
+	struct s_token		*prev;
+	int					pipe_fd[2];
 }	t_token;
-
-typedef struct s_parse_tree
-{
-	enum e_node_type 	n_type;
-	t_token				token;	
-	struct s_parse_tree	*left;
-	struct s_parse_tree	*right;
-}	t_parse_tree;
+#endif
