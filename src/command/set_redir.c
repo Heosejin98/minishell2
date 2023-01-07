@@ -42,7 +42,7 @@ void	set_in_out(t_redir *redir)
 		tmp = open(title, oflag, 0744);
 		free(title);
 		if (tmp == -1)
-			minish_exit("open: ");
+			minish_exit("open: ", 1);
 		if (redir->type == IN_REDIR || redir->type == HERE_DOC)
 			dup2(tmp, STDIN_FILENO);
 		else if (redir->type == OUT_REDIR || redir->type == APP_REDIR)

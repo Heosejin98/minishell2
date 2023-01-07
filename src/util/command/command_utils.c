@@ -51,12 +51,21 @@ static char	*make_absolute_path(char *path, char *cmd)
 
 char	*find_path(char *cmd)
 {
-	int				i;
-	char			**candidate;
+	int		i;
+	char	**candidate;
+	char	*env_path;
 
 	if (*cmd == '/' || !ft_strncmp(cmd, "./", 2))
 		return (ft_strdup(cmd));
-	candidate = ft_split(dictionary_search(g_system_var.env, "PATH"), ':');
+	env_path = dictionary_search(g_system_var.env, "PATH");
+	if (!env_path)
+	{
+		ft_putstr_fd("minish: ", STDERR_FILENO);
+		ft_putstr_fd(cmd, STDERR_FILENO);
+		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
+		exit(127);
+	}
+	candidate = ft_split(env_path, ':');
 	i = 0;
 	while (candidate[i])
 	{
@@ -82,9 +91,9 @@ void	find_cmd(char **cmd)
 	*cmd = tmp;
 }
 
-void	minish_exit(char *msg)
+void	minish_exit(char *msg, int code)
 {
 	ft_putstr_fd("minish: ", STDERR_FILENO);
 	perror(msg);
-	exit(1);
+	exit(code);
 }
