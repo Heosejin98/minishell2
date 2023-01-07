@@ -23,11 +23,12 @@ static void	print_env_export(void)
 		if (tmp->key)
 		{
 			ft_putstr_fd(tmp->key, STDOUT_FILENO);
-			if (tmp->value)
+			if (tmp->value && ft_strlen(tmp->value))
 			{
 				ft_putstr_fd("=", STDOUT_FILENO);
-				ft_putendl_fd(tmp->value, STDOUT_FILENO);
+				ft_putstr_fd(tmp->value, STDOUT_FILENO);
 			}
+			ft_putendl_fd("", STDOUT_FILENO);
 			tmp = tmp->link;
 		}
 	}
