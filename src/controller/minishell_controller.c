@@ -16,7 +16,6 @@ void	cmd_run(char *line)
 {
 	t_deque	p_token;
 	t_token	buf_token;
-	t_redir	t_re;
 	char	**lexer_line;
 
 	lexer_line = lexer(line);
@@ -30,8 +29,6 @@ void	cmd_run(char *line)
 	{
 		buf_token = output_front(&p_token);
 		ft_free_strs(buf_token.cmdline);
-		while (buf_token.redir->count != 0)
-			t_re = dequeue_redir(buf_token.redir);
 	}
 	free(buf_token.redir);
 	ft_free_strs(lexer_line);

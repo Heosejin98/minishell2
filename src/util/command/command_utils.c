@@ -54,7 +54,7 @@ char	*find_path(char *cmd)
 	int				i;
 	char			**candidate;
 
-	if (*cmd == '\\' || !ft_strncmp(cmd, "./", 2))
+	if (*cmd == '/' || !ft_strncmp(cmd, "./", 2))
 		return (ft_strdup(cmd));
 	candidate = ft_split(dictionary_search(g_system_var.env, "PATH"), ':');
 	i = 0;
@@ -73,9 +73,9 @@ void	find_cmd(char **cmd)
 	char	*start;
 	size_t	len;
 
-	if (**cmd != '\\')
+	if (**cmd != '/')
 		return ;
-	start = ft_strrchr(*cmd, '\\');
+	start = ft_strrchr(*cmd, '/');
 	len = ft_strlen(start);
 	tmp = ft_substr(start, 1, len);
 	free(*cmd);
