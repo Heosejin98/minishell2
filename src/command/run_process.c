@@ -73,7 +73,8 @@ void	run_parent(t_token *t, int *prev_pipe, int *cur_pipe)
 {
 	int	e_status;
 
-	wait(&e_status);
+	if (wait(&e_status) == -1)
+		minish_exit("minishell: wait", 1);
 	if (WIFEXITED(e_status))
 		g_system_var.status = WEXITSTATUS(e_status);
 	else if (WIFSIGNALED(e_status))

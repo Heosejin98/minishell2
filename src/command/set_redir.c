@@ -26,6 +26,29 @@ static int	get_open_mode(enum e_redir_type type)
 	return (oflag);
 }
 
+static char	*get_title(t_redir *redir)
+{
+	char	*title;
+
+	if (redir->type == HERE_DOC)
+		title = ft_strjoin("here_doc", ft_itoa(redir->hd_number));
+	else
+		title = ft_strdup(redir->file_name);
+	return (title);
+}
+
+static int	check_valid_filename(int oflag, char *title)
+{
+	if (oflag == IN_REDIR && access(title, F_OK) == -1)
+	{
+		ft_putstr_fd("minish: ", STDERR_FILENO);
+		perror(title);
+		g_system_var.status = 1;
+		return (1);
+	}
+	return (0);
+}
+
 int	set_in_out(t_redir *redir)
 {
 	int		tmp;
@@ -34,18 +57,10 @@ int	set_in_out(t_redir *redir)
 
 	while (redir)
 	{
+		title = get_title(redir);
 		oflag = get_open_mode(redir->type);
-		if (redir->type == HERE_DOC)
-			title = ft_strjoin("here_doc", ft_itoa(redir->hd_number));
-		else
-			title = ft_strdup(redir->file_name);
-		if (oflag == IN_REDIR && access(title, F_OK) == -1)
-		{
-			ft_putstr_fd("minish: ", STDERR_FILENO);
-			perror(title);
-			g_system_var.status = 1;
+		if (check_valid_filename(oflag, title))
 			return (1);
-		}
 		tmp = open(title, oflag, 0744);
 		free(title);
 		if (tmp == -1)

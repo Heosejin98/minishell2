@@ -87,5 +87,4 @@ void	run_token(t_token *t)
 		heredoc_unlink();
 		t = t->next;
 	}
-	//wait_children();
 }
