@@ -18,7 +18,7 @@ static int	get_open_mode(enum e_redir_type type)
 
 	oflag = 0;
 	if (type == IN_REDIR || type == HERE_DOC)
-		oflag = (O_CREAT | O_RDONLY);
+		oflag = (O_RDONLY);
 	else if (type == OUT_REDIR)
 		oflag = (O_CREAT | O_WRONLY | O_TRUNC);
 	else if (type == APP_REDIR)
@@ -42,8 +42,7 @@ int	set_in_out(t_redir *redir)
 		if (oflag == IN_REDIR && access(title, F_OK) == -1)
 		{
 			ft_putstr_fd("minish: ", STDERR_FILENO);
-			ft_putstr_fd(title, STDERR_FILENO);
-			ft_putendl_fd(": No such file or directory", STDERR_FILENO);
+			perror(title);
 			g_system_var.status = 1;
 			return (1);
 		}
