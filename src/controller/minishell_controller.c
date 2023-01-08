@@ -59,7 +59,9 @@ static char	*set_read_line(void)
 
 	signal(SIGINT, sig_readline);
 	signal(SIGQUIT, SIG_IGN);
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.nodisplay_set);
 	line = readline("🎃 minishell 🎃 ");
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
 	if (!line)
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);

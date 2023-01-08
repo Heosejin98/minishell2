@@ -49,6 +49,8 @@ void	run_child(t_token *t, int *prev_pipe, int *cur_pipe)
 	char	*path;
 
 	set_child_pipe(t, prev_pipe, cur_pipe);
+	if (!t->next)
+		g_system_var.last_proc = getpid();
 	if (t->redir->count != 0)
 	{
 		if (set_in_out(t->redir->front))
@@ -71,14 +73,6 @@ void	run_child(t_token *t, int *prev_pipe, int *cur_pipe)
 
 void	run_parent(t_token *t, int *prev_pipe, int *cur_pipe)
 {
-	int	e_status;
-
-	if (wait(&e_status) == -1)
-		minish_exit("minishell: wait", 1);
-	if (WIFEXITED(e_status))
-		g_system_var.status = WEXITSTATUS(e_status);
-	else if (WIFSIGNALED(e_status))
-		g_system_var.status = 128 + WTERMSIG(e_status);
 	if (prev_pipe[0] == -1 && !t->next)
 		;
 	else if (prev_pipe[0] == -1)
@@ -95,9 +89,15 @@ void	run_parent(t_token *t, int *prev_pipe, int *cur_pipe)
 void	wait_children(void)
 {
 	int	e_status;
+	pid_t	pid;
 
-	while (waitpid(-1, &e_status, 0) != -1)
+	while (1)
 	{
+		pid = waitpid(-1, &e_status, 0);
+		if (pid == -1)
+			break ;
+		if (pid != g_system_var.last_proc)
+			continue ;
 		if (WIFEXITED(e_status))
 			g_system_var.status = WEXITSTATUS(e_status);
 		else if (WIFSIGNALED(e_status))
