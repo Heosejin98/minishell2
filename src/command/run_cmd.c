@@ -45,7 +45,6 @@ void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
 		run_child(t, prev_pipe, cur_pipe);
 	}
 }

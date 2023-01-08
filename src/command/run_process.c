@@ -65,6 +65,7 @@ void	run_child(t_token *t, int *prev_pipe, int *cur_pipe)
 	{
 		path = find_path(t->cmdline[0]);
 		find_cmd(&(t->cmdline[0]));
+		tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
 		if (execve(path, t->cmdline, NULL) == -1)
 			fail_to_run(t->cmdline[0]);
 		free(path);
@@ -88,7 +89,7 @@ void	run_parent(t_token *t, int *prev_pipe, int *cur_pipe)
 
 void	wait_children(void)
 {
-	int	e_status;
+	int		e_status;
 	pid_t	pid;
 
 	while (1)
@@ -101,6 +102,6 @@ void	wait_children(void)
 		if (WIFEXITED(e_status))
 			g_system_var.status = WEXITSTATUS(e_status);
 		else if (WIFSIGNALED(e_status))
-			g_system_var.status = 128 + WTERMSIG(e_status);
+			g_system_var.status = WCOREFLAG | WTERMSIG(e_status);
 	}
 }
