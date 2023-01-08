@@ -43,7 +43,8 @@ void	no_pipe_builtin(t_token *t)
 
 	if (t->redir->count != 0)
 	{
-		set_in_out(t->redir->front);
+		if (set_in_out(t->redir->front))
+			return ;
 	}
 	run_builtin(t->cmdline);
 	reset_in_out();

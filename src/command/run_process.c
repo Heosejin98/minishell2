@@ -41,7 +41,8 @@ void	run_child(t_token *t, int *prev_pipe, int *cur_pipe)
 	set_child_pipe(t, prev_pipe, cur_pipe);
 	if (t->redir->count != 0)
 	{
-		set_in_out(t->redir->front);
+		if (set_in_out(t->redir->front))
+			exit(1);
 	}
 	if (is_builtin(t->cmdline[0]))
 	{

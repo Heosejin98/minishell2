@@ -9,10 +9,6 @@ LIB_READ		= -l readline
 READLINE		= -L$(shell brew --prefix readline)/lib
 READLINE_INC	= -I$(shell brew --prefix readline)/include
 
-# UBUNTU
-# READLINE = -L$(/usr/share/doc/readline-common)/lib
-# READLINE_INC = -I$(/usr/share/doc/readline-common)/include
-
 LIB_DIR			= lib/
 LIBFT			= libft/libft.a
 HEADERS			= include
