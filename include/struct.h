@@ -69,7 +69,5 @@ typedef struct s_token
 	t_redir_queue		*redir;
 	char				**cmdline;
 	struct s_token		*next;
-	struct s_token		*prev;
-	int					pipe_fd[2];
 }	t_token;
 #endif

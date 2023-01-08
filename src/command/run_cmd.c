@@ -45,6 +45,7 @@ void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
+		tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
 		run_child(t, prev_pipe, cur_pipe);
 	}
 }
@@ -53,7 +54,8 @@ void	no_pipe_builtin(t_token *t)
 {
 	if (t->redir->count != 0)
 	{
-		set_in_out(t->redir->front);
+		if (set_in_out(t->redir->front))
+			return ;
 	}
 	run_builtin(t->cmdline);
 	reset_in_out();
@@ -85,5 +87,5 @@ void	run_token(t_token *t)
 		heredoc_unlink();
 		t = t->next;
 	}
-	wait_children();
+	//wait_children();
 }
