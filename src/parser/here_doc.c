@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:14:02 by seheo             #+#    #+#             */
-/*   Updated: 2023/01/06 12:14:03 by seheo            ###   ########.fr       */
+/*   Updated: 2023/01/09 20:03:27 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,28 @@ void	heredoc_signal(int sig)
 	}
 }
 
+static void	write_heredoc(char *line, char *end_str, int hd_fd)
+{
+	int	len;
+
+	len = ft_strlen(line);
+	if (line[0] == 0)
+		len = ft_strlen(end_str);
+	while (ft_strncmp(line, end_str, len) != 0)
+	{
+		if (ft_strchr(line, '$'))
+			line = convert_env(line);
+		ft_putstr_fd(line, hd_fd);
+		ft_putstr_fd("\n", hd_fd);
+		free(line);
+		line = readline("heredoc> ");
+		if (line[0] == 0)
+			len = ft_strlen(end_str);
+		else
+			len = ft_strlen(line);
+	}
+}
+
 static void	heredoc_child(char *end_str, int hd_num)
 {
 	int		hd_fd;
@@ -38,15 +60,7 @@ static void	heredoc_child(char *end_str, int hd_num)
 	if (hd_fd == -1)
 		minish_exit(hd_filename, 1);
 	line = readline("heredoc> ");
-	while (line && ft_strncmp(line, end_str, ft_strlen(line)) != 0)
-	{
-		if (ft_strchr(line, '$'))
-			line = convert_env(line);
-		ft_putstr_fd(line, hd_fd);
-		ft_putstr_fd("\n", hd_fd);
-		free(line);
-		line = readline("heredoc> ");
-	}
+	write_heredoc(line, end_str, hd_fd);
 	close(hd_fd);
 	exit(EXIT_SUCCESS);
 }

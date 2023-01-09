@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:13:58 by seheo             #+#    #+#             */
-/*   Updated: 2023/01/06 12:16:58 by seheo            ###   ########.fr       */
+/*   Updated: 2023/01/09 20:23:42 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ int	repeat_char(char *s, char c)
 	int	i;
 	int	repeat_flag;
 
-	repeat_flag = 0;
+	repeat_flag = 1;
 	i = 1;
 	while (s[i])
 	{
-		if (s[i] == c)
+		if (s[i] != c)
 		{
-			repeat_flag = 1;
+			repeat_flag = 0;
 			break ;
 		}
 		i++;
