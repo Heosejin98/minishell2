@@ -50,7 +50,7 @@ static void	heredoc_child(char *end_str, int hd_num)
 	free(temp);
 	hd_fd = open(hd_filename, O_CREAT | O_RDWR | O_TRUNC, 0744);
 	if (hd_fd == -1)
-		minish_exit(hd_filename);
+		minish_exit(hd_filename, 1);
 	line = readline("> ");
 	while (line && ft_strncmp(line, end_str, ft_strlen(line)) != 0)
 	{

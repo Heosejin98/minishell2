@@ -29,7 +29,7 @@ static char	*find_real_path(char *path)
 		real_path = ft_strdup(path);
 	if (real_path == 0)
 	{
-		minish_exit("minish: ft_strdup");
+		minish_exit("minish: ft_strdup", 1);
 	}
 	return (real_path);
 }

@@ -24,7 +24,8 @@ void	ft_env(char **cmds)
 	node = g_system_var.env.head;
 	while (node)
 	{
-		printf("%s=%s\n", node->key, node->value);
+		if (node->value && ft_strlen(node->value))
+			printf("%s=%s\n", node->key, node->value);
 		node = node->link;
 	}
 	g_system_var.status = 0;

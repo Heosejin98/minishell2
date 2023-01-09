@@ -48,11 +48,13 @@ void	run_child(t_token *t, int *prev_pipe, int *cur_pipe)
 {
 	char	*path;
 
-	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
 	set_child_pipe(t, prev_pipe, cur_pipe);
+	if (!t->next)
+		g_system_var.last_proc = getpid();
 	if (t->redir->count != 0)
 	{
-		set_in_out(t->redir->front);
+		if (set_in_out(t->redir->front))
+			exit(1);
 	}
 	if (is_builtin(t->cmdline[0]))
 	{
@@ -63,6 +65,7 @@ void	run_child(t_token *t, int *prev_pipe, int *cur_pipe)
 	{
 		path = find_path(t->cmdline[0]);
 		find_cmd(&(t->cmdline[0]));
+		tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
 		if (execve(path, t->cmdline, NULL) == -1)
 			fail_to_run(t->cmdline[0]);
 		free(path);
@@ -86,13 +89,19 @@ void	run_parent(t_token *t, int *prev_pipe, int *cur_pipe)
 
 void	wait_children(void)
 {
-	int	e_status;
+	int		e_status;
+	pid_t	pid;
 
-	while (waitpid(-1, &e_status, 0) >= 0)
+	while (1)
 	{
+		pid = waitpid(-1, &e_status, 0);
+		if (pid == -1)
+			break ;
+		if (pid != g_system_var.last_proc)
+			continue ;
 		if (WIFEXITED(e_status))
 			g_system_var.status = WEXITSTATUS(e_status);
 		else if (WIFSIGNALED(e_status))
-			g_system_var.status = 128 + WTERMSIG(e_status);
+			g_system_var.status = WCOREFLAG | WTERMSIG(e_status);
 	}
 }

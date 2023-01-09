@@ -39,6 +39,7 @@ typedef struct s_system_var
 	struct termios	nodisplay_set;
 	struct termios	display_set;
 	int				hd_flag;
+	pid_t			last_proc;
 }	t_system_var;
 
 enum	e_redir_type
@@ -69,7 +70,5 @@ typedef struct s_token
 	t_redir_queue		*redir;
 	char				**cmdline;
 	struct s_token		*next;
-	struct s_token		*prev;
-	int					pipe_fd[2];
 }	t_token;
 #endif

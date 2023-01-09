@@ -21,17 +21,22 @@ void	init_system_var(char **envp)
 	g_system_var.env = get_env(envp);
 	tcgetattr(STDIN_FILENO, &g_system_var.display_set);
 	g_system_var.nodisplay_set = g_system_var.display_set;
-	g_system_var.nodisplay_set.c_lflag &= ~(ICANON | ECHOCTL);
-	g_system_var.nodisplay_set.c_cc[VMIN] = 1;
-	g_system_var.nodisplay_set.c_cc[VTIME] = 0;
+	g_system_var.nodisplay_set.c_lflag &= ~ECHOCTL;
+	// g_system_var.nodisplay_set.c_lflag &= ~(ICANON | ECHOCTL);
+	// g_system_var.nodisplay_set.c_cc[VMIN] = 1;
+	// g_system_var.nodisplay_set.c_cc[VTIME] = 0;
 }
+
+// void	do_exit(void)
+// {
+// 	system("leaks minishell");
+// }
 
 int	main(int argc, char **argv, char **envp)
 {
+	//atexit(do_exit); //fdfdf
 	(void)argc;
 	(void)argv;
 	init_system_var(envp);
-	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.nodisplay_set);
 	minishell_start();
-	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
 }
