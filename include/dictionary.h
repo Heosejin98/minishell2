@@ -22,6 +22,7 @@ void				*dictionary_search(t_dictionary head, char *key);
 int					dictionary_delete(t_dictionary *head, char *key);
 void				dictionary_init(t_dictionary *head);
 void				dictionary_destroy(t_dictionary *head);
+char				**make_envp(t_dictionary head);
 
 /* dictionary_util */
 void				dic_del_util(t_dictionary_node *ptr, t_dictionary *head);

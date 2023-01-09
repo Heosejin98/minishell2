@@ -24,20 +24,6 @@ void	heredoc_signal(int sig)
 	}
 }
 
-int	check_status(int status)
-{
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	return (WCOREFLAG | WTERMSIG(status));
-}
-
-void	print_error(char *err_msg1, char *err_msg2)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(err_msg1, STDERR_FILENO);
-	ft_putendl_fd(err_msg2, STDERR_FILENO);
-}
-
 static void	heredoc_child(char *end_str, int hd_num)
 {
 	int		hd_fd;
@@ -50,8 +36,8 @@ static void	heredoc_child(char *end_str, int hd_num)
 	free(temp);
 	hd_fd = open(hd_filename, O_CREAT | O_RDWR | O_TRUNC, 0744);
 	if (hd_fd == -1)
-		minish_exit(hd_filename);
-	line = readline("> ");
+		minish_exit(hd_filename, 1);
+	line = readline("heredoc> ");
 	while (line && ft_strncmp(line, end_str, ft_strlen(line)) != 0)
 	{
 		if (ft_strchr(line, '$'))
@@ -59,7 +45,7 @@ static void	heredoc_child(char *end_str, int hd_num)
 		ft_putstr_fd(line, hd_fd);
 		ft_putstr_fd("\n", hd_fd);
 		free(line);
-		line = readline("> ");
+		line = readline("heredoc> ");
 	}
 	close(hd_fd);
 	exit(EXIT_SUCCESS);

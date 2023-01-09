@@ -16,7 +16,6 @@ void	cmd_run(char *line)
 {
 	t_deque	p_token;
 	t_token	buf_token;
-	t_redir	t_re;
 	char	**lexer_line;
 
 	lexer_line = lexer(line);
@@ -26,14 +25,13 @@ void	cmd_run(char *line)
 		if (!is_empty(p_token))
 			run_token(p_token.front);
 	}
+	heredoc_unlink();
 	while (!is_empty(p_token))
 	{
 		buf_token = output_front(&p_token);
+		free_redir(buf_token.redir);
 		ft_free_strs(buf_token.cmdline);
-		while (buf_token.redir->count != 0)
-			t_re = dequeue_redir(buf_token.redir);
 	}
-	free(buf_token.redir);
 	ft_free_strs(lexer_line);
 }
 
@@ -62,12 +60,14 @@ static char	*set_read_line(void)
 
 	signal(SIGINT, sig_readline);
 	signal(SIGQUIT, SIG_IGN);
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.nodisplay_set);
 	line = readline("🎃 minishell 🎃 ");
 	if (!line)
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
 		exit(g_system_var.status);
 	}
+	tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
 	return (line);
 }
 

@@ -36,7 +36,7 @@ void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe)
 
 	pid = fork();
 	if (pid < 0)
-		minish_exit("minish: fork");
+		minish_exit("minish: fork", 1);
 	if (pid > 0)
 	{
 		run_parent(t, prev_pipe, cur_pipe);
@@ -53,7 +53,8 @@ void	no_pipe_builtin(t_token *t)
 {
 	if (t->redir->count != 0)
 	{
-		set_in_out(t->redir->front);
+		if (set_in_out(t->redir->front))
+			return ;
 	}
 	run_builtin(t->cmdline);
 	reset_in_out();
@@ -79,10 +80,9 @@ void	run_token(t_token *t)
 		if (t->next)
 		{
 			if (pipe(cur_pipe) == -1)
-				minish_exit("pipe");
+				minish_exit("pipe", 1);
 		}
 		run_cmdline(t, prev_pipe, cur_pipe);
-		heredoc_unlink();
 		t = t->next;
 	}
 	wait_children();

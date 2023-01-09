@@ -53,9 +53,7 @@ int	dictionary_add(t_dictionary *head, char *key, char *value)
 int	dictionary_delete(t_dictionary *head, char *key)
 {
 	t_dictionary_node	*ptr;
-	t_dictionary_node	*pre;
 
-	pre = NULL;
 	ptr = head->head;
 	while (true)
 	{
