@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dictionary_util2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/09 17:08:36 by seheo             #+#    #+#             */
+/*   Updated: 2023/01/09 17:09:09 by seheo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
 
 static char	*ft_str_envjoin(char const *s1, char const *s2)
@@ -24,18 +36,17 @@ static char	*ft_str_envjoin(char const *s1, char const *s2)
 		str[i + j] = (char)s2[j];
 		j++;
 	}
-	str[i+j] = 0;
+	str[i + j] = 0;
 	return (str);
 }
 
-
-char **make_envp(t_dictionary head)
+char	**make_envp(t_dictionary head)
 {
 	t_dictionary_node	*temp;
 	char				**envp;
 	int					i;
 	char				*str;
-	
+
 	envp = (char **)malloc(head.count * sizeof(char **));
 	temp = head.head;
 	i = 0;
@@ -44,7 +55,7 @@ char **make_envp(t_dictionary head)
 		if (temp->key == NULL)
 		{
 			temp = temp->link;
-			continue;
+			continue ;
 		}
 		str = ft_str_envjoin(temp->key, temp->value);
 		if (!str)

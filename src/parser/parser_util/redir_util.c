@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:13:51 by seheo             #+#    #+#             */
-/*   Updated: 2023/01/06 12:13:52 by seheo            ###   ########.fr       */
+/*   Updated: 2023/01/09 17:09:19 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_redir	dequeue_redir(t_redir_queue *queue)
 	if (queue->count == 0)
 	{
 		data.hd_number = -1;
-		printf("Error : Queue is empty!\n");
 		return (data);
 	}
 	ptr = queue->front;
@@ -49,4 +48,15 @@ t_redir	dequeue_redir(t_redir_queue *queue)
 	free(ptr);
 	queue->count--;
 	return (data);
+}
+
+void	free_redir(t_redir_queue *que)
+{
+	t_redir	buf;
+
+	while (que->count != 0)
+	{
+		buf = dequeue_redir(que);
+	}
+	free(que);
 }

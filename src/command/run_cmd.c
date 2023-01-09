@@ -83,7 +83,6 @@ void	run_token(t_token *t)
 				minish_exit("pipe", 1);
 		}
 		run_cmdline(t, prev_pipe, cur_pipe);
-		heredoc_unlink();
 		t = t->next;
 	}
 	wait_children();

@@ -29,7 +29,6 @@ void	reset_token_info(t_token_info *t_info)
 {
 	t_info->buf_token.redir = t_info->q_redir;
 	list_to_strs(t_info->l_list, &t_info->buf_token);
-	//free(t_info->q_redir);//
 	input_back(&t_info->result, t_info->buf_token);
 	t_info->l_list = (t_lst *)malloc(sizeof(t_lst));
 	t_info->l_list->next = NULL;

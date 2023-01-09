@@ -42,6 +42,7 @@ char		*convert_env(const char *s);
 void		make_redir(t_redir_queue *buf_redir, char **s, int *idx);
 void		add_redir(t_redir_queue *r_que, t_redir buf_redir);
 t_redir		dequeue_redir(t_redir_queue *queue);
+void		free_redir(t_redir_queue *que);
 
 void		init_token_info(t_token_info *t_info);
 void		reset_token_info(t_token_info *t_info);

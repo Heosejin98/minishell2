@@ -25,12 +25,13 @@ void	cmd_run(char *line)
 		if (!is_empty(p_token))
 			run_token(p_token.front);
 	}
+	heredoc_unlink();
 	while (!is_empty(p_token))
 	{
 		buf_token = output_front(&p_token);
+		free_redir(buf_token.redir);
 		ft_free_strs(buf_token.cmdline);
 	}
-	free(buf_token.redir);
 	ft_free_strs(lexer_line);
 }
 

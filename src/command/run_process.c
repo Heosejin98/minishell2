@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:13:22 by seheo             #+#    #+#             */
-/*   Updated: 2023/01/06 12:17:32 by seheo            ###   ########.fr       */
+/*   Updated: 2023/01/09 17:10:39 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,8 @@ void	run_child(t_token *t, int *prev_pipe, int *cur_pipe)
 		path = find_path(t->cmdline[0]);
 		find_cmd(&(t->cmdline[0]));
 		tcsetattr(STDIN_FILENO, TCSANOW, &g_system_var.display_set);
-		if (execve(path, t->cmdline, NULL) == -1)
+		if (execve(path, t->cmdline, make_envp(g_system_var.env)) == -1)
 			fail_to_run(t->cmdline[0]);
-		free(path);
 	}
 }
 
