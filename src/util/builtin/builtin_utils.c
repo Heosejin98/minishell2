@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:14:18 by seheo             #+#    #+#             */
-/*   Updated: 2023/01/06 12:14:19 by seheo            ###   ########.fr       */
+/*   Updated: 2023/01/10 19:03:37 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	perror_opt(char *cmd, char opt, char *usage)
 
 int	is_builtin(char *cmd)
 {
+	if (!cmd)
+		return (0);
 	if (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo") \
 	|| !ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "env") \
 	|| !ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "unset") \

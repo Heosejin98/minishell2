@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:13:19 by seheo             #+#    #+#             */
-/*   Updated: 2023/01/06 12:17:26 by seheo            ###   ########.fr       */
+/*   Updated: 2023/01/10 19:04:29 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	run_token(t_token *t)
 	int			cur_pipe[2];
 	int			prev_pipe[2];
 
-	if (!t->next && !t->cmdline[0] && is_builtin(t->cmdline[0]))
+	if (!t->next && is_builtin(t->cmdline[0]))
 	{
 		no_pipe_builtin(t);
 		return ;

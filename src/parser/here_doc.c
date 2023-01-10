@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:14:02 by seheo             #+#    #+#             */
-/*   Updated: 2023/01/09 20:03:27 by seheo            ###   ########.fr       */
+/*   Updated: 2023/01/10 19:06:12 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,7 @@ void	heredoc_signal(int sig)
 
 static void	write_heredoc(char *line, char *end_str, int hd_fd)
 {
-	int	len;
-
-	len = ft_strlen(line);
-	if (line[0] == 0)
-		len = ft_strlen(end_str);
-	while (ft_strncmp(line, end_str, len) != 0)
+	while (ft_strcmp(line, end_str) != 0)
 	{
 		if (ft_strchr(line, '$'))
 			line = convert_env(line);
@@ -39,10 +34,6 @@ static void	write_heredoc(char *line, char *end_str, int hd_fd)
 		ft_putstr_fd("\n", hd_fd);
 		free(line);
 		line = readline("heredoc> ");
-		if (line[0] == 0)
-			len = ft_strlen(end_str);
-		else
-			len = ft_strlen(line);
 	}
 }
 
