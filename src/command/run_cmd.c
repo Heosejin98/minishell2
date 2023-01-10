@@ -39,6 +39,8 @@ void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe)
 		minish_exit("minish: fork", 1);
 	if (pid > 0)
 	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		run_parent(t, prev_pipe, cur_pipe);
 	}
 	if (pid == 0)
@@ -65,9 +67,7 @@ void	run_token(t_token *t)
 	int			cur_pipe[2];
 	int			prev_pipe[2];
 
-	if (!t->cmdline[0])
-		return ;
-	if (!t->next && is_builtin(t->cmdline[0]))
+	if (!t->next && !t->cmdline[0] && is_builtin(t->cmdline[0]))
 	{
 		no_pipe_builtin(t);
 		return ;
