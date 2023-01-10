@@ -33,13 +33,11 @@ typedef struct s_system_var
 	int				status;
 	int				hd_cnt;
 	t_dictionary	env;
-	char			*prev_path;
 	int				fdin;
 	int				fdout;
 	struct termios	nodisplay_set;
 	struct termios	display_set;
 	int				hd_flag;
-	pid_t			last_proc;
 }	t_system_var;
 
 enum	e_redir_type
