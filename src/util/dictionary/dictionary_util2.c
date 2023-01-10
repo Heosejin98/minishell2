@@ -47,7 +47,7 @@ char	**make_envp(t_dictionary head)
 	int					i;
 	char				*str;
 
-	envp = (char **)malloc(head.count * sizeof(char **));
+	envp = (char **)malloc((head.count + 1) * sizeof(char *));
 	temp = head.head;
 	i = 0;
 	while (temp != NULL)

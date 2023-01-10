@@ -49,8 +49,6 @@ void	run_child(t_token *t, int *prev_pipe, int *cur_pipe)
 	char	*path;
 
 	set_child_pipe(t, prev_pipe, cur_pipe);
-	if (!t->next)
-		g_system_var.last_proc = getpid();
 	if (t->redir->count != 0)
 	{
 		if (set_in_out(t->redir->front))
@@ -100,7 +98,5 @@ void	wait_children(void)
 			g_system_var.status = WEXITSTATUS(e_status);
 		else if (WIFSIGNALED(e_status))
 			g_system_var.status = WCOREFLAG | WTERMSIG(e_status);
-		if (pid != g_system_var.last_proc)
-			continue ;
 	}
 }
