@@ -51,9 +51,9 @@ static char	*make_absolute_path(char *path, char *cmd)
 
 char	*find_path(char *cmd)
 {
-	int		i;
-	char	**candidate;
-	char	*env_path;
+	int					i;
+	char				**candidate;
+	t_dictionary_node	*env_path;
 
 	if (*cmd == '/' || !ft_strncmp(cmd, "./", 2))
 		return (ft_strdup(cmd));
@@ -65,7 +65,7 @@ char	*find_path(char *cmd)
 		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
 		exit(127);
 	}
-	candidate = ft_split(env_path, ':');
+	candidate = ft_split(env_path->value, ':');
 	i = 0;
 	while (candidate[i])
 	{

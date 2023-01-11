@@ -65,9 +65,11 @@ static char	*env_join(char *result, t_env_convert_info env_idx, const char *s)
 
 char	*find_env_key(char *env_v, char *prev)
 {
-	char	*result;
+	char				*result;
+	t_dictionary_node	*finded;
 
-	result = ft_strjoin(prev, dictionary_search(g_system_var.env, env_v));
+	finded = dictionary_search(g_system_var.env, env_v);
+	result = ft_strjoin(prev, finded->value);
 	dictionary_delete(&g_system_var.env, "?");
 	free(prev);
 	return (result);

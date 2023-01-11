@@ -18,7 +18,7 @@
 /* dictionary */
 void				dictionary_show(t_dictionary dic);
 int					dictionary_add(t_dictionary *head, char *key, char *value);
-void				*dictionary_search(t_dictionary head, char *key);
+t_dictionary_node	*dictionary_search(t_dictionary head, char *key);
 int					dictionary_delete(t_dictionary *head, char *key);
 void				dictionary_init(t_dictionary *head);
 void				dictionary_destroy(t_dictionary *head);

@@ -19,16 +19,12 @@ static void	print_env_export(void)
 	tmp = g_system_var.env.head;
 	while (tmp)
 	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		if (tmp->key)
 		{
-			ft_putstr_fd(tmp->key, STDOUT_FILENO);
-			if (tmp->value && ft_strlen(tmp->value))
-			{
-				ft_putstr_fd("=", STDOUT_FILENO);
-				ft_putstr_fd(tmp->value, STDOUT_FILENO);
-			}
-			ft_putendl_fd("", STDOUT_FILENO);
+			if (tmp->value)
+				printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+			else
+				printf("declare -x %s\n", tmp->key);
 			tmp = tmp->link;
 		}
 	}
@@ -41,11 +37,16 @@ static void	add_env_export(char *env)
 	tmp = ft_split(env, '=');
 	if (dictionary_search(g_system_var.env, tmp[0]))
 		dictionary_delete(&g_system_var.env, tmp[0]);
-	if (tmp[1])
-		dictionary_add(&g_system_var.env, tmp[0], tmp[1]);
+	if (strchr(env, '='))
+	{
+		if (tmp[1])
+			dictionary_add(&g_system_var.env, tmp[0], tmp[1]);
+		else
+			dictionary_add(&g_system_var.env, tmp[0], ft_strdup(""));
+		free(tmp);
+	}
 	else
-		dictionary_add(&g_system_var.env, tmp[0], ft_strdup(""));
-	free(tmp);
+		dictionary_add(&g_system_var.env, tmp[0], NULL);
 }
 
 static int	check_valid_arg(char *arg)

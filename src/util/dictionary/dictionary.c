@@ -68,7 +68,7 @@ int	dictionary_delete(t_dictionary *head, char *key)
 	return (true);
 }
 
-void	*dictionary_search(t_dictionary head, char *key)
+t_dictionary_node	*dictionary_search(t_dictionary head, char *key)
 {
 	t_dictionary_node	*temp;
 
@@ -78,7 +78,7 @@ void	*dictionary_search(t_dictionary head, char *key)
 		if (temp == NULL)
 			return (NULL);
 		if (ft_strcmp(temp->key, key) == 0)
-			return (temp->value);
+			return (temp);
 		temp = temp->link;
 	}
 }

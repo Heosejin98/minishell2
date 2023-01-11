@@ -63,10 +63,6 @@ t_dictionary_node	*dic_add_util2(t_dictionary_node *temp, \
 char *key, char *value)
 {	
 	temp->link = (t_dictionary_node *)malloc(sizeof(t_dictionary_node));
-	if (key == NULL)
-		key = ft_strdup("");
-	if (value == NULL)
-		value = ft_strdup("");
 	temp->link->key = key;
 	temp->link->value = value;
 	temp->link->link = NULL;
