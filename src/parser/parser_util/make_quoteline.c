@@ -6,13 +6,13 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:13:44 by seheo             #+#    #+#             */
-/*   Updated: 2023/01/09 20:19:45 by seheo            ###   ########.fr       */
+/*   Updated: 2023/01/11 00:55:06 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-static char	*remove_quote(char *s, char c)
+char	*remove_quote(char *s, char c)
 {
 	char	*result;
 	int		i;

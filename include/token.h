@@ -6,7 +6,7 @@
 /*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:15:52 by seheo             #+#    #+#             */
-/*   Updated: 2023/01/06 12:15:52 by seheo            ###   ########.fr       */
+/*   Updated: 2023/01/11 15:11:09 by seheo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ void		reset_token_info(t_token_info *t_info);
 void		list_to_strs(t_lst *list, t_token *buf_token);
 int			repeat_char(char *s, char c);
 char		*opt_convert(int *flag, int i, char *temp);
+char		*remove_quote(char *s, char c);
+void		export_lexer(char **split, char const *s, \
+						t_lexer_info *info);
+char		*word_dup(const char *str, int start, \
+						int finish, t_lexer_info *info);
 
 void		heredoc_file_maker(char *end_str, int hd_num);
 void		heredoc_unlink(void);
