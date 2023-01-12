@@ -19,16 +19,12 @@ static void	print_env_export(void)
 	tmp = g_system_var.env.head;
 	while (tmp)
 	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		if (tmp->key)
 		{
-			ft_putstr_fd(tmp->key, STDOUT_FILENO);
-			if (tmp->value && ft_strlen(tmp->value))
-			{
-				ft_putstr_fd("=", STDOUT_FILENO);
-				ft_putstr_fd(tmp->value, STDOUT_FILENO);
-			}
-			ft_putendl_fd("", STDOUT_FILENO);
+			if (tmp->value)
+				printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+			else
+				printf("declare -x %s\n", tmp->key);
 			tmp = tmp->link;
 		}
 	}
@@ -41,11 +37,16 @@ static void	add_env_export(char *env)
 	tmp = ft_split(env, '=');
 	if (dictionary_search(g_system_var.env, tmp[0]))
 		dictionary_delete(&g_system_var.env, tmp[0]);
-	if (tmp[1])
-		dictionary_add(&g_system_var.env, tmp[0], tmp[1]);
+	if (strchr(env, '='))
+	{
+		if (tmp[1])
+			dictionary_add(&g_system_var.env, tmp[0], tmp[1]);
+		else
+			dictionary_add(&g_system_var.env, tmp[0], ft_strdup(""));
+		free(tmp);
+	}
 	else
-		dictionary_add(&g_system_var.env, tmp[0], ft_strdup(""));
-	free(tmp);
+		dictionary_add(&g_system_var.env, tmp[0], NULL);
 }
 
 static int	check_valid_arg(char *arg)
@@ -55,6 +56,7 @@ static int	check_valid_arg(char *arg)
 		ft_putstr_fd("minish: export: \'", STDERR_FILENO);
 		ft_putstr_fd(arg, STDERR_FILENO);
 		ft_putendl_fd("\': not a avalid identifier", STDERR_FILENO);
+		g_system_var.status = 1;
 		return (0);
 	}
 	return (1);
@@ -75,8 +77,9 @@ void	ft_export(char **cmds)
 	i = 1;
 	while (cmds[i])
 	{
-		if (check_valid_arg(cmds[i]))
-			add_env_export(cmds[i]);
+		if (!check_valid_arg(cmds[i]))
+			return ;
+		add_env_export(cmds[i]);
 		i++;
 	}
 	g_system_var.status = 0;

@@ -18,7 +18,15 @@ void	ft_env(char **cmds)
 
 	if (!check_valid_opt(cmds, 0, "env [-]"))
 	{
-		g_system_var.status = 2;
+		g_system_var.status = 1;
+		return ;
+	}
+	if (cmds[1])
+	{
+		ft_putstr_fd("env: ", STDERR_FILENO);
+		ft_putstr_fd(cmds[1], STDERR_FILENO);
+		ft_putendl_fd(": No such file or directory", STDERR_FILENO);
+		g_system_var.status = 127;
 		return ;
 	}
 	node = g_system_var.env.head;

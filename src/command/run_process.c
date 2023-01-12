@@ -94,9 +94,13 @@ void	wait_children(void)
 		pid = waitpid(-1, &e_status, 0);
 		if (pid == -1)
 			break ;
-		if (WIFEXITED(e_status))
-			g_system_var.status = WEXITSTATUS(e_status);
-		else if (WIFSIGNALED(e_status))
-			g_system_var.status = WCOREFLAG | WTERMSIG(e_status);
+		if (pid == g_system_var.last_pid)
+		{
+			if (WIFEXITED(e_status))
+				g_system_var.status = WEXITSTATUS(e_status);
+			else if (WIFSIGNALED(e_status))
+				g_system_var.status = WCOREFLAG | WTERMSIG(e_status);
+		}
 	}
+	g_system_var.last_pid = -1;
 }
