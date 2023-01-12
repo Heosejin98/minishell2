@@ -14,16 +14,23 @@
 
 static char	*find_real_path(char *path)
 {
-	t_dictionary_node	*home;
+	t_dictionary_node	*env;
 	char				*real_path;
 
-	if (!path)
+	if (!path || ft_strcmp(path, "~") == 0)
 	{
-		home = dictionary_search(g_system_var.env, "HOME");
-		if (!home)
+		env = dictionary_search(g_system_var.env, "HOME");
+		if (!env)
 			real_path = ft_strdup("");
 		else
-			real_path = ft_strdup(home->value);
+			real_path = ft_strdup(env->value);
+	}
+	else if (ft_strcmp(path, "-") == 0)
+	{
+		env = dictionary_search(g_system_var.env, "OLDPWD");
+		if (!env)
+			return (NULL);
+		real_path = ft_strdup(env->value);
 	}
 	else
 		real_path = ft_strdup(path);
@@ -44,7 +51,8 @@ static void	set_cd_env(void)
 	pwd = dictionary_search(g_system_var.env, "PWD");
 	if (oldpwd)
 		dictionary_delete(&g_system_var.env, "OLDPWD");
-	dictionary_add(&g_system_var.env, ft_strdup("OLDPWD"), ft_strdup(pwd->value));
+	dictionary_add(&g_system_var.env, ft_strdup("OLDPWD"), \
+	ft_strdup(pwd->value));
 	if (pwd)
 		dictionary_delete(&g_system_var.env, "PWD");
 	real_path = getcwd(NULL, 0);
@@ -62,12 +70,18 @@ void	ft_cd(char **cmds)
 	int		ret;
 	char	*real_path;
 
-	if (is_option(cmds[1]))
-	{
-		perror_opt(cmds[0], abstract_opt(cmds[1]), "cd [-] [dir]");
-		return ;
-	}
 	real_path = find_real_path(cmds[1]);
+	if (ft_strcmp(cmds[1], "-") == 0)
+	{
+		if (real_path)
+			ft_putendl_fd(real_path, STDOUT_FILENO);
+		else
+		{
+			ft_putendl_fd("minish: cd: OLDPWD not set", STDERR_FILENO);
+			g_system_var.status = 1;
+			return ;
+		}
+	}
 	ret = chdir(real_path);
 	free(real_path);
 	if (ret == -1)
