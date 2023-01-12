@@ -41,6 +41,8 @@ void	run_cmdline(t_token *t, int *prev_pipe, int *cur_pipe)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
+		if (!t->next)
+			g_system_var.last_pid = pid;
 		run_parent(t, prev_pipe, cur_pipe);
 	}
 	if (pid == 0)
