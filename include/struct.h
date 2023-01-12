@@ -20,6 +20,7 @@ typedef struct s_dictionary_node
 	char						*value;
 	struct s_dictionary_node	*link;
 	struct s_dictionary_node	*prev;
+	int							tag;
 }	t_dictionary_node;
 
 typedef struct s_dictionary
@@ -38,6 +39,7 @@ typedef struct s_system_var
 	struct termios	nodisplay_set;
 	struct termios	display_set;
 	int				hd_flag;
+	pid_t			last_pid;
 }	t_system_var;
 
 enum	e_redir_type

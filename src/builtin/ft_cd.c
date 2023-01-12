@@ -21,9 +21,8 @@ static char	*find_real_path(char *path)
 	{
 		env = dictionary_search(g_system_var.env, "HOME");
 		if (!env)
-			real_path = ft_strdup("");
-		else
-			real_path = ft_strdup(env->value);
+			return (NULL);
+		real_path = ft_strdup(env->value);
 	}
 	else if (ft_strcmp(path, "-") == 0)
 	{
@@ -65,20 +64,33 @@ static void	set_cd_env(void)
 	dictionary_add(&g_system_var.env, ft_strdup("PWD"), real_path);
 }
 
+static	void	print_err(char *cmd)
+{
+	if (!cmd || *cmd == '~')
+	{
+		ft_putendl_fd("minish: cd: HOME not set", STDERR_FILENO);
+		g_system_var.status = 1;
+	}
+	else if (*cmd == '-')
+	{
+		ft_putendl_fd("minish: cd: OLDPWD not set", STDERR_FILENO);
+		g_system_var.status = 1;
+	}
+}
+
 void	ft_cd(char **cmds)
 {
 	int		ret;
 	char	*real_path;
 
 	real_path = find_real_path(cmds[1]);
-	if (ft_strcmp(cmds[1], "-") == 0)
+	if (!cmds[1] || !ft_strcmp(cmds[1], "-") || !ft_strcmp(cmds[1], "~"))
 	{
 		if (real_path)
 			ft_putendl_fd(real_path, STDOUT_FILENO);
 		else
 		{
-			ft_putendl_fd("minish: cd: OLDPWD not set", STDERR_FILENO);
-			g_system_var.status = 1;
+			print_err(cmds[1]);
 			return ;
 		}
 	}
@@ -87,7 +99,7 @@ void	ft_cd(char **cmds)
 	if (ret == -1)
 	{
 		perror("minishell: cd");
-		g_system_var.status = 2;
+		g_system_var.status = 1;
 		return ;
 	}
 	set_cd_env();

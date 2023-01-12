@@ -56,6 +56,7 @@ static int	check_valid_arg(char *arg)
 		ft_putstr_fd("minish: export: \'", STDERR_FILENO);
 		ft_putstr_fd(arg, STDERR_FILENO);
 		ft_putendl_fd("\': not a avalid identifier", STDERR_FILENO);
+		g_system_var.status = 1;
 		return (0);
 	}
 	return (1);
@@ -76,8 +77,9 @@ void	ft_export(char **cmds)
 	i = 1;
 	while (cmds[i])
 	{
-		if (check_valid_arg(cmds[i]))
-			add_env_export(cmds[i]);
+		if (!check_valid_arg(cmds[i]))
+			return ;
+		add_env_export(cmds[i]);
 		i++;
 	}
 	g_system_var.status = 0;
